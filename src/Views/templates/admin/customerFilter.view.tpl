@@ -1,0 +1,42 @@
+<!--<div class="container-fluid justify-content-center align-items-center">
+    <h3>Buscar Cliente</h3>
+
+    <form action="index.php?page=admin_filterCustomer" method="post" autocomplete="off">
+        <p>
+            <label for="campo">Ingresar Correo: </label> &NonBreakingSpace;&NonBreakingSpace;
+            <input type="text" name="campo" id="campo" >
+            <ul id="lista" style="list-style-type: none; width: 350px; height: auto; position: absolute; z-index: 10; padding: 10px;">
+                {{foreach Clientes}}
+                    <li onclick="redirect(`{{customer_id}}`)" style="background-color:#EEEEE; border-top: 1px solid #9e9e9e; padding: 10px; width: 100%; float: left; cursor: pointer;">{{customer_id}}&NonBreakingSpace;&NonBreakingSpace;{{Nombre}}&NonBreakingSpace;&NonBreakingSpace;{{useremail}}</li>
+                {{endfor Clientes}}
+            </ul>
+        </p>
+    </form>
+
+</div>-->
+
+<div class="container-fluid">
+    <h3>Buscar Cliente</h3><br>
+ <form action="index.php?page=admin_customerFilter" method="post" autocomplete="off">
+  <div class="form-group">
+            <label for="campo">Ingresar Correo: </label> &NonBreakingSpace;&NonBreakingSpace;
+            <input type="text" name="campo" id="campo" class="form-control" >
+  </div>
+  <button type="submit" class="btn btn-primary">Buscar</button><br>
+    <div class="container-fluid justify-content-center align-items-center text-align-center">
+   <ul id="lista" style="list-style-type: none; width: 350px; height: auto; position: absolute; z-index: 10; padding: 10px;">
+                {{foreach Clientes}}
+                    <li onclick="redirect(`{{customer_id}}`)" style="background-color:#EEEEE; border-top: 1px solid #9e9e9e; padding: 10px; width: 100%; float: left; cursor: pointer;">{{customer_id}}&NonBreakingSpace;&NonBreakingSpace;{{Nombre}}&NonBreakingSpace;&NonBreakingSpace;{{useremail}}</li>
+                {{endfor Clientes}}
+     </ul>
+     </div>
+</form>
+</div>
+
+<script>
+    function redirect(id) {
+        const idc= id;
+       alert(idc);
+       window.location.assign("index.php?page=admin_venta&mode=INS&cus_id="+id);
+    }
+</script>

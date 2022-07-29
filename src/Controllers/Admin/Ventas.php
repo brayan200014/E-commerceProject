@@ -7,12 +7,14 @@ use Views\Renderer;
 
 class Ventas extends PrivateController
 {
+
+    private $viewData= array();
     public function run() :void
     {
-        $viewData= array();
-        $viewData["Sales"]= DaoVentas::getAll();
+
+        $this->viewData["Sales"]= DaoVentas::getAll();
        
-        Renderer::render('admin/ventas', $viewData);
+        Renderer::render('admin/ventas', $this->viewData);
     }
 }
 ?>

@@ -74,6 +74,27 @@ class Ventas extends Table
         return self::obtenerUnRegistro($sqlstr, array());
     }
 
+    public static function getClientesCombo($correo) {
+        $like= $correo . '%';
+        $sqlstr= "SELECT customer_id,CONCAT(customer_name, ' ', customer_lastname) as 'Nombre', s.useremail from customers c 
+        inner join usuario s on c.usercod= s.usercod
+         where s.useremail like :correo
+        Order by Nombre ASC;";
+
+        $sqlParams= [
+            "correo" => $like
+        ];
+
+        return self::obtenerRegistros($sqlstr, $sqlParams);
+    }
+
+    public static function getAllProductsI() {
+        $sqlstr= "SELECT i.product_id, p.product_name, p.product_price, i.inventory_size, i.inventory_gender 
+        FROM inventory i inner join products p on i.product_id=p.product_id;";
+
+        return self::obtenerRegistros($sqlstr, array());
+    }
+
     
 
 }
