@@ -28,21 +28,24 @@ class Login extends \Controllers\PublicController
                     if ($dbUser["userest"] != \Dao\Security\Estados::ACTIVO) {
                         $this->generalError = "¡Credenciales son incorrectas!";
                         $this->hasError = true;
-                        \Dao\Security\Bitacora::insert(
-                            "Bangoo",
-                            "ERROR: ". $dbUser["usercod"] ." ". $dbUser["useremail"]."Tiene cuenta con estado".$dbUser["userest"],
-                            "ACT",
-                            $dbUser["usercod"]
+                        error_log(
+                            sprintf(
+                                "ERROR: %d %s tiene cuenta con estado %s",
+                                $dbUser["usercod"],
+                                $dbUser["useremail"],
+                                $dbUser["userest"]
+                            )
                         );
                     }
                     if (!\Dao\Security\Security::verifyPassword($this->txtPswd, $dbUser["userpswd"])) {
                         $this->generalError = "¡Credenciales son incorrectas!";
                         $this->hasError = true;
-                        \Dao\Security\Bitacora::insert(
-                            "Bangoo",
-                            "ERROR: ". $dbUser["usercod"] ." ". $dbUser["useremail"]."Contraseña incorrecta".$dbUser["userest"],
-                            "ACT",
-                            $dbUser["usercod"]
+                        error_log(
+                            sprintf(
+                                "ERROR: %d %s contraseña incorrecta",
+                                $dbUser["usercod"],
+                                $dbUser["useremail"]
+                            )
                         );
                         // Aqui se debe establecer acciones segun la politica de la institucion.
                     }
@@ -66,12 +69,6 @@ class Login extends \Controllers\PublicController
                             "ERROR: %s trato de ingresar",
                             $this->txtEmail
                         )
-                    );
-                    \Dao\Security\Bitacora::insert(
-                        "Bangoo",
-                        "ERROR: ".$this->txtEmail." trato de ingresar",
-                        "ACT",
-                        $dbUser["usercod"]
                     );
                     $this->generalError = "¡Credenciales son incorrectas!";
                 }
