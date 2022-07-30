@@ -52,7 +52,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="trend__content">
                     <div class="section-title">
-                        <h4>Best seller</h4>
+                        <h4>Best Discounts</h4>
                     </div>
                     {{foreach Discounts}}
                         <div class="trend__item">
@@ -77,7 +77,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="trend__content">
                     <div class="section-title">
-                        <h4>Feature</h4>
+                        <h4>New Features</h4>
                     </div>
                   {{foreach New}}
                     <div class="trend__item">
