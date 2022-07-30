@@ -4,27 +4,15 @@
         <div class="row">
             <div class="col-xl-7 col-lg-8 m-auto">
                 <div class="banner__slider owl-carousel">
+                {{foreach Category}}
                     <div class="banner__item">
                         <div class="banner__text">
                             <span>The Chloe Collection</span>
-                            <h1>The Project Jacket</h1>
-                            <a href="index.php?page=ashion_shop">Shop now</a>
+                            <h1>{{category_name}}</h1>
+                            <a href="index.php?page=ashion_shop&category_id={{category_id}}"><h5>Shop now</h5></a>
                         </div>
                     </div>
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>The Chloe Collection</span>
-                            <h1>The Project Jacket</h1>
-                            <a href="index.php?page=ashion_shop">Shop now</a>
-                        </div>
-                    </div>
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>The Chloe Collection</span>
-                            <h1>The Project Jacket</h1>
-                            <a href="index.php?page=ashion_shop">Shop now</a>
-                        </div>
-                    </div>
+                {{endfor Category}}
                 </div>
             </div>
         </div>
@@ -41,54 +29,24 @@
                     <div class="section-title">
                         <h4>Hot Trend</h4>
                     </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="/{{BASE_DIR}}/public/imgs/trend/ht-1.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Chain bucket bag</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                    {{foreach Trend}}
+                        <div class="trend__item">
+                            <div class="trend__item__pic">
+                                <img src="{{product_image_url}}" style="width: 2rem; height: 2rem; object-fit: cover;" alt="">
                             </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="/{{BASE_DIR}}/public/imgs/trend/ht-2.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Pendant earrings</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                            <div class="trend__item__text">
+                            <a href="index.php?page=ashion_productdetails&product_id={{product_id}}&category_id={{category_id}}"><h6>{{product_name}}</h6></a>
+                                <div class="rating">
+                                    <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                    <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                    <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                    <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                    <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                </div>
+                                <div class="product__price">{{product_price}}</div>
                             </div>
-                            <div class="product__price">$ 59.0</div>
                         </div>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="/{{BASE_DIR}}/public/imgs/trend/ht-3.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Cotton T-Shirt</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
+                    {{endfor Trend}}
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
@@ -96,54 +54,24 @@
                     <div class="section-title">
                         <h4>Best seller</h4>
                     </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="/{{BASE_DIR}}/public/imgs/trend/bs-1.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Cotton T-Shirt</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                    {{foreach Discounts}}
+                        <div class="trend__item">
+                            <div class="trend__item__pic">
+                                <img src="{{product_image_url}}" style="width: 4rem; height: 4rem; object-fit: contain;" alt="">
                             </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="/{{BASE_DIR}}/public/imgs/trend/bs-2.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Zip-pockets pebbled tote <br />briefcase</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                            <div class="trend__item__text">
+                                <a href="index.php?page=ashion_productdetails&product_id={{product_id}}&category_id={{category_id}}"><h6>{{product_name}}</h6></a>
+                                <div class="rating">
+                                    <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                    <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                    <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                    <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                    <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                </div>
+                                <div class="product__details__price" style="font-size: 16px">{{discount}}<span style="font-size: 16px">{{product_price}}</span></div>
                             </div>
-                            <div class="product__price">$ 59.0</div>
                         </div>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="/{{BASE_DIR}}/public/imgs/trend/bs-3.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Round leather bag</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
+                    {{endfor Discounts}}
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
@@ -151,54 +79,24 @@
                     <div class="section-title">
                         <h4>Feature</h4>
                     </div>
+                  {{foreach New}}
                     <div class="trend__item">
                         <div class="trend__item__pic">
-                            <img src="/{{BASE_DIR}}/public/imgs/trend/f-1.jpg" alt="">
+                            <img src="{{product_image_url}}" style="width: 2rem; height: 2rem; object-fit: cover;" alt="">
                         </div>
                         <div class="trend__item__text">
-                            <h6>Bow wrap skirt</h6>
+                            <a href="index.php?page=ashion_productdetails&product_id={{product_id}}&category_id={{category_id}}"><h6>{{product_name}}</h6></a>
                             <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                                <i class="fa fa-star" style="margin-right: .5rem;"></i>
                             </div>
-                            <div class="product__price">$ 59.0</div>
+                            <div class="product__price">{{product_price}}</div>
                         </div>
                     </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="/{{BASE_DIR}}/public/imgs/trend/f-2.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Metallic earrings</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="/{{BASE_DIR}}/public/imgs/trend/f-3.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Flap cross-body bag</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
+                  {{endfor New}}
                 </div>
             </div>
         </div>
@@ -284,3 +182,22 @@
     </div>
 </section>
 <!-- Services Section End -->
+
+    <!-- Instagram Begin -->
+    <div class="instagram">
+        <div class="container-fluid">
+            <div class="row">
+            {{foreach Categories}}
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="{{category_image_url}}">
+                        <div class="instagram__text">
+                            <i class="fa fa-star"></i>
+                            <a href="index.php?page=ashion_shop&category_id={{category_id}}"><h2>{{category_name}}</h2></a>
+                        </div>
+                    </div>
+                </div>
+            {{endfor Categories}}
+            </div>
+        </div>
+    </div>
+    <!-- Instagram End -->

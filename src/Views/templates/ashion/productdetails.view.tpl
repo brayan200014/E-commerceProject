@@ -18,46 +18,46 @@
     <section class="product-details spad">
         <div class="container">
             <div class="row">
+            {{foreach Product}}
                 <div class="col-lg-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__left product__thumb nice-scroll">
                             <a class="pt active" href="#product-1">
-                                <img src="/{{BASE_DIR}}/public/imgs/product/details/thumb-1.jpg" alt="">
+                                <img src="{{product_image_url}}" alt="">
                             </a>
                             <a class="pt" href="#product-2">
-                                <img src="/{{BASE_DIR}}/public/imgs/product/details/thumb-2.jpg" alt="">
+                                <img src="{{product_image_url}}" alt="">
                             </a>
                             <a class="pt" href="#product-3">
-                                <img src="/{{BASE_DIR}}/public/imgs/product/details/thumb-3.jpg" alt="">
+                                <img src="{{product_image_url}}" alt="">
                             </a>
                             <a class="pt" href="#product-4">
-                                <img src="/{{BASE_DIR}}/public/imgs/product/details/thumb-4.jpg" alt="">
+                                <img src="{{product_image_url}}" alt="">
                             </a>
                         </div>
                         <div class="product__details__slider__content">
                             <div class="product__details__pic__slider owl-carousel">
-                                <img data-hash="product-1" class="product__big__img" src="/{{BASE_DIR}}/public/imgs/product/details/product-1.jpg" alt="">
-                                <img data-hash="product-2" class="product__big__img" src="/{{BASE_DIR}}/public/imgs/product/details/product-3.jpg" alt="">
-                                <img data-hash="product-3" class="product__big__img" src="/{{BASE_DIR}}/public/imgs/product/details/product-2.jpg" alt="">
-                                <img data-hash="product-4" class="product__big__img" src="/{{BASE_DIR}}/public/imgs/product/details/product-4.jpg" alt="">
+                                <img data-hash="product-1" class="product__big__img" src="{{product_image_url}}" alt="">
+                                <img data-hash="product-2" class="product__big__img" src="{{product_image_url}}" alt="">
+                                <img data-hash="product-3" class="product__big__img" src="{{product_image_url}}" alt="">
+                                <img data-hash="product-4" class="product__big__img" src="{{product_image_url}}" alt="">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="product__details__text">
-                        <h3>Essential structured blazer <span>Brand: SKMEIMore Men Watches from SKMEI</span></h3>
+                        <h3>{{product_name}}</span></h3>
                         <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                            <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                            <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                            <i class="fa fa-star" style="margin-right: .5rem;"></i>
+                            <i class="fa fa-star" style="margin-right: .5rem;"></i>
                             <span>( 138 reviews )</span>
                         </div>
-                        <div class="product__details__price">$ 75.0 <span>$ 83.0</span></div>
-                        <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur
-                        magni lores eos qui ratione voluptatem sequi nesciunt.</p>
+                        <div class="product__details__price">{{discount}}<span>{{product_price}}</span></div>
+                        <p>{{product_description}}</p>
                         <div class="product__details__button">
                             <div class="quantity">
                                 <span>Quantity:</span>
@@ -66,11 +66,8 @@
                                 </div>
                             </div>
                             <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
-                            <ul>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
-                            </ul>
                         </div>
+                    {{endfor Product}}
                         <div class="product__details__widget">
                             <ul>
                                 <li>
@@ -84,42 +81,17 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <span>Available color:</span>
-                                    <div class="color__checkbox">
-                                        <label for="red">
-                                            <input type="radio" name="color__radio" id="red" checked>
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label for="black">
-                                            <input type="radio" name="color__radio" id="black">
-                                            <span class="checkmark black-bg"></span>
-                                        </label>
-                                        <label for="grey">
-                                            <input type="radio" name="color__radio" id="grey">
-                                            <span class="checkmark grey-bg"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>Available size:</span>
-                                    <div class="size__btn">
-                                        <label for="xs-btn" class="active">
-                                            <input type="radio" id="xs-btn">
-                                            xs
-                                        </label>
-                                        <label for="s-btn">
-                                            <input type="radio" id="s-btn">
-                                            s
-                                        </label>
-                                        <label for="m-btn">
-                                            <input type="radio" id="m-btn">
-                                            m
-                                        </label>
-                                        <label for="l-btn">
-                                            <input type="radio" id="l-btn">
-                                            l
-                                        </label>
-                                    </div>
+                                    <span>Available size:</span>                                                                         
+                                    <form>
+                                        <div class="size__btn">
+                                        {{foreach Sizes}}
+                                            <label for="{{inventory_size}}" {{if isChecked}}class="active"{{endif isChecked}}>
+                                                <input type="radio" id="{{inventory_size}}">
+                                                {{inventory_size}}
+                                            </label>
+                                        {{endfor Sizes}}
+                                        </div>   
+                                    </form>                                  
                                 </li>
                                 <li>
                                     <span>Promotions:</span>
@@ -129,6 +101,7 @@
                         </div>
                     </div>
                 </div>
+                {{foreach Product}}
                 <div class="col-lg-12">
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
@@ -145,46 +118,23 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <h6>Description</h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                    quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                    Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                    voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                consequat massa quis enim.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.</p>
+                                <p>{{product_name}}</p>
+                                <p>{{product_description}}</p>
                             </div>
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
                                 <h6>Specification</h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                    quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                    Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                    voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                consequat massa quis enim.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.</p>
+                                <p>{{product_description}}</p>
+                                <p>{{product_description}}</p>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <h6>Reviews ( 2 )</h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                    quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                    Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                    voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                consequat massa quis enim.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.</p>
+                                 <p>{{product_description}}</p>
+                                <p>{{product_description}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                {{endfor Product}}
             </div>
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -192,18 +142,18 @@
                         <h5>RELATED PRODUCTS</h5>
                     </div>
                 </div>
+               {{foreach Products}}
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="/{{BASE_DIR}}/public/imgs/product/related/rp-1.jpg">
+                        <div class="product__item__pic set-bg" data-setbg="{{product_image_url}}">
                             <div class="label new">New</div>
                             <ul class="product__hover">
-                                <li><a href="/{{BASE_DIR}}/public/imgs/product/related/rp-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                <li><a href="{{product_image_url}}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                <li><a href="index.php?page=ashion_productdetails&product_id={{product_id}}&category_id={{category_id}}"><span class="icon_bag_alt"></span></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6><a href="#">Buttons tweed blazer</a></h6>
+                            <h6><a href="#">{{product_name}}</a></h6>
                             <div class="rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -211,80 +161,37 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>
-                            <div class="product__price">$ 59.0</div>
+                            <div class="product__price">{{product_price}}</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="/{{BASE_DIR}}/public/imgs/product/related/rp-2.jpg">
-                            <ul class="product__hover">
-                                <li><a href="/{{BASE_DIR}}/public/imgs/product/related/rp-2.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Flowy striped skirt</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 49.0</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="/{{BASE_DIR}}/public/imgs/product/related/rp-3.jpg">
-                            <div class="label stockout">out of stock</div>
-                            <ul class="product__hover">
-                                <li><a href="/{{BASE_DIR}}/public/imgs/product/related/rp-3.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Cotton T-Shirt</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="/{{BASE_DIR}}/public/imgs/product/related/rp-4.jpg">
-                            <ul class="product__hover">
-                                <li><a href="/{{BASE_DIR}}/public/imgs/product/related/rp-4.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Slim striped pocket shirt</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                </div>
+               {{endfor Products}}
             </div>
         </div>
     </section>
     <!-- Product Details Section End -->
+<!-- Instagram Begin -->
+    <div class="instagram">
+        <div class="container-fluid">
+            <div class="row">
+            {{foreach Categories}}
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="{{category_image_url}}">
+                        <div class="instagram__text">
+                            <i class="fa fa-star"></i>
+                            <a href="index.php?page=ashion_shop&category_id={{category_id}}"><h2>{{category_name}}</h2></a>
+                        </div>
+                    </div>
+                </div>
+            {{endfor Categories}}
+            </div>
+        </div>
+    </div>
+    <!-- Instagram End -->
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
 
    

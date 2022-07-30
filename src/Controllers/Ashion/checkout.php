@@ -8,7 +8,6 @@ class Checkout extends PublicController
 {
     public function run() :void
     {
-       
         Renderer::render('ashion/checkout', array());
     }
 }

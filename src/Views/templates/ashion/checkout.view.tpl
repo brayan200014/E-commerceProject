@@ -151,3 +151,21 @@
             </div>
         </section>
         <!-- Checkout Section End -->
+<!-- Instagram Begin -->
+    <div class="instagram">
+        <div class="container-fluid">
+            <div class="row">
+            {{foreach Categories}}
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="{{category_image_url}}">
+                        <div class="instagram__text">
+                            <i class="fa fa-star"></i>
+                            <a href="index.php?page=ashion_shop&category_id={{category_id}}"><h2>{{category_name}}</h2></a>
+                        </div>
+                    </div>
+                </div>
+            {{endfor Categories}}
+            </div>
+        </div>
+    </div>
+    <!-- Instagram End -->

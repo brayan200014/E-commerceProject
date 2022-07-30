@@ -8,7 +8,6 @@ class ShopCart extends PublicController
 {
     public function run() :void
     {
-       
         Renderer::render('ashion/shopcart', array());
     }
 }
