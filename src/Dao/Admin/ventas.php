@@ -95,6 +95,33 @@ class Ventas extends Table
         return self::obtenerRegistros($sqlstr, array());
     }
 
+    public static function lessInventory($quantity, $id, $gender, $size) {
+        $sqlstr= "SELECT lessInventory(:id, :quantity, :gender, :size);";
+
+        $sqlParams= [
+            "id" => $id, 
+            "quantity" => $quantity, 
+            "gender" => $gender, 
+            "size" => $size
+        ];
+
+        return self::obtenerUnRegistro($sqlstr, $sqlParams);
+
+    }
+
+    public static function plusInventory($quantity, $id, $gender, $size) {
+        $sqlstr= "SELECT plusInventory(:id, :quantity, :gender, :size);";
+
+        $sqlParams= [
+            "id" => $id, 
+            "quantity" => $quantity, 
+            "gender" => $gender, 
+            "size" => $size
+        ];
+
+        return self::obtenerUnRegistro($sqlstr, $sqlParams);
+
+    }
     
 
 }

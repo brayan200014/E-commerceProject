@@ -1,7 +1,9 @@
  
 <div class="container-fluid">
     <h4>Agregar Venta</h4><br>
-    <form>
+    <form action="index.php?page=admin_venta" method="post">
+    <input type="hidden" name="mode" value="{{mode}}">
+    <div id="detalle">
  <div class="form-group">
     <label for="customer_id">Cliente ID:</label>
     <input type="text" class="form-control" value="{{cus_id}}" readonly>
@@ -24,15 +26,47 @@
     <option value="CANC">Cancelada</option>
     </select>
 </div>
+     {{foreach ProductosSessionVentas}}
+    <div class=" form-group d-flex flex-row">
+            <div class="form-group ">
+                <label for="product_id">ID: </label> <br>
+                <input type="text" class="form-control" id="product_id" name="product_id[]" value="{{product_id}}" readonly>
+            </div>
+             <div class="form-group">
+                <label for="product_name">Nombre: </label>
+                <input type="text" class="form-control" id="product_name" name="product_name[]" value="{{product_name}}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="product_price">Precio: </label>
+                <input type="text" class="form-control" id="product_price" name="product_price[]" value="{{product_price}}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="inventory_size">Talla: </label>
+                <input type="text" class="form-control" id="inventory_size" name="inventory_size[]" value="{{inventory_size}}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="inventory_gender">Genero: </label>
+                <input type="text" class="form-control" id="inventory_gender" name="inventory_gender[]" value="{{inventory_gender}}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Cantidad</label>
+                <input type="number"  class="form-control" min="1" max="40" step="1" name="quantity[]" id="quantity" value="{{quantity}}">
+            </div>
+            <div class="form-group">
+                <button type="button" name="btnDelete" data-target="#ventanaModalDelete" data-toggle="modal" class="btnDelete fas fa-trash" value="{{product_id}}" style="border: none; background-color: none; color:#007bff;"></button>
+            </div>
+    </div>
+       {{endfor ProductosSessionVentas}}
+</div>
   <button type="submit" class="btn btn-primary">Guardar</button> &NonBreakingSpace;&NonBreakingSpace;
   <a href="index.php?admin_ventas" class="btn btn-primary">Cancelar</a>
 </form>
 
 </div>
 
-<div class="container-fluid d-flex flex-row">
+<div class="container-fluid d-flex flex-row flex-wrap">
     <div class="container d-flex justify-content-end">
-            <button type="button" class="btn btn-primary" data-target="#ventanaModal" data-toggle="modal">Agregar Productos</button>
+           
     </div>
 </div>
 
@@ -75,7 +109,7 @@
                                             <td>{{product_price}}</td>
                                             <td>{{inventory_size}}</td>
                                             <td>{{inventory_gender}}</td>
-                                             <td><button type="button" class="btn btn-primary" id="buttonPlus"><i class="fas fa-plus"></i></button>  &nbsp;
+                                            <td class="buttonPlus fas fa-plus" style="cursor: pointer; color: white; background-color: #007bff;" data-target="#ventanaModal" data-toggle="modal"></td> &nbsp;
                                             
                                         </tr>
                                       {{endfor Productos}}
@@ -90,27 +124,102 @@
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
- <h5 id="tituloVenta">Titulo Venta modal</h5>
+ <h5 id="tituloVenta">Agregar Producto al detalle</h5>
  <button class="close" data-dismiss="modal" aria-label="Cerrar">
     <span aria-hidden="true">&times;</span>
  </button>
 </div>
-<form action="">
 <div class="modal-body">
-    <div class="alert alert-success">
-        <h6>Prueba de Modal</h6>
+    <div>
+        <form action="index.php?page=admin_venta" method="POST" >
+            <div class="form-group">
+                <input class="form-control" type="hidden" value="admin_venta" name="page">
+                <input class="form-control" type="hidden" value="{{cus_id}}" name="cus_id">
+                <input  class="form-control" type="hidden" name="mode" value="{{mode}}">
+            </div>
+            <div class="form-group">
+                <label for="product_idModal">ID: </label>
+                <input type="text" class="form-control" id="product_idModal" name="product_idModal" readonly>
+            </div>
+            <div class="form-group">
+                <label for="product_nameModal">Nombre: </label>
+                <input type="text" class="form-control" id="product_nameModal" name="product_nameModal" readonly>
+            </div>
+            <div class="form-group">
+                <label for="product_priceModal">Precio: </label>
+                <input type="text" class="form-control" id="product_priceModal" name="product_priceModal" readonly>
+            </div>
+            <div class="form-group">
+                <label for="inventory_sizeModal">Talla: </label>
+                <input type="text" class="form-control" id="inventory_sizeModal" name="inventory_sizeModal" readonly>
+            </div>
+            <div class="form-group">
+                <label for="inventory_genderModal">Genero: </label>
+                <input type="text" class="form-control" id="inventory_genderModal" name="inventory_genderModal" readonly>
+            </div>
+            <div class="form-group">
+                <label for="quantityModal">Cantidad</label>
+                <input type="number"  class="form-control" min="1" max="40" step="1" name="quantityModal" id="quantityModal" value="{{quantity}}">
+            </div>
+            <button class="btn btn-success" type="submit" id="btnAgregarDetalle" name="btnAgregarDetalle" value="true">Agregar</button>
+        </form>
     </div>
 
 </div>
-</form>
+
 <div class="modal-footer">
     <button class="btn btn-warning" type="button" data-dismiss="modal">Cerrar</button>
-    <button class="btn btn-success" type="button">Aceptar</button>
 </div>
 </div>
 </div>
 </div>
 
 
+<div class="modal fade" id="ventanaModalDelete" tabindex="-1" role="dialog" aria-labelledby="tituloVentanaDelete" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+ <h5 id="tituloVentaDelete">Eliminando Producto del Detalle</h5>
+ <button class="close" data-dismiss="modal" aria-label="Cerrar">
+    <span aria-hidden="true">&times;</span>
+ </button>
+</div>
+<div class="modal-body">
+    <div>
+        <form action="index.php?page=admin_venta" method="POST" >
+            <div class="form-group">
+                <input class="form-control" type="hidden" value="admin_venta" name="page">
+                <input class="form-control" type="hidden" value="{{cus_id}}" name="cus_id">
+                <input  class="form-control" type="hidden" name="mode" value="{{mode}}">
+            </div>
+            <div class="form-group">
+                <label for="product_idModal">ID: </label>
+                <input type="text" class="form-control" id="product_idModalDelete" name="product_idModalDelete" readonly>
+            </div>
+             <div class="form-group">
+                <label for="inventory_sizeModal">Size: </label>
+                <input type="text" class="form-control" id="inventory_sizeModalDelete" name="inventory_sizeModalDelete" readonly>
+            </div>
+            <div class="form-group">
+                <label for="inventory_genderModal">Gender: </label>
+                <input type="text" class="form-control" id="inventory_genderModalDelete" name="inventory_genderModalDelete" readonly>
+            </div>
+             <div class="form-group">
+                <label for="quantity_modalDelete">Cantidad: </label>
+                <input type="text" class="form-control" id="quantity_modalDelete" name="quantity_modalDelete" readonly>
+            </div>
+            
+            <button class="btn btn-danger" type="submit" id="btnEliminarProduct" name="btnEliminarProduct" value="true">Eliminar</button>
+        </form>
+    </div>
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
 
 <script src="/{{BASE_DIR}}/public/js/peticiones.js"></script>
