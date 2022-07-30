@@ -8,18 +8,40 @@ class Checkout extends PublicController{
     public function run():void
     {
         $viewData = array();
+        $products= array();
         if ($this->isPostBack()) {
             $PayPalOrder = new \Utilities\Paypal\PayPalOrder(
                 "test".(time() - 10000000),
-                "http://localhost/mvco/index.php?page=checkout_error",
-                "http://localhost/mvco/index.php?page=checkout_accept"
+                "http://localhost/E-commerceProject/index.php?page=checkout_error",
+                "http://localhost/E-commerceProject/index.php?page=checkout_accept"
             );
-            $PayPalOrder->addItem("Test", "TestItem1", "PRD1", 100, 15, 1, "DIGITAL_GOODS");
-            $PayPalOrder->addItem("Test 2", "TestItem2", "PRD2", 50, 7.5, 2, "DIGITAL_GOODS");
-            $response = $PayPalOrder->createOrder();
-            $_SESSION["orderid"] = $response[1]->result->id;
-            \Utilities\Site::redirectTo($response[0]->href);
-            die();
+
+            if(isset($_POST["btnEnviarVenta"])) {
+                if(isset($_SESSION["productsVentas"])) {
+                    $isv= floatval($_POST["sale_isv"]);
+                    $products= $_SESSION["productsVentas"];
+                    
+                   foreach($products as $key => $value) {
+                    $description= $products[$key]["inventory_size"] . " " . $products[$key]["inventory_gender"];
+                        $PayPalOrder->addItem(
+                            $products[$key]["product_name"], 
+                            $description, 
+                            "PRD",
+                            $products[$key]["product_price"],
+                            $isv,
+                            $products[$key]["quantity"],
+                            "DIGITAL_GOODS"
+                        );
+                   }
+
+                   $response = $PayPalOrder->createOrder();
+                   $_SESSION["orderid"] = $response[1]->result->id;
+                   \Utilities\Site::redirectTo($response[0]->href);
+                   die();
+                }
+            
+            }
+            
         }
 
         \Views\Renderer::render("paypal/checkout", $viewData);

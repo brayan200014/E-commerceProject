@@ -1,7 +1,7 @@
  
 <div class="container-fluid">
     <h4>Agregar Venta</h4><br>
-    <form action="index.php?page=admin_venta" method="post">
+    <form action="index.php?page=checkout_checkout" method="post">
     <input type="hidden" name="mode" value="{{mode}}">
     <div id="detalle">
  <div class="form-group">
@@ -58,7 +58,7 @@
     </div>
        {{endfor ProductosSessionVentas}}
 </div>
-  <button type="submit" class="btn btn-primary">Guardar</button> &NonBreakingSpace;&NonBreakingSpace;
+  <button type="submit" class="btn btn-primary" name="btnEnviarVenta">Guardar</button> &NonBreakingSpace;&NonBreakingSpace;
   <a href="index.php?admin_ventas" class="btn btn-primary">Cancelar</a>
 </form>
 
