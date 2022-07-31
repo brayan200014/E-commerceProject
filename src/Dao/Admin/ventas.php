@@ -118,6 +118,36 @@ class Ventas extends Table
         return self::obtenerUnRegistro($sqlstr, $sqlParams);
 
     }
+
+    public static function getDetalleVentaBySale($sale_id) {
+        $sqlstr= "SELECT P.product_id, P.product_name, SD.sale_price, SD.sale_quantity FROM sales_details SD inner join products P on SD.product_id= P.product_id
+        WHERE SD.sale_id= :sale_id;";
+
+        $sqlParams= [
+            "sale_id" => $sale_id
+        ];
+
+        return self::obtenerRegistros($sqlstr, $sqlParams);
+    }
+
+    public static function getVentaById($sale_id) {
+        $sqlstr= "SELECT sale_id,  customer_id as cus_id, sale_status FROM sales WHERE sale_id = :sale_id;";
+        $sqlParams= [
+            "sale_id" => $sale_id
+        ];
+
+        return self::obtenerUnRegistro($sqlstr, $sqlParams);
+    }
+
+    public static function updateStatusVenta($sale_id, $sale_status) {
+        $sqlstr= "UPDATE sales SET sale_status= :sale_status where sale_id= :sale_id; ";
+        $sqlParams= [
+            "sale_status" => $sale_status,
+            "sale_id" => $sale_id
+        ];
+
+        return self::executeNonQuery($sqlstr, $sqlParams);
+    }
     
 
 }

@@ -1,6 +1,4 @@
-<h1>Orden Aceptada</h1>
-<hr/>
-<pre>
-{{orderjson}}
-{{status}}
-</pre>
+<div class="container-fluid">
+    <h3>Orden Aceptada</h3>
+    <p>Su orden fue procesada con exito </p>
+</div>

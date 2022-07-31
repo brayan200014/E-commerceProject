@@ -67,6 +67,7 @@ class Accept extends PublicController{
                             }
 
                             $_SESSION["productsVentas"]= array();
+                            $_SESSION["cus_id"]= array();
                          }
                          else {
                             \Utilities\Site::redirectToWithMsg(
@@ -75,6 +76,8 @@ class Accept extends PublicController{
                             );
                          }
                 }
+            } else {
+                $dataview["orderjson"] = "Orden no se realizo con exito";
             }
 
         } else {

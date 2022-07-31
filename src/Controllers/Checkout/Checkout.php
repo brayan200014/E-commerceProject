@@ -49,7 +49,7 @@ class Checkout extends PublicController{
                 if(isset($_POST["cus_id"])) {
                     $customer= intval($_POST["cus_id"]);
                     \Utilities\Site::redirectToWithMsg(
-                        "index.php?page=admin_venta&cus_id=".$customer,
+                        "index.php?page=admin_venta&mode=INS&cus_id=".$customer,
                         "No ha agregado productos a la venta"
                     );
                 }

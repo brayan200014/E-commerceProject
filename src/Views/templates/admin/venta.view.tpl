@@ -1,25 +1,25 @@
  
 <div class="container-fluid">
-    <h4>Agregar Venta</h4><br>
-    <form action="index.php?page=checkout_checkout" method="post">
+    <h4>{{descripcion}} {{idSale}} Venta</h4><br>
+    <form action="{{url}}" method="post">
     <input type="hidden" name="mode" value="{{mode}}">
+    <input type="hidden" name="sale_id" value="{{idSale}}">
     <div id="detalle">
  <div class="form-group">
     <label for="customer_id">Cliente ID:</label>
     <input type="text" class="form-control" value="{{cus_id}}" name="cus_id" readonly>
     </select>
 </div>
-{{if UPD}}
+{{if sale_statusExist}}
   <div class="form-group">
     <label for="sale_status">Estado</label>
-    <select class="form-control" id="sale_status" name="sale_status">
-    <option value=""></option>
-    <option value="CONF">Confirmada</option>
-    <option value="PEND">Pendiente</option>
-    <option value="CANC">Cancelada</option>
+    <select class="form-control" id="sale_status" name="sale_status" {{if readonly}} disabled {{endif readonly}}>
+    {{foreach sale_statusArray}}
+          <option value="{{value}}" {{selected}}>{{text}}</option>
+    {{endfor sale_statusArray}}
     </select>
 </div>
-{{endif UPD}}
+{{endif sale_statusExist}}
      {{foreach ProductosSessionVentas}}
     <div class=" form-group d-flex flex-row">
             <div class="form-group ">
@@ -52,7 +52,12 @@
     </div>
        {{endfor ProductosSessionVentas}}
 </div>
-  <button type="submit" class="btn btn-primary" name="btnEnviarVenta">Guardar</button> &NonBreakingSpace;&NonBreakingSpace;
+{{if showBtnVenta}}
+       <button type="submit" class="btn btn-primary" name="btnEnviarVenta">Guardar</button> &NonBreakingSpace;&NonBreakingSpace;
+{{endif showBtnVenta}}
+{{if showBtnUpdate}}
+       <button type="submit" class="btn btn-primary" name="btnUpdateVenta">Actualizar</button> &NonBreakingSpace;&NonBreakingSpace;
+{{endif showBtnUpdate}}
   <a href="index.php?page=admin_ventas" class="btn btn-primary">Cancelar</a>
 </form>
 
@@ -70,43 +75,106 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Productos </h6>
+                            <h6 class="m-0 font-weight-bold text-primary">{{if showBtnUpdate}} Detalle de la Venta {{endif showBtnUpdate}} 
+                                {{if showBtnVenta}} Productos Disponibles {{endif showBtnVenta}} {{if DSP}} Detalle de la Venta  {{endif DSP}}
+                            </h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
+                                        {{if showBtnVenta}}
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Precio</th>
+                                                <th>Talla</th>
+                                                <th>Genero</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                    {{endif showBtnVenta}}
+                                     {{if showBtnUpdate}}
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Precio</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                    {{endif showBtnUpdate}}
+                                     {{if DSP}}
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Nombre</th>
-                                            <th>Precio</th>
-                                            <th>Talla</th>
-                                            <th>Genero</th>
-                                            <th>Acciones</th>
-                                        </tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Precio</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                    {{endif DSP}}
                                     </thead>
                                     <tfoot>
+                                      {{if showBtnVenta}}
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Precio</th>
+                                                <th>Talla</th>
+                                                <th>Genero</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                    {{endif showBtnVenta}}
+                                     {{if showBtnUpdate}}
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Precio</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                    {{endif showBtnUpdate}}
+                                     {{if DSP}}
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Nombre</th>
-                                            <th>Precio</th>
-                                            <th>Talla</th>
-                                            <th>Genero</th>
-                                            <th>Acciones</th>
-                                        </tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Precio</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                    {{endif DSP}}
                                     </tfoot>
                                     <tbody>
-                                    {{foreach Productos}}
-                                        <tr>
-                                            <td>{{product_id}}</td>
-                                            <td>{{product_name}}</td>
-                                            <td>{{product_price}}</td>
-                                            <td>{{inventory_size}}</td>
-                                            <td>{{inventory_gender}}</td>
-                                            <td class="buttonPlus fas fa-plus" style="cursor: pointer; color: white; background-color: #007bff;" data-target="#ventanaModal" data-toggle="modal"></td> &nbsp;
-                                            
-                                        </tr>
-                                      {{endfor Productos}}
+                                    {{if showBtnVenta}}
+                                         {{foreach Productos}}
+                                            <tr>
+                                                <td>{{product_id}}</td>
+                                                <td>{{product_name}}</td>
+                                                <td>{{product_price}}</td>
+                                                <td>{{inventory_size}}</td>
+                                                <td>{{inventory_gender}}</td>
+                                                <td class="buttonPlus fas fa-plus" style="cursor: pointer; color: white; background-color: #007bff;" data-target="#ventanaModal" data-toggle="modal"></td> &nbsp;
+                                            </tr>
+                                         {{endfor Productos}}
+                                    {{endif showBtnVenta}}
+
+                                     {{if showBtnUpdate}}
+                                         {{foreach ProductosDetail}}
+                                            <tr>
+                                                <td>{{product_id}}</td>
+                                                <td>{{product_name}}</td>
+                                                <td>{{sale_price}}</td>
+                                                <td>{{sale_quantity}}</td>
+                                            </tr>
+                                         {{endfor ProductosDetail}}
+                                    {{endif showBtnUpdate}}
+
+                                      {{if DSP}}
+                                         {{foreach ProductosDetail}}
+                                            <tr>
+                                                <td>{{product_id}}</td>
+                                                <td>{{product_name}}</td>
+                                                <td>{{sale_price}}</td>
+                                                <td>{{sale_quantity}}</td>
+                                            </tr>
+                                         {{endfor ProductosDetail}}
+                                    {{endif DSP}}
+                                    
+
                                     </tbody>
                                 </table>
                             </div>
@@ -153,7 +221,7 @@
             </div>
             <div class="form-group">
                 <label for="quantityModal">Cantidad</label>
-                <input type="number"  class="form-control" min="1" max="40" step="1" name="quantityModal" id="quantityModal" value="{{quantity}}">
+                <input type="number"  class="form-control" min="1" max="40" step="1" name="quantityModal" id="quantityModal" value="{{quantity}}" required>
             </div>
             <button class="btn btn-success" type="submit" id="btnAgregarDetalle" name="btnAgregarDetalle" value="true">Agregar</button>
         </form>
@@ -216,4 +284,4 @@
 </div>
 </div>
 
-<script src="/{{BASE_DIR}}/public/js/peticiones.js"></script>
+<script src="/{{BASE_DIR}}/public/js/scriptVenta.js"></script>

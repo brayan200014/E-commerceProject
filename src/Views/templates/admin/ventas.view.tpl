@@ -24,9 +24,7 @@
 
 <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800" >Ventas</h1>
-                    <p class="mb-4" >DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
+                    
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -45,7 +43,8 @@
                                             <th>Subtotal</th>
                                             <th>Total</th>
                                             <th>Estado</th>
-                                            <th>Acciones</th>
+                                            <th>Accciones</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -57,7 +56,8 @@
                                             <th>Subtotal</th>
                                             <th>Total</th>
                                             <th>Estado</th>
-                                            <th>Acciones</th>
+                                            <th>Accciones</th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -70,8 +70,9 @@
                                             <td>{{sale_subtotal}}</td>
                                             <td>{{sale_total}}</td>
                                             <td>{{sale_status}}</td>
-                                             <td> <a href="" class="btn btn-primary btn-sm active" role="button" aria-pressed="true" data-toggle="modal" data-target="#ventanaModal"><i class="fas fa-eye"></i></a> &nbsp;
-                                            <a href="index.php=?page=admin_venta&mode=UPD&id={{sale_id}}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-pen"></i></a>
+                                            <td class="buttonEdit fas fa-pen" style="cursor: pointer; color: white; background-color: #007bff;"></td> 
+                                            <td class="buttonDisplay fas fa-eye" style="cursor: pointer; color: white; background-color: #007bff;"></td> 
+                                            
                                         </tr>
                                       {{endfor Sales}}
                                     </tbody>
@@ -79,3 +80,5 @@
                             </div>
                         </div>
                     </div>
+
+<script src="/{{BASE_DIR}}/public/js/scriptVentas.js"></script>

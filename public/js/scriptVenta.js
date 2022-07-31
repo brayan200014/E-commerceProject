@@ -14,9 +14,7 @@ window.onload= function() {
                 valores.push(elementosTD[i].innerHTML);
             }
 
-            var val= valores[0];
-            alert(val);
-            id.value= val;
+            id.value= valores[0];;
             name.value= valores[1];
             price.value= valores[2];
             size.value= valores[3];
