@@ -2,4 +2,5 @@
 <hr/>
 <pre>
 {{orderjson}}
+{{status}}
 </pre>

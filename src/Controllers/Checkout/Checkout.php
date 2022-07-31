@@ -4,6 +4,7 @@ namespace Controllers\Checkout;
 
 use Controllers\PublicController;
 
+
 class Checkout extends PublicController{
     public function run():void
     {
@@ -16,12 +17,15 @@ class Checkout extends PublicController{
                 "http://localhost/E-commerceProject/index.php?page=checkout_accept"
             );
 
-            if(isset($_POST["btnEnviarVenta"])) {
+            if(isset($_POST["btnEnviarVenta"]) && isset($_POST["product_id"])) {
                 if(isset($_SESSION["productsVentas"])) {
-                    $isv= floatval($_POST["sale_isv"]);
+                   
                     $products= $_SESSION["productsVentas"];
+                    $customer= intval($_POST["cus_id"]);
+                    $_SESSION["cus_id"]= $customer;
                     
                    foreach($products as $key => $value) {
+                    $isv= (($value["product_price"] * $value ["quantity"]) * 0.15);
                     $description= $products[$key]["inventory_size"] . " " . $products[$key]["inventory_gender"];
                         $PayPalOrder->addItem(
                             $products[$key]["product_name"], 
@@ -40,6 +44,15 @@ class Checkout extends PublicController{
                    die();
                 }
             
+            } else {
+                    
+                if(isset($_POST["cus_id"])) {
+                    $customer= intval($_POST["cus_id"]);
+                    \Utilities\Site::redirectToWithMsg(
+                        "index.php?page=admin_venta&cus_id=".$customer,
+                        "No ha agregado productos a la venta"
+                    );
+                }
             }
             
         }

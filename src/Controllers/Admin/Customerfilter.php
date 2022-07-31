@@ -11,10 +11,9 @@ class CustomerFilter extends PrivateController
     public function run() :void
     {
         
-        if($this->isPostBack()) {
-            $nombreCombo= $_POST["campo"];
-            $this->viewData["Clientes"]= DaoVentas::getClientesCombo($nombreCombo);
-        }
+ 
+        $this->viewData["Clientes"]= DaoVentas::getClientesCombo();
+
        
         Renderer::render('admin/customerFilter', $this->viewData);
     }

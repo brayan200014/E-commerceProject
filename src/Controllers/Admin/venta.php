@@ -36,14 +36,14 @@ class Venta extends PrivateController
             foreach($this->stock["result"] as $value) {
                 if($value == "true") {
                    $this->result= "true";
-                   error_log(json_decode($this->result));
+                  // error_log(json_decode($this->result));
                 }
             }
 
             if($this->result==="true") {
                 $this->agregarProductoSession($id,$price,$name,$quantity,$size,$gender );
                 $this->viewData["ProductosSessionVentas"]= $this->getProducts();
-                error_log(json_encode($this->viewData["ProductosSessionVentas"]));
+               // error_log(json_encode($this->viewData["ProductosSessionVentas"]));
                 $this->result= "";
                 \Utilities\Site::redirectToWithMsg(
                     "index.php?page=admin_venta&cus_id=".$customer_id,
@@ -72,13 +72,13 @@ class Venta extends PrivateController
                    $this->result= "true";
                    error_log(json_decode($this->result));
                 }
-                error_log(json_decode($this->result));
+               // error_log(json_decode($this->result));
             }
 
             if($this->result==="true") {
                 $this->deleteProduct($id, $size, $gender);
                 $this->viewData["ProductosSessionVentas"]= $this->getProducts();
-                error_log(json_encode($this->viewData["ProductosSessionVentas"]));
+              //  error_log(json_encode($this->viewData["ProductosSessionVentas"]));
                 \Utilities\Site::redirectToWithMsg(
                     "index.php?page=admin_venta&cus_id=".$customer_id,
                     "Producto eliminado"

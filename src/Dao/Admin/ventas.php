@@ -17,29 +17,32 @@ class Ventas extends Table
         return self::obtenerRegistros($sqlstr, array());
     }
 
-    public static function insertVenta($customer_id, $sale_isv, $sale_subtotal, $sale_status) {
-        $sqlstr= "INSERT INTO `sales`
+    public static function insertVenta($customer_id, $sale_isv, $sale_subtotal, $sale_status, $sale_order_id) {
+        $sqlstr= "INSERT INTO sales
         (
         `sale_date`,
         `customer_id`,
         `sale_isv`,
         `sale_subtotal`,
-        `sale_status`)
+        `sale_status`,
+        `sale_order_id`)
         VALUES
         (
          now(),
         :customer_id,
         :sale_isv,
         :sale_subtotal,
-        :sale_status;
-        ";
+        :sale_status,
+        :sale_order_id
+        )";
 
 
         $sqlParams= [
             "customer_id" => $customer_id, 
             "sale_isv" => $sale_isv, 
             "sale_subtotal" => $sale_subtotal,
-            "sale_status" => $sale_status
+            "sale_status" => $sale_status,
+            "sale_order_id" => $sale_order_id
         ]; 
 
         return self::executeNonQuery($sqlstr, $sqlParams);
@@ -74,18 +77,11 @@ class Ventas extends Table
         return self::obtenerUnRegistro($sqlstr, array());
     }
 
-    public static function getClientesCombo($correo) {
-        $like= $correo . '%';
+    public static function getClientesCombo() {
         $sqlstr= "SELECT customer_id,CONCAT(customer_name, ' ', customer_lastname) as 'Nombre', s.useremail from customers c 
-        inner join usuario s on c.usercod= s.usercod
-         where s.useremail like :correo
-        Order by Nombre ASC;";
+        inner join usuario s on c.usercod= s.usercod;";
 
-        $sqlParams= [
-            "correo" => $like
-        ];
-
-        return self::obtenerRegistros($sqlstr, $sqlParams);
+        return self::obtenerRegistros($sqlstr, array());
     }
 
     public static function getAllProductsI() {

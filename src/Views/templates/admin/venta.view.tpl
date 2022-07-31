@@ -6,17 +6,10 @@
     <div id="detalle">
  <div class="form-group">
     <label for="customer_id">Cliente ID:</label>
-    <input type="text" class="form-control" value="{{cus_id}}" readonly>
+    <input type="text" class="form-control" value="{{cus_id}}" name="cus_id" readonly>
     </select>
 </div>
-  <div class="form-group">
-    <label for="sale_isv">Impuesto</label>
-    <select class="form-control" id="sale_isv" name="sale_isv">
-  <option value=""></option>
-    <option value="0.18">0.18</option>
-    <option value="0.15">0.15</option>
-    </select>
-</div>
+{{if UPD}}
   <div class="form-group">
     <label for="sale_status">Estado</label>
     <select class="form-control" id="sale_status" name="sale_status">
@@ -26,6 +19,7 @@
     <option value="CANC">Cancelada</option>
     </select>
 </div>
+{{endif UPD}}
      {{foreach ProductosSessionVentas}}
     <div class=" form-group d-flex flex-row">
             <div class="form-group ">
@@ -50,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label for="quantity">Cantidad</label>
-                <input type="number"  class="form-control" min="1" max="40" step="1" name="quantity[]" id="quantity" value="{{quantity}}">
+                <input type="number"  class="form-control" min="1" max="40" step="1" name="quantity[]" id="quantity" value="{{quantity}}" readonly>
             </div>
             <div class="form-group">
                 <button type="button" name="btnDelete" data-target="#ventanaModalDelete" data-toggle="modal" class="btnDelete fas fa-trash" value="{{product_id}}" style="border: none; background-color: none; color:#007bff;"></button>
@@ -59,7 +53,7 @@
        {{endfor ProductosSessionVentas}}
 </div>
   <button type="submit" class="btn btn-primary" name="btnEnviarVenta">Guardar</button> &NonBreakingSpace;&NonBreakingSpace;
-  <a href="index.php?admin_ventas" class="btn btn-primary">Cancelar</a>
+  <a href="index.php?page=admin_ventas" class="btn btn-primary">Cancelar</a>
 </form>
 
 </div>

@@ -139,7 +139,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
                         <a class="collapse-item" href="index.php?page=admin_customerFilter">Agregar Venta </a>
-                        <a class="collapse-item" href="cards.html">Mostrar Ventas</a>
+                        <a class="collapse-item" href="index.php?page=admin_ventas">Mostrar Ventas</a>
                     </div>
                 </div>
             </li>
