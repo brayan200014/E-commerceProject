@@ -1,5 +1,5 @@
 <?php
-namespace Dao\Mnt;
+namespace Dao\Admin;
 use Dao\Table;
 
 class Usuarios extends Table

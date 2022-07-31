@@ -102,7 +102,7 @@ class Usuarios extends \Controllers\PrivateController
                         
                     break;
                     case"DEL":
-                        if(\DAO\Security\Security::deleteUsuarioAdmin($this->usercod)){
+                        if(\Dao\Security\Security::deleteUsuarioAdmin($this->usercod)){
                             \Utilities\Site::redirectToWithMsg(
                                 "index.php?page=admin_usuarios",
                                 "¡Usuario Eliminado Satisfactoriamente!"

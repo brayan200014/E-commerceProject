@@ -24,17 +24,17 @@ class FuncionRol extends \Controllers\PrivateController
 
             if(!empty($this->UsuarioBusqueda))
             {
-                $dataview["items"] = \Dao\Mnt\FuncionesRoles::searchFuncionesRoles($this->UsuarioBusqueda);
+                $dataview["items"] = \Dao\Admin\FuncionesRoles::searchFuncionesRoles($this->UsuarioBusqueda);
                 \Utilities\Context::setContext("UsuarioBusqueda", $this->UsuarioBusqueda);
             }
             else
             {
-                $dataview["items"] = \Dao\Mnt\FuncionesRoles::getAll();
+                $dataview["items"] = \Dao\Admin\FuncionesRoles::getAll();
             }
         } 
         else
         {   
-            $dataview["items"] = \Dao\Mnt\FuncionesRoles::getAll();
+            $dataview["items"] = \Dao\Admin\FuncionesRoles::getAll();
         }
         
         \Views\Renderer::render("admin/funcionesroles", $dataview);

@@ -1,5 +1,5 @@
 <?php
-namespace Dao\Mnt;
+namespace Dao\Admin;
 use Dao\Security\Estados;
 
 class Roles extends \Dao\Table

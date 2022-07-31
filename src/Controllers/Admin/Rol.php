@@ -62,7 +62,7 @@ class Rol extends \Controllers\PrivateController
                 switch ($this->mode)
                 {
                     case "INS":
-                        if (\Dao\Mnt\Roles::insert($this->rolesdsc)) {
+                        if (\Dao\Admin\Roles::insert($this->rolesdsc)) {
                             \Utilities\Site::redirectToWithMsg(
                                 "index.php?page=admin_roles",
                                 "¡Rol Agregado Satisfactoriamente!"
@@ -71,7 +71,7 @@ class Rol extends \Controllers\PrivateController
                     break;
 
                     case "UPD":
-                        if (\Dao\Mnt\Roles::update($this->rolesdsc, $this->rolesest, $this->rolescod)) {
+                        if (\Dao\Admin\Roles::update($this->rolesdsc, $this->rolesest, $this->rolescod)) {
                             \Utilities\Site::redirectToWithMsg(
                                 "index.php?page=admin_roles",
                                 "¡Rol Actualizado Satisfactoriamente!"
@@ -80,7 +80,7 @@ class Rol extends \Controllers\PrivateController
                     break;
 
                     case "DEL":
-                        if (\Dao\Mnt\Roles::delete($this->rolescod)) {
+                        if (\Dao\Admin\Roles::delete($this->rolescod)) {
                             \Utilities\Site::redirectToWithMsg(
                                 "index.php?page=admin_roles",
                                 "¡Rol Eliminado Satisfactoriamente!"
@@ -97,7 +97,7 @@ class Rol extends \Controllers\PrivateController
 
     private function _load()
     {
-        $_data = \Dao\Mnt\Roles::getOne($this->rolescod);
+        $_data = \Dao\Admin\Roles::getOne($this->rolescod);
         if ($_data) 
         {
             $this->rolescod = $_data["rolescod"];
@@ -123,7 +123,7 @@ class Rol extends \Controllers\PrivateController
 
         if($this->mode=="INS")
         {
-            if(!empty(\Dao\Mnt\Roles::getOne(strtoupper($this->rolesdsc))))
+            if(!empty(\Dao\Admin\Roles::getOne(strtoupper($this->rolesdsc))))
             {
                 $this->aErrors[] = "El rol ya se encuentra ingresado";
             }

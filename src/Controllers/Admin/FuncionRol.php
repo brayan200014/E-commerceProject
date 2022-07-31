@@ -47,8 +47,8 @@ class FuncionRol extends \Controllers\PrivateController
 
     public function run() :void
     {
-        $this->roles = \Dao\Mnt\FuncionesRoles::getRoles();
-        $this->funciones = \Dao\Mnt\FuncionesRoles::getFunciones();
+        $this->roles = \Dao\Admin\FuncionesRoles::getRoles();
+        $this->funciones = \Dao\Admin\FuncionesRoles::getFunciones();
 
         $this->minimumDate = date('Y-m-d', time()+31104000);//(12*30*24*60*60) (m d h mi s));
         $this->mode = isset($_GET["mode"])?$_GET["mode"]:"";
@@ -74,7 +74,7 @@ class FuncionRol extends \Controllers\PrivateController
                 switch ($this->mode)
                 {
                     case "INS":
-                        if (\Dao\Mnt\FuncionesRoles::insert($this->rolescod2, $this->fncod2)) 
+                        if (\Dao\Admin\FuncionesRoles::insert($this->rolescod2, $this->fncod2)) 
                         {
                             \Utilities\Site::redirectToWithMsg(
                                 "index.php?page=admin_funcionesroles",
@@ -84,7 +84,7 @@ class FuncionRol extends \Controllers\PrivateController
                     break;
 
                     case "UPD":
-                        if (\Dao\Mnt\FuncionesRoles::update($this->rolescod, $this->fncod, $this->fnrolest, $this->fnexp)) 
+                        if (\Dao\Admin\FuncionesRoles::update($this->rolescod, $this->fncod, $this->fnrolest, $this->fnexp)) 
                         {
                             \Utilities\Site::redirectToWithMsg(
                                 "index.php?page=admin_funcionesroles",
@@ -94,7 +94,7 @@ class FuncionRol extends \Controllers\PrivateController
                     break;
 
                     case "DEL":
-                        if (\DAO\Mnt\FuncionesRoles::delete($this->rolescod, $this->fncod)) 
+                        if (\DAO\Admin\FuncionesRoles::delete($this->rolescod, $this->fncod)) 
                         {
                             \Utilities\Site::redirectToWithMsg(
                                 "index.php?page=admin_funcionesroles",
@@ -112,7 +112,7 @@ class FuncionRol extends \Controllers\PrivateController
 
     private function _load()
     {
-        $_data = \Dao\FuncionesRoles::getOne($this->rolescod, $this->fncod);
+        $_data = \Dao\Admin\FuncionesRoles::getOne($this->rolescod, $this->fncod);
         if($_data)
         {
             $this->rolescod=$_data["rolescod"];
@@ -137,7 +137,7 @@ class FuncionRol extends \Controllers\PrivateController
 
         if($this->mode == "INS")
         {
-            if(!empty(\Dao\Mnt\FuncionesRoles::getOne($this->rolescod2, $this->fncod2)))
+            if(!empty(\Dao\Admin\FuncionesRoles::getOne($this->rolescod2, $this->fncod2)))
             {
                 $this->aErrors[] = "La funcion ya se encuentra registrada para este rol.";
             }

@@ -28,17 +28,17 @@ class Roles extends \Controllers\PrivateController
 
             if(!empty($this->UsuarioBusqueda))
             {
-                $dataview["items"] = \Dao\Mnt\Roles::searchRoles($this->UsuarioBusqueda);
+                $dataview["items"] = \Dao\Admin\Roles::searchRoles($this->UsuarioBusqueda);
                 \Utilities\Context::setContext("UsuarioBusqueda", $this->UsuarioBusqueda);
             }
             else
             {
-                $dataview["items"] = \Dao\Mnt\Roles::getAll();
+                $dataview["items"] = \Dao\Admin\Roles::getAll();
             }
         } 
         else
         {   
-            $dataview["items"] = \Dao\Mnt\Roles::getAll();
+            $dataview["items"] = \Dao\Admin\Roles::getAll();
         }
         
         \Views\Renderer::render("admin/roles", $dataview);
