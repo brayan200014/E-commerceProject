@@ -1,23 +1,21 @@
 <?php
 namespace Dao\Admin;
-
 use Dao\Table;
 
-class Features extends Table{
-    public static function getFeatures(){
-        $sqlStr = "SELECT * FROM funciones;";
-        return self::obtenerRegistros($sqlStr, array());
+class funciones extends Table{
+    public static function getAll(){
+        $sqlstr = "SELECT * FROM funciones;";
+        return self::obtenerRegistros($sqlstr, array());
     }
 
-    public static function obtenerUnicaFuncion($fncod)
+    public static function getById($fncod)
     {
         $sqlStr = "Select * From funciones where fncod =:fncod;";
         return self::obtenerUnRegistro($sqlStr,array("fncod"=>$fncod));
     }
 
-
     
-    public static function crearFunciones($fncod, $fndsc,$fnest,$fntyp){
+    public static function insert($fncod, $fndsc,$fnest,$fntyp){
         $sqlStr = "INSERT INTO funciones (
             fncod, fndsc, fnest, fntyp
         ) 
@@ -33,7 +31,7 @@ class Features extends Table{
         return self::executeNonQuery($sqlStr, $parametros);
     }
 
-    public static function editarFuncion($fncod, $fndsc,$fnest,$fntyp){
+    public static function update($fncod, $fndsc,$fnest,$fntyp){
         $sqlStr = "UPDATE funciones set fndsc=:fndsc, fnest=:fnest, fntyp =:fntyp where fncod=:fncod;";
         $parametros = array(
             "fncod" => $fncod,
@@ -46,8 +44,8 @@ class Features extends Table{
         return self::executeNonQuery($sqlStr,$parametros);
     }
 
-    /*
-    public static function eliminarFuncion($fncod)
+    
+    public static function delete($fncod)
     {
         $sqlStr = "DELETE FROM funciones_roles WHERE fncod = :fncod; DELETE FROM funciones where fncod =:fncod;";
         $parametros = array(
@@ -56,7 +54,6 @@ class Features extends Table{
 
         return self::executeNonQuery($sqlStr,$parametros);
     }
-    */
    
 }
 ?>

@@ -5,29 +5,29 @@
     </div>
     <div class="card-body"> 
       <form class="form" method="post" action="index.php?page=admin_rol&mode={{mode}}&rolescod={{rolescod}}">
-        {{if notDisplayIns}}
+
         <div class="form-group col-md-4">
           <label for="rolescod">Código</label>
           <input type="hidden" class="form-control" id="rolescod" name="rolescod" value="{{rolescod}}"/>
           <input readonly type="text" class="form-control" name="rolescodDummy" value="{{rolescod}}"/>
         </div>
-        {{endif notDisplayIns}}
+
 
         <div class="form-group col-md-4">
           <label for="rolesdsc">Descripción</label>
           <input type="text" class="form-control" {{readonly}} id="rolesdsc" name="rolesdsc" value="{{rolesdsc}}" maxlength="45" placeholder="Ingrese la descripción del rol">
         </div>
 
-        {{if notDisplayIns}}
+ 
         <div class="form-group col-md-4">
-          <label for="rolest">Estado</label>
+          <label for="rolesest">Estado</label>
           <br/>
-          <select class="form-control" id="rolest" name="rolest" {{if readonly}}disabled{{endif readonly}}>
-              <option value="ACT" {{rolest_ACT}}>Activo</option>
-              <option value="INA" {{rolest_INA}}>Inactivo</option>
+          <select class="form-control" id="rolesest" name="rolesest" {{if readonly}}disabled{{endif readonly}}>
+              <option value="ACT" {{rolesest_ACT}}>Activo</option>
+              <option value="INA" {{rolesest_INA}}>Inactivo</option>
           </select>
         </div>
-        {{endif notDisplayIns}}
+
 
         {{if hasErrors}}
         <section>
@@ -67,3 +67,11 @@
     });
   })
 </script>
+
+
+
+
+
+
+
+

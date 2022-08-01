@@ -1,229 +1,219 @@
 <?php
 namespace Controllers\Admin;
-class Usuarios extends \Controllers\PrivateController
+
+use Views\Renderer;
+use Dao\Admin\Usuarios as DaoUsuarios;
+use Utilities\Validators;
+
+class Usuario extends \Controllers\PrivateController
 {
-    public function __construct()
-    {
-        /* 
-        $userInRole = \Utilities\Security::isInRol(
-            \Utilities\Security::getUserId(),
-            "ADMINISTRADOR"
-        );
-        */
-        parent::__construct();
-    }
-
-    private $usercod = 0;
-    private $useremail = "";
-    private $username = "";
-    private $userpswd = "";
-    private $userfching = "";
-    private $userpswdest = "";
-    private $userpswdexp = "";
-    private $userest = "";
-    private $useractcod = "";
-    private $userpswdchg = "";
-    private $usertipo = "";
-    private $userest_ACT = "";
-    private $userest_INA = "";
-    //publico, administrador, auditor
-    private $usertipo_PBL = "";
-    private $usertipo_ADM = "";
-    private $usertipo_AUD = "";
-
-    private $mode = "";
-    private $mode_dsc = "";
-    private $mode_adsc = array(
-        "INS" => "Nuevo Usuario",
-        "UPD" => "Editar Código: %s Nombre: %s",
-        "DEL" => "Eliminar Código: %s Nombre: %s",
-        "DSP" => "Visualizar Código: %s Nombre: %s"
-    );
-
-    private $notDisplayIns = false;
-    private $allInfoDisplayed = false;
-    private $disabled = "";
-    private $readonly = "";
-    private $showaction= true;
-
-    private $hasErrors = false;
-    private $aErrors = array();
-
-    private $updPswd = false;
+    private $viewData = array();
+    private $arrModeDesc = array();
+    private $arrEstados = array();
+    private $arrTipos = array();
 
     public function run() :void
     {
-        $this->mode = isset($_GET["mode"])?$_GET["mode"]:"";
-        $this->usercod = isset($_GET["usercod"])?$_GET["usercod"]:"";
-        if(!$this->isPostBack())
-        {
-            if($this->mode!=="INS")
-            {
-                $this->_load();
-            }else{
-                $this->mode_dsc=$this->mode_adsc[$this->mode];
-            }
+        $this->init();
+
+        if (!$this->isPostBack()) {
+            $this->procesarGet();
         }
-        else{
-            $this->_loadPastData();
-            if(!$this->hasErrors){
-                switch($this->mode){
-                    case"INS":
-                        if(\Dao\Security\Security::insertUsuarioFromAdmin($this->useremail, $this->username, $this->userpswd, $this->usertipo))
-                        {
-                            \Utilities\Site::redirectToWithMsg(
-                                "index.php?page=admin_usuarios",
-                                "¡Usuario Agregado Satisfactoriamente!"
-                            );
-                        }
-                        break;
-                    case"UPD":
-                        if(!$this->updPswd)
-                        {
-                            if (\Dao\Security\Security::updateUsuarioAdmin($this->usercod, $this->useremail, $this->username, $this->userest, $this->usertipo)) 
-                            {
-                                \Utilities\Site::redirectToWithMsg(
-                                    "index.php?page=admin_usuarios",
-                                    "¡Usuario Actualizado Satisfactoriamente!"
-                                );
-                            }
-                        }
-                        else
-                        {
-                            if (\Dao\Security\Security::updateUsuarioWithPswdAdmin($this->usercod, $this->useremail, $this->username, $this->userpswd, 
-                            $this->userest, $this->usertipo)) 
-                            {
-                                \Utilities\Site::redirectToWithMsg(
-                                    "index.php?page=admin_usuarios",
-                                    "¡Usuario Actualizado Satisfactoriamente!"
-                                );
-                            }
-                        }
-                        
-                    break;
-                    case"DEL":
-                        if(\Dao\Security\Security::deleteUsuarioAdmin($this->usercod)){
-                            \Utilities\Site::redirectToWithMsg(
-                                "index.php?page=admin_usuarios",
-                                "¡Usuario Eliminado Satisfactoriamente!"
-                            );
-                        }
-                    break;
-                }
-            }
+
+        if ($this->isPostBack()) {
+            $this->procesarPost();
         }
-        $dataview = get_object_vars($this);
-        \Views\Renderer::render("admin/usuario", $dataview);
+
+        $this->processView();
+        Renderer::render('admin/usuario',$this->viewData);
     }
 
-    private function _load()
+    private function init()
     {
-        $_data = \Dao\Security\Security::getUsuariobyId($this->usercod);
-        if($_data)
-        {
-            $this->usercod = $_data["usercod"];
-            $this->useremail = $_data["useremail"];
-            $this->username = $_data["username"];
-            $this->userfching = $_data["userfching"];
-            $this->userpswdest = $_data["userpswdest"];
-            $this->userpswdexp = $_data["userpswdexp"];
-            $this->userest = $_data["userest"];
-            $this->useractcod = $_data["useractcod"];
-            $this->userpswdchg = $_data["userpswdchg"];
-            $this->usertipo = $_data["usertipo"];
-            $this->_setViewData();
-        }
-    }
-
-    private function _loadPostData()
-    {
-        $this->usercod = isset($_POST["usercod"]) ? $_POST["usercod"] : 0 ;
-        $this->useremail = isset($_POST["useremail"]) ? $_POST["useremail"] : "" ;
-        $this->username = isset($_POST["username"]) ? $_POST["username"] : "";
-        $this->userpswd = isset($_POST["userpswd"]) ? $_POST["userpswd"] : "";
-        $this->userest = isset($_POST["userest"]) ? $_POST["userest"] : "";
-        $this->usertipo = isset($_POST["usertipo"]) ? $_POST["usertipo"] : "";
-
-        if (\Utilities\Validators::IsEmpty($this->useremail)) 
-        {
-            $this->aErrors[] = "El correo no puede ir vacio";
-        }
-
-        if (!\Utilities\Validators::IsValidEmail($this->useremail)) 
-        {
-            $this->aErrors[] = "El correo no es válido";
-        }
-
-        if(\Utilities\Validators::IsEmpty($this->username))
-        {
-            $this->aErrors[] = "El nombre no puede ir vacio";
-        }
-
-        if(!(\Utilities\Validators::ValidarSoloLetras($this->username)))
-        {
-            $this->aErrors[] = "El nombre no es válido.";
-        }
-
-        if($this->mode == "INS")
-        {
-            if (\Utilities\Validators::IsEmpty($this->userpswd)) 
-            {
-                $this->aErrors[] = "La contraseña no puede ir vacia";
-            }
-
-            if (!\Utilities\Validators::IsValidPassword($this->userpswd)) 
-            {
-                $this->aErrors[] = "La contraseña debe contener almenos 8 caracteres, 1 número, 1 mayúscula y 1 símbolo especial";
-            }
-
-            if(!empty(\Dao\Security\Security::getUsuarioByEmail($this->useremail)))
-            {
-                $this->aErrors[] = "El correo proporcionado ya se encuentra ingresado.";
-            }
-        }
-
-        if($this->mode == "UPD")
-        {
-            if(!empty(\Dao\Security\Security::getUsuarioDifferbyEmail($this->usercod, $this->useremail)))
-            {
-                $this->aErrors[] = "El correo proporcionado ya se encuentra ingresado.";
-            }
-
-            if(!empty($this->userpswd))
-            {
-                if (!\Utilities\Validators::IsValidPassword($this->userpswd)) 
-                {
-                    $this->aErrors[] = "La contraseña debe contener almenos 8 caracteres, 1 número, 1 mayúscula y 1 símbolo especial";
-                }
-
-                $this->updPswd = true;
-            }
-        }
-
-        $this->hasErrors = (count($this->aErrors) > 0);
-        $this->_setViewData();
-    }
-
-    private function _setViewData()
-    {
-        $this->usuarioest_ACT = ($this->usuarioest === "ACT") ? "selected" : "";
-        $this->usuarioest_INA = ($this->usuarioest === "INA") ? "selected" : "";
-
-        $this->usuariotipo_ADM = ($this->usuariotipo === "ADM") ? "selected" : "";
-        $this->usuariotipo_AUD = ($this->usuariotipo === "AUD") ? "selected" : "";
-        $this->usuariotipo_PBL = ($this->usuariotipo === "PBL") ? "selected" : "";
-
-        $this->mode_dsc = sprintf(
-            $this->mode_adsc[$this->mode],
-            $this->usercod,
-            $this->username,
+        $this->viewData = array();
+        $this->viewData["mode"] = "";
+        $this->viewData["mode_desc"] = "";
+        $this->viewData["crsf_token"] = "";
+        $this->viewData["usercod"] = "";
+        $this->viewData["useremail"] = "";
+        $this->viewData["error_useremail"] = array();
+        $this->viewData["username"] = "";
+        $this->viewData["error_username"] = array();
+        $this->viewData["userpswd"] = "";
+        $this->viewData["error_userpswd"] = array();
+        $this->viewData["userest"] = "";
+        $this->viewData["userestArr"] = array();
+        $this->viewData["usertipo"] = "";
+        $this->viewData["usertipoArr"] = array();
+        $this->viewData["btnEnviarText"] = "Guardar";
+        $this->viewData["readonly"] = false;
+        $this->viewData["showBtn"] = true;
+        
+        $this->arrModeDesc = array(
+            "INS"=>"Nuevo Usuarios",
+            "UPD"=>"Editando Usuarios con el ID %d",
+            "DSP"=>"Detalle del Usuarios con el ID %d",
+            "DEL"=>"Eliminado Usuarios con el ID %d"
         );
 
-        $this->notDisplayIns = ($this->mode=="INS") ? false : true;
-        $this->disabled = ($this->mode == "INS" || $this->mode =="DEL" || $this->mode =="DSP") ? "disabled" : "";
-        $this->readonly = ($this->mode =="DEL" || $this->mode=="DSP") ? "readonly" : "";
-        $this->allInfoDisplayed = ($this->mode =="DEL" || $this->mode=="DSP") ? true : false;
-        $this->showaction = !($this->mode == "DSP");
+        $this->arrEstados = array(
+            array("value" => "ACT", "text" => "Activo"),
+            array("value" => "INA", "text" => "Inactivo"),
+            array("value" => "BLQ", "text" => "Bloqueado"),
+            array("value" => "SUS", "text" => "Suspendido"),
+        );
+
+        $this->arrTipos = array(
+            array("value" => "PBL", "text" => "Publico"),
+            array("value" => "ADM", "text" => "Administrador"),
+            array("value" => "AUD", "text" => "Auditor"),
+        );
+
+        $this->viewData["userestArr"] = $this->arrEstados;
+        $this->viewData["usertipoArr"] = $this->arrTipos;
+    }
+
+    private function procesarGet()
+    {
+        if (isset($_GET["mode"])) {
+            $this->viewData["mode"] = $_GET["mode"];
+            if (!isset($this->arrModeDesc[$this->viewData["mode"]])) {
+                error_log('Error: (Producto) Mode solicitado no existe.');
+                \Utilities\Site::redirectToWithMsg(
+                    "index.php?page=admin_usuarios",
+                    "No se puede procesar su solicitud!"
+                );
+            }
+        }
+        if ($this->viewData["mode"] !== "INS" && isset($_GET["id"])) {
+            $this->viewData["usercod"] = intval($_GET["id"]);
+            $tmpProducto = DaoUsuarios::getById($this->viewData["usercod"]);
+            error_log(json_encode($tmpProducto));
+            \Utilities\ArrUtils::mergeFullArrayTo($tmpProducto, $this->viewData);
+        }
+    }
+    
+    private function procesarPost()
+    {
+        // Validar la entrada de Datos
+        //  Todos valor puede y sera usando en contra del sistema
+        $hasErrors = false;
+        \Utilities\ArrUtils::mergeArrayTo($_POST, $this->viewData);
+        if (isset($_SESSION[$this->name . "crsf_token"])
+            && $_SESSION[$this->name . "crsf_token"] !== $this->viewData["crsf_token"]
+        ) {
+            \Utilities\Site::redirectToWithMsg(
+                "index.php?page=admin_usuarios",
+                "ERROR: Algo inesperado sucedió con la petición Intente de nuevo."
+            );
+        }
+
+        //validaciones
+        if (!(Validators::IsValidEmail($this->viewData["useremail"]))) {
+            $this->viewData["error_useremail"][]
+                = "El email no es valido";
+            $hasErrors = true;
+        }
+        if (Validators::IsEmpty($this->viewData["username"])) {
+            $this->viewData["error_username"][]
+                = "El nombre es requerido";
+            $hasErrors = true;
+        }
+        error_log(json_encode($this->viewData));
+        // Ahora procedemos con las modificaciones al registro
+        if (!$hasErrors){
+            $result = null;
+            switch($this->viewData["mode"]){
+                case 'INS':
+                    $result = DaoUsuarios::insert(
+                        $this->viewData["useremail"],
+                        $this->viewData["username"],
+                        $this->viewData["userest"],
+                        $this->viewData["usertipo"]
+                    );
+                    if ($result) {
+                        \Utilities\Site::redirectToWithMsg(
+                            "index.php?page=admin_usuarios",
+                            "Usuario guardado Satisfactoriamente!"
+                        );
+                    }
+                    break;
+
+                case 'UPD':
+                    $result = DaoUsuarios::update(
+                        intval($this->viewData["usercod"]),
+                        $this->viewData["useremail"],
+                        $this->viewData["username"],
+                        $this->viewData["userest"],
+                        $this->viewData["usertipo"]
+                    );
+                    if ($result) {
+                        \Utilities\Site::redirectToWithMsg(
+                            "index.php?page=admin_usuarios",
+                            "Usuario modificado Satisfactoriamente!"
+                        );
+                    }
+                    break;
+
+                case 'DEL':
+                    $result = DaoUsuarios::delete(
+                        intval($this->viewData["usercod"])
+                    );
+                    if ($result) {
+                        \Utilities\Site::redirectToWithMsg(
+                            "index.php?page=admin_usuarios",
+                            "Usuario eliminado Satisfactoriamente!"
+                        );
+                    }
+                    break;
+            }
+        }
+        
+    }
+
+    private function processView()
+    {
+        if ($this->viewData["mode"] === "INS") {
+            $this->viewData["mode_desc"]  = $this->arrModeDesc["INS"];
+            $this->viewData["btnEnviarText"] = "Guardar Nuevo";
+        } else {
+            $this->viewData["mode_desc"]  = sprintf(
+                //$this->arrModeDesc[$this->viewData["mode"]],
+                $this->viewData["usercod"]
+            );
+            $this->viewData["userestArr"]
+                = \Utilities\ArrUtils::objectArrToOptionsArray(
+                    $this->arrEstados,
+                    'value',
+                    'text',
+                    'value',
+                    $this->viewData["userest"]
+                );
+            $this->viewData["usertipoArr"]
+                = \Utilities\ArrUtils::objectArrToOptionsArray(
+                    $this->arrTipos,
+                    'value',
+                    'text',
+                    'value',
+                    $this->viewData["usertipo"]
+                );
+            switch($this->viewData["mode"]){
+                case 'DSP': 
+                    $this->viewData["readonly"] = true;
+                    $this->viewData["showBtn"] = false;
+                    break; 
+                case 'DEL':
+                    $this->viewData["readonly"] = true;
+                    $this->viewData["btnEnviarText"] = "Eliminar";
+                    break;
+                case 'UPD':
+                    $this->viewData["btnEnviarText"] = 'Actualizar';
+                    break;
+            }
+        }   
+        $this->viewData["crsf_token"] = md5(getdate()[0] . $this->name);
+        $_SESSION[$this->name . "crsf_token"] = $this->viewData["crsf_token"];
     }
 }
+
 ?>

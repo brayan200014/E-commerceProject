@@ -2,47 +2,18 @@
 
 namespace Controllers\Admin;
 
-class Roles extends \Controllers\PrivateController
+use Dao\Admin\Roles as DaoRoles;
+use Controllers\PrivateController;
+use Views\Renderer;
+
+class Roles extends PrivateController
 {
-    public function __construct()
+    public function run():void
     {
-        /*
-        $userInRole = \Utilities\Security::isInRol(
-            \Utilities\Security::getUserId(),
-            "ADMINISTRADOR"
-        );
-        */
-        
-        parent::__construct();
-    }
-    
-    private $UsuarioBusqueda = "";
-
-    public function run() :void
-    {
-        $dataview = array();
-
-        if ($this->isPostBack()) 
-        {   
-            $this->UsuarioBusqueda = isset($_POST["UsuarioBusqueda"]) ? $_POST["UsuarioBusqueda"] : "";
-
-            if(!empty($this->UsuarioBusqueda))
-            {
-                $dataview["items"] = \Dao\Admin\Roles::searchRoles($this->UsuarioBusqueda);
-                \Utilities\Context::setContext("UsuarioBusqueda", $this->UsuarioBusqueda);
-            }
-            else
-            {
-                $dataview["items"] = \Dao\Admin\Roles::getAll();
-            }
-        } 
-        else
-        {   
-            $dataview["items"] = \Dao\Admin\Roles::getAll();
-        }
-        
-        \Views\Renderer::render("admin/roles", $dataview);
+        $viewData = array();
+        $viewData['Roles'] = DaoRoles::getAll();
+        Renderer::render('admin/roles', $viewData);
     }
 }
 
-// index.php?page=mntRoles_roles
+?>

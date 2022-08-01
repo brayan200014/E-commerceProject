@@ -1,75 +1,37 @@
-<section class="container-fluid min-vh-100">
 
-  <h3 class="my-4 text-center">Gestión de Usuarios</h3>
-  
-  <div class="d-flex-inline">
-    <form method="POST" action="index.php?page=admin_usuarios">
-      <div class="form-row">
-        <div class="col-8">
-          <input type="search" class="form-control" id="UsuarioBusqueda" name="UsuarioBusqueda" value="{{UsuarioBusqueda}}" placeholder="Ingrese su busqueda">
-        </div>
-        <div class="col-2">
-          <button type="submit" class="btn btn-primary mb-2" id="btnBuscar" name="btnBuscar">Buscar</button>
-        </div>
-      </div>
-    </form> 
-  </div>
-
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Usuarios</h6>
+</div>
+<div class="card-body">
   <div class="table-responsive">
-    <table class="table">
-      <thead class="thead-light">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
         <tr>
-          <th class="text-center align-middle">Código</th>
-          <th class="text-center align-middle">Correo</th>
-          <th class="text-center align-middle">Nombre del usuario</th>
-          <th class="text-center align-middle">Fecha de ingreso</th>
-          <th class="text-center align-middle">Estado de la contraseña</th>
-          <th class="text-center align-middle">Fecha de expiración de la contraseña</th>
-          <th class="text-center align-middle">Estado del usuario</th>
-          <th class="text-center align-middle">Fecha en que se cambio la contraseña</th>
-          <th class="text-center align-middle">Tipo de usuario</th>
-          <th class="text-center align-middle"><button type="button" class="btn btn-primary my-2" id="btnAdd">Nuevo</button></th>
+          <th>ID</th>
+           <th>Email</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Tipo</th>
+            <th><a href="index.php?page=admin_Usuario&mode=INS">Nuevo</a></th>
         </tr>
       </thead>
       <tbody>
-        {{foreach items}}
-          <tr>
-            <td class="text-center align-middle">{{usercod}}</td>
-            <td class="text-center align-middle">{{useremail}}</td>
-            <td class="text-center align-middle"><a href="index.php?page=admin_usuario&mode=DSP&UsuarioId={{UsuarioId}}">{{UsuarioNombre}}</a></td>
-            <td class="text-center align-middle">{{userpsws}}</td>
-            <td class="text-center align-middle">{{userpswdest}}</td>
-            <td class="text-center align-middle">{{userpswdexp}}</td>
-            <td class="text-center align-middle">{{userest}}</td>
-            <td class="text-center align-middle">{{userpswdchg}}</td>
-            <td class="text-center align-middle">{{usertipo}}</td>
-            <td class="text-center align-middle">
-              <form action="index.php" method="get">
-                  <input type="hidden" name="page" value="admin_usuario"/>
-                  <input type="hidden" name="mode" value="UPD" />
-                  <input type="hidden" name="UsuarioId" value={{usercod}} />
-                  <button type="submit" class="btn btn-primary my-1">Editar</button>
-              </form>
-              <form action="index.php" method="get">
-                  <input type="hidden" name="page" value="admin_usuario"/>
-                  <input type="hidden" name="mode" value="DEL" />
-                  <input type="hidden" name="UsuarioId" value={{usercod}} />
-                  <button type="submit" class="btn btn-danger my-1">Eliminar</button>
-              </form>
-            </td>
-          </tr>
-          {{endfor items}}
-      </tbody>
+      {{foreach Usuarios}}
+        <tr>
+          <td>{{usercod}}</td>
+          <td>{{useremail}}</td>
+          <td> <a href="index.php?page=admin-Usuario&mode=DSP&id={{usercod}}">{{username}}</a></td>
+          <td>{{userest}}</td>
+          <td>{{usertipo}}</td>
+          <td>
+            <a href="index.php?page=admin_Usuario&mode=UPD&id={{usercod}}">Editar</a>
+            &NonBreakingSpace;
+            <a href="index.php?page=admin_Usuario&mode=DEL&id={{usercod}}">Eliminar</a>
+          </td>
+        </tr>
+        {{endfor Usuarios}}
     </table>
   </div>
-</section>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-     document.getElementById("btnAdd").addEventListener("click", function (e) {
-       e.preventDefault();
-       e.stopPropagation();
-       window.location.assign("index.php?page=admin_usuario&mode=INS&UsuarioId=0");
-     });
-   });
-</script>
+   </div>
+ </div>

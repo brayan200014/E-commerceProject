@@ -1,47 +1,15 @@
-<?php
+<?php 
 
-    namespace Controllers\Admin;
+namespace Controllers\Admin;
 
-    class Usuarios extends \Controllers\PrivateController
-    {
-        public function __construct()
-        {
-            /*
-            $userInRole = \Utilities\Security::isInRol(
-                \Utilities\Security::getUserId(),
-                "ADMINISTRADOR"
-            );
-            */
-            
-            parent::__construct();
-        }
-    
-        private $UsuarioBusqueda = "";
-        
-        public function run() :void
-        {
-            $dataview = array();
+use Views\Renderer;
+use Dao\Admin\Usuarios as DaoUsuarios;
 
-            if ($this->isPostBack()) 
-            {   
-                $this->UsuarioBusqueda = isset($_POST["UsuarioBusqueda"]) ? $_POST["UsuarioBusqueda"] : "";
-
-                if(!empty($this->UsuarioBusqueda))
-                {
-                    $dataview["items"] = \Dao\Security\Security::searchUsuarios($this->UsuarioBusqueda);
-                    \Utilities\Context::setContext("UsuarioBusqueda", $this->UsuarioBusqueda);
-                }
-                else
-                {
-                    $dataview["items"] = \Dao\Security\Security::getAll();
-                }
-            } 
-            else
-            {   
-                $dataview["items"] = \Dao\Security\Security::getAll();
-            }
-            
-            \Views\Renderer::render("admin/usuarios", $dataview);
-        } 
+class Usuarios extends \Controllers\PrivateController {
+    public function run():void{
+        $viewData = array();
+        $viewData["Usuarios"] = DaoUsuarios::getAll();
+        Renderer::render('admin/usuarios', $viewData);
     }
+}
 ?>

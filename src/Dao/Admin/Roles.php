@@ -6,10 +6,11 @@ class Roles extends \Dao\Table
 {
     public static function getAll()
     {
-        return self::obtenerRegistros("SELECT * FROM roles;", array());
+        $sqlstr = "SELECT * FROM roles;";
+        return self::obtenerRegistros($sqlstr, array());
     }
 
-    public static function getOne($rolescod)
+    public static function getById($rolescod)
     {
         $sqlstr = "SELECT * FROM roles WHERE rolescod=:rolescod";
         return self::obtenerUnRegistro(
@@ -57,11 +58,13 @@ class Roles extends \Dao\Table
         );
     }
 
+    /*
     public static function searchRoles($UsuariosBusqueda)
     {
         $sqlstr = "SELECT * FROM roles WHERE rolescod LIKE :UsuariosBusqueda OR rolesdsc LIKE :UsuarioBusqueda
         OR rolesest LIKE :UsuarioBusqueda;";
         return self::obtenerRegistros($sqlstr, array("UsuarioBusqueda"=>"%".$UsuarioBusqueda."%"));
     }
+    */
 }
 ?>
