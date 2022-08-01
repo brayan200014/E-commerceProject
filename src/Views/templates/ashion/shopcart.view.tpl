@@ -16,13 +16,14 @@
     <!-- Shop Cart Section Begin -->
     <section class="shop-cart spad">
         <div class="container">
-            <div class="row">
+                <div class="row">
                 <div class="col-lg-12">
                     <div class="shop__cart__table">
                         <table>
                             <thead>
                                 <tr>
                                     <th>Product</th>
+                                    <th>Size</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
@@ -30,115 +31,60 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="/{{BASE_DIR}}/public/imgs/shop-cart/cp-1.jpg" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>Chain bucket bag</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
+                                {{foreach Products}}
+                                    <tr>
+                                        <td class="cart__product__item">
+                                            <img src="{{product_image}}" width="100px" height="150px" alt="">
+                                            <div class="cart__product__item__title">
+                                                <h6>{{product_name}}</h6>
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 150.0</td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </td>
-                                    <td class="cart__total">$ 300.0</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="/{{BASE_DIR}}/public/imgs/shop-cart/cp-2.jpg" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>Zip-pockets pebbled tote briefcase</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
+                                        </td>
+                                        <td class="cart__total">{{inventory_size}}</td>
+                                        <td class="cart__price">L. {{product_price}}</td>
+                                        <td class="cart__quantity">
+                                            <div>
+                                                <input type="number" min="1" style="width: 100px; margin-right: 20px;" id="oldQuantity{{product_id}}{{inventory_size}}" name="oldQuantity{{product_id}}{{inventory_size}}" value="{{quantity}}">
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 170.0</td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </td>
-                                    <td class="cart__total">$ 170.0</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="/{{BASE_DIR}}/public/imgs/shop-cart/cp-3.jpg" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>Black jean</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 85.0</td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </td>
-                                    <td class="cart__total">$ 170.0</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="/{{BASE_DIR}}/public/imgs/shop-cart/cp-4.jpg" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>Cotton Shirt</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 55.0</td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </td>
-                                    <td class="cart__total">$ 110.0</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
+                                        </td>
+                                        <td class="cart__total">L. {{total_price}}</td>
+                                        <td class="cart__close">
+                                            <form action="" method="post">
+                                                <input type="hidden" name="product_id" value="{{product_id}}">
+                                                <input type="hidden" name="inventory_size" value="{{inventory_size}}">
+                                                <button name="btnDelete" type="submit" style="border: 0px; width: 40px; height: 40px; border-radius: 50%;" class="icon_close"></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {{endfor Products}}
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="cart__btn">
-                        <a href="#">Continue Shopping</a>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="cart__btn">
+                            <a href="index.php?page=ashion_shop">Continue Shopping</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="cart__btn update__btn">
+                            <form action="" method="post">
+                                {{foreach Products}}
+                                    <input type="hidden" name="newQuantity{{product_id}}{{inventory_size}}" id="newQuantity{{product_id}}{{inventory_size}}" value="{{quantity}}">
+                                {{endfor Products}}
+                                <button type="submit" name="btnUpdate" id="btnUpdate" style="border: 0px;"><a><span class="icon_loading"></span> Update cart</a></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="cart__btn update__btn">
-                        <a href="#"><span class="icon_loading"></span> Update cart</a>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="discount__content">
@@ -153,8 +99,8 @@
                     <div class="cart__total__procced">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Subtotal <span>$ 750.0</span></li>
-                            <li>Total <span>$ 750.0</span></li>
+                            <li>Subtotal <span>L. {{Total}}</span></li>
+                            <li>Total <span>L. {{Total}}</span></li>
                         </ul>
                         <a href="index.php?page=ashion_checkout" class="primary-btn">Proceed to checkout</a>
                     </div>
@@ -181,3 +127,15 @@
         </div>
     </div>
     <!-- Instagram End -->
+    {{foreach Products}}
+        <script>
+            var oldQuantity{{product_id}}{{inventory_size}} = document.getElementById("oldQuantity{{product_id}}{{inventory_size}}");
+            var newQuantity{{product_id}}{{inventory_size}} = document.getElementById("newQuantity{{product_id}}{{inventory_size}}");
+
+            oldQuantity{{product_id}}{{inventory_size}}.addEventListener("change", function() {
+                newQuantity{{product_id}}{{inventory_size}}.value = oldQuantity{{product_id}}{{inventory_size}}.value;
+            });
+
+        </script>
+    {{endfor Products}}
+

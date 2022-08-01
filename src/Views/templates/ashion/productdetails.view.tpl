@@ -1,3 +1,4 @@
+
  <!-- Breadcrumb Begin -->
     <div class="breadcrumb-option">
         <div class="container">
@@ -15,6 +16,8 @@
     <!-- Breadcrumb End -->
 
     <!-- Product Details Section Begin -->
+    <form id="form" action="" method="post">
+
     <section class="product-details spad">
         <div class="container">
             <div class="row">
@@ -45,6 +48,9 @@
                         </div>
                     </div>
                 </div>
+                <input type="hidden" name="product_name" value="{{product_name}}">
+                <input type="hidden" name="product_price" value="{{product_price}}">
+                <input type="hidden" name="product_image_url" value="{{product_image_url}}">
                 <div class="col-lg-6">
                     <div class="product__details__text">
                         <h3>{{product_name}}</span></h3>
@@ -62,10 +68,10 @@
                             <div class="quantity">
                                 <span>Quantity:</span>
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="text" value="1" name="quantity">
                                 </div>
                             </div>
-                            <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
+                            <button type="submit" id="addToCart" name="addToCart" style="border: 0px;" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</button>
                         </div>
                     {{endfor Product}}
                         <div class="product__details__widget">
@@ -86,7 +92,7 @@
                                         <div class="size__btn">
                                         {{foreach Sizes}}
                                             <label for="{{inventory_size}}" {{if isChecked}}class="active"{{endif isChecked}}>
-                                                <input type="radio" id="{{inventory_size}}">
+                                                <input type="radio" id="{{inventory_size}}"value="{{inventory_size}}" name="size">
                                                 {{inventory_size}}
                                             </label>
                                         {{endfor Sizes}}
@@ -169,6 +175,7 @@
             </div>
         </div>
     </section>
+    </form>
     <!-- Product Details Section End -->
 <!-- Instagram Begin -->
     <div class="instagram">
@@ -194,4 +201,54 @@
         }
     </script>
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        var boton = document.getElementById("addToCart");
+        const form = document.getElementById("form");
+        var sizes = document.getElementsByName("size");
+        var sizeSelected = false;
+
+
+        form.addEventListener("submit", function(event){
+            for(var i = 0; i < sizes.length; i++)
+            {
+                if(sizes[i].checked)
+                {
+                    sizeSelected = true;
+                    break;
+                }
+                else
+                {
+                    sizeSelected = false;
+                }
+            }
+
+            if(!sizeSelected)
+            {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Error',
+                    icon: 'error',
+                    text: 'Por favor seleccione una talla',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+            else
+            {
+                Swal.fire({
+                    title: 'Carrito',
+                    text: 'Producto agregado al carrito',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false 
+                }).then(function() {
+                    form.submit();
+                }); 
+            }
+
+        });
+
+    </script>
    
