@@ -20,7 +20,8 @@
 
     <!-- Custom styles for this template-->
     <link href="/{{BASE_DIR}}/public/css/sb-admin-2.min.css" rel="stylesheet">
-  
+     <!--Script de Sweetalert-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   
   <script src="https://kit.fontawesome.com/{{FONT_AWESOME_KIT}}.js" crossorigin="anonymous"></script>
   {{foreach SiteLinks}}
