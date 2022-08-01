@@ -23,7 +23,7 @@
 
 
 <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800" >Ventas</h1>
+                    <h1 class="h3 mb-2 text-gray-800" style="margin-left: 5px;">Ventas</h1>
                     
 
                     <!-- DataTales Example -->
@@ -44,7 +44,7 @@
                                             <th>Total</th>
                                             <th>Estado</th>
                                             <th>Accciones</th>
-                                            <th></th>
+                                           
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -57,7 +57,6 @@
                                             <th>Total</th>
                                             <th>Estado</th>
                                             <th>Accciones</th>
-                                            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -69,10 +68,10 @@
                                             <td>{{sale_isv}}</td>
                                             <td>{{sale_subtotal}}</td>
                                             <td>{{sale_total}}</td>
-                                            <td>{{sale_status}}</td>
-                                            <td class="buttonEdit fas fa-pen" style="cursor: pointer; color: white; background-color: #007bff;"></td> 
-                                            <td class="buttonDisplay fas fa-eye" style="cursor: pointer; color: white; background-color: #007bff;"></td> 
-                                            
+                                            <td>{{sale_status}}</td><td><a href="index.php?page=admin_venta&mode=UPD&idSale={{sale_id}}"><i class="fas fa-pen btn btn-primary"></i></a>&NonBreakingSpace;
+                                             <a href="index.php?page=admin_venta&mode=DSP&idSale={{sale_id}}"><i class="fas fa-eye btn btn-primary"></i></a>
+                                            </td>&NonBreakingSpace;
+                                             
                                         </tr>
                                       {{endfor Sales}}
                                     </tbody>
@@ -81,4 +80,3 @@
                         </div>
                     </div>
 
-<script src="/{{BASE_DIR}}/public/js/scriptVentas.js"></script>
