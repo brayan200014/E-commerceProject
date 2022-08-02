@@ -30,7 +30,16 @@ class Index extends PublicController
     public function run() :void
     {
         $viewData = array();
+        if(\Utilities\Security::isLogged()){
+            $viewData["logeado"]=true;
+            if($_SESSION["login"]["usertipo"] == "PBL"){
+                $viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $viewData["logeado"]=false;
+            }
+        }
         \Views\Renderer::render("index", $viewData);
+
     }
 }
 ?>

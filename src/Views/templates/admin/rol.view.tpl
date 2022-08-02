@@ -8,8 +8,8 @@
 
         <div class="form-group col-md-4">
           <label for="rolescod">Código</label>
-          <input type="hidden" class="form-control" id="rolescod" name="rolescod" value="{{rolescod}}"/>
-          <input readonly type="text" class="form-control" name="rolescodDummy" value="{{rolescod}}"/>
+          <input type="text" class="form-control" id="rolescod" name="rolescod" value="{{rolescod}}"/>
+          
         </div>
 
 
@@ -40,9 +40,9 @@
         {{endif hasErrors}}
 
         <button type="button" class="btn btn-warning mt-2 ml-3 mr-2" id="btnCancelar" name="btnCancelar">Cancelar</button>
-        {{if showaction}}
-          <button type="submit" class="btn btn-primary mt-2 mr-2" id="btnGuardar" name="btnGuardar">Guardar</button>
-        {{endif showaction}}
+        
+        <button type="submit" class="btn btn-primary mt-2 mr-2" id="btnGuardar" name="btnGuardar">Guardar</button>
+        
       </form>
     </div>
   </div>
