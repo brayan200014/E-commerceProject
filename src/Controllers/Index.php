@@ -15,8 +15,20 @@ class Index extends PublicController
         $this->viewData['Trend'] = Shop::getHotTrends();
         $this->viewData['New'] = Shop::getThreeNewProduct();
         $this->viewData['Discounts'] = Shop::getProductWithDiscounts();
+        $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
         error_log(json_encode($this->viewData));
         Renderer::render('index', $this->viewData);
+    }
+
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
     }
 }
 ?>

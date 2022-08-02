@@ -156,4 +156,12 @@ class Shop extends Table
         FROM products WHERE product_discount > 0 ORDER BY rand() LIMIT 0,3;";
         return self::obtenerRegistros($sqlstr, array());
     }
+
+    //FIND MAX STOCK AVAILABLE FOR SELLING
+    public static function getMaxStock($id)
+    {
+        $sqlstr = "SELECT * FROM inventory WHERE product_id = :id";
+        $sqlParams = array("id" => $id);
+        return self::obtenerRegistros($sqlstr, $sqlParams); 
+    }
 }

@@ -18,6 +18,11 @@ class ProductDetails extends PublicController
         "total_price" => 0
     );
 
+    private $maxStockbySizeStructure = array(
+        "size" => "",
+        "max_stock" => 0
+    );
+
     public function __construct()
     {
         
@@ -34,9 +39,10 @@ class ProductDetails extends PublicController
 
             if(isset($_POST['addToCart'])){
                 $this->addToCart();
-                echo "script>console.log('1')</script>";
             }
 
+            $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
+            $this->viewData['maxStockbyProduct'] = $this->getMaxStock($_GET['product_id']);
 
             Renderer::render('ashion/productdetails', $this->viewData);
         }
@@ -80,5 +86,39 @@ class ProductDetails extends PublicController
         }
     }
 
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
+    }
 
+    private function getMaxStock($id)
+    {
+        $maxStockbySize = $this->maxStockbySizeStructure;
+        $maxStockfromDB = Shop::getMaxStock($id);
+
+        foreach ($maxStockfromDB as $size) {
+            $maxStockbySize['size'] = $size['inventory_size'];
+            $maxStockbySize['max_stock'] = $size['product_stock'];
+            $maxStock[] = $maxStockbySize;
+        }
+
+        //Disminuir los productos que se encuentran en la session 
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                foreach($maxStock as $key => $value){
+                    if($product['inventory_size'] == $value['size'] && $id == $product['product_id']){
+                        $maxStock[$key]['max_stock'] -= $product['quantity'];
+                    }
+                }
+            }
+        }
+
+        return $maxStock;
+    }
 }
