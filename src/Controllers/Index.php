@@ -1,36 +1,22 @@
 <?php
-/**
- * PHP Version 7.2
- *
- * @category Public
- * @package  Controllers
- * @author   Orlando J Betancourth <orlando.betancourth@gmail.com>
- * @license  MIT http://
- * @version  CVS:1.0.0
- * @link     http://
- */
-namespace Controllers;
 
-/**
- * Index Controller
- *
- * @category Public
- * @package  Controllers
- * @author   Orlando J Betancourth <orlando.betancourth@gmail.com>
- * @license  MIT http://
- * @link     http://
- */
+namespace Controllers;
+use Views\Renderer;
+use Dao\AShion\Shop;
+
 class Index extends PublicController
 {
-    /**
-     * Index run method
-     *
-     * @return void
-     */
+
+    private $viewData = array();
     public function run() :void
     {
-        $viewData = array();
-        \Views\Renderer::render("index", $viewData);
+        $this->viewData['Category'] = Shop::getAllCategory();
+        $this->viewData['Categories'] = Shop::getAllCategories();
+        $this->viewData['Trend'] = Shop::getHotTrends();
+        $this->viewData['New'] = Shop::getThreeNewProduct();
+        $this->viewData['Discounts'] = Shop::getProductWithDiscounts();
+        error_log(json_encode($this->viewData));
+        Renderer::render('index', $this->viewData);
     }
 }
 ?>

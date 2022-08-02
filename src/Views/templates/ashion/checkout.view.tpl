@@ -22,7 +22,7 @@
                     here to enter your code.</h6>
                 </div>
             </div>
-            <form action="#" class="checkout__form">
+            <form action="index.php?page=checkout_checkout" class="checkout__form" method="post">
                 <div class="row">
                     <div class="col-lg-8">
                         <h5>Billing detail</h5>
@@ -112,16 +112,15 @@
                                             <span class="top__text">Product</span>
                                             <span class="top__text__right">Total</span>
                                         </li>
-                                        <li>01. Chain buck bag <span>$ 300.0</span></li>
-                                        <li>02. Zip-pockets pebbled<br /> tote briefcase <span>$ 170.0</span></li>
-                                        <li>03. Black jean <span>$ 170.0</span></li>
-                                        <li>04. Cotton shirt <span>$ 110.0</span></li>
+                                        {{foreach ProductosShoppingCart}}
+                                        <li>{{product_name}} <span>$ {{product_total}}</span></li>
+                                        {{endfor ProductosShoppingCart}}
                                     </ul>
                                 </div>
                                 <div class="checkout__order__total">
                                     <ul>
-                                        <li>Subtotal <span>$ 750.0</span></li>
-                                        <li>Total <span>$ 750.0</span></li>
+                                        <li>Subtotal <span>$ {{subtotal}}</span></li>
+                                        <li>Total <span>$ {{total}}</span></li>
                                     </ul>
                                 </div>
                                 <div class="checkout__order__widget">
@@ -143,7 +142,7 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-                                <button type="submit" class="site-btn">Place oder</button>
+                                <button type="submit" class="site-btn" name="btnPlaceOrder">Place Order</button>
                             </div>
                         </div>
                     </div>
@@ -151,3 +150,21 @@
             </div>
         </section>
         <!-- Checkout Section End -->
+<!-- Instagram Begin -->
+    <div class="instagram">
+        <div class="container-fluid">
+            <div class="row">
+            {{foreach Categories}}
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="{{category_image_url}}">
+                        <div class="instagram__text">
+                            <i class="fa fa-star"></i>
+                            <a href="index.php?page=ashion_shop&category_id={{category_id}}"><h2>{{category_name}}</h2></a>
+                        </div>
+                    </div>
+                </div>
+            {{endfor Categories}}
+            </div>
+        </div>
+    </div>
+    <!-- Instagram End -->

@@ -3,6 +3,8 @@
 namespace Controllers\Checkout;
 
 use Controllers\PublicController;
+//use Dao\Admin\Ventas as DaoVentas;
+
 
 
 class Checkout extends PublicController{
@@ -54,6 +56,37 @@ class Checkout extends PublicController{
                     );
                 }
             }
+
+
+            if(isset($_POST["btnPlaceOrder"])) {
+                if(isset($_SESSION["shopping_cart"])) {
+                   
+                    $products= $_SESSION["shopping_cart"];
+                  //  $userId= \Utilities\Security::getUserId();
+                 //   $customer= DaoVentas::getCustomerId($userId);
+
+                    error_log(json_encode($_SESSION["shopping_cart"]));
+                   foreach($products as $key => $value) {
+                    $isv= ($value["total_price"] * 0.15);
+                    $description= $products[$key]["inventory_size"];
+                        $PayPalOrder->addItem(
+                            $products[$key]["product_name"], 
+                            $description, 
+                            "PRD",
+                            $products[$key]["product_price"],
+                            $isv,
+                            $products[$key]["quantity"],
+                            "DIGITAL_GOODS"
+                        );
+                   }
+
+                   $response = $PayPalOrder->createOrder();
+                   $_SESSION["orderid"] = $response[1]->result->id;
+                   \Utilities\Site::redirectTo($response[0]->href);
+                   die();
+                }
+            
+            } 
             
         }
 

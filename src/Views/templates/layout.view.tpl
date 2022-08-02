@@ -78,7 +78,7 @@
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="index.php?page=index">Home</a></li>
+                            <li><a href="index.php?page=index">Home</a></li>
                             <li><a href="index.php?page=ashion_shop">Shop</a></li>
                             <li><a href="index.php?page=ashion_shopcart">Cart</a></li>
                             <li><a href="./blog.html">Blog</a></li>
@@ -110,7 +110,7 @@
   <main>
   {{{page_content}}}
   </main>
-   <!-- Instagram Begin -->
+   <!-- Instagram Begin 
     <div class="instagram">
         <div class="container-fluid">
             <div class="row">
@@ -165,7 +165,7 @@
             </div>
         </div>
     </div>
-    <!-- Instagram End -->
+    Instagram End -->
   <!-- Footer Section Begin -->
 <footer class="footer">
     <div class="container">
