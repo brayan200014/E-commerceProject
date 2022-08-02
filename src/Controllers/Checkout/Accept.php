@@ -70,6 +70,10 @@ class Accept extends PublicController{
                                     $value["product_price"]);
                             }
 
+                            $infoCustomer= DaoVentas::getCustomerId($customer);
+                            $result= DaoVentas::sendEmail($infoCustomer["useremail"],$productsDetails, $order_id, $infoCustomer["customer_name"]);
+                            $dataview["result"]= $result;
+
                             $_SESSION["productsVentas"]= array();
                             $_SESSION["cus_id"]= array();
                          }
@@ -102,6 +106,10 @@ class Accept extends PublicController{
                                 $value["quantity"],
                                 $value["product_price"]);
                         }
+
+                        $customer= DaoVentas::getCustomerId(1);
+                        $result= DaoVentas::sendEmail($customer["useremail"],$products, $order_id, $customer["customer_name"]);
+                        $dataview["result"]= $result;
 
                         $_SESSION["shopping_cart"]= array();
                      }
