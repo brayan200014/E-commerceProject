@@ -11,6 +11,6 @@
             button: "Aceptar",
             dangerMode: false,
         }).then( () => {
-            window.location.assign('index.php?page=admin_ventas');
+            window.location.assign('index.php?page=index.php');
         });
 </script>

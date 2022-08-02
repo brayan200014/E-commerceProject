@@ -113,14 +113,13 @@
                                             <span class="top__text__right">Total</span>
                                         </li>
                                         {{foreach ProductosShoppingCart}}
-                                        <li>{{product_name}} <span>$ {{product_total}}</span></li>
+                                        <li>{{quantity}}&nbsp;&nbsp;&nbsp;{{product_name}} <span>$ {{total_price}}</span></li>
                                         {{endfor ProductosShoppingCart}}
                                     </ul>
                                 </div>
                                 <div class="checkout__order__total">
                                     <ul>
                                         <li>Subtotal <span>$ {{subtotal}}</span></li>
-                                        <li>Total <span>$ {{total}}</span></li>
                                     </ul>
                                 </div>
                                 <div class="checkout__order__widget">

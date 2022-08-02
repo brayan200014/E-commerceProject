@@ -3,7 +3,7 @@
 namespace Controllers\Checkout;
 
 use Controllers\PublicController;
-//use Dao\Admin\Ventas as DaoVentas;
+use Dao\Admin\Ventas as DaoVentas;
 
 
 
@@ -27,7 +27,8 @@ class Checkout extends PublicController{
                     $_SESSION["cus_id"]= $customer;
                     
                    foreach($products as $key => $value) {
-                    $isv= (($value["product_price"] * $value ["quantity"]) * 0.15);
+                    $isv= ( $products[$key]["product_price"] * 0.15);
+                error_log(json_decode($isv));
                     $description= $products[$key]["inventory_size"] . " " . $products[$key]["inventory_gender"];
                         $PayPalOrder->addItem(
                             $products[$key]["product_name"], 
@@ -62,12 +63,10 @@ class Checkout extends PublicController{
                 if(isset($_SESSION["shopping_cart"])) {
                    
                     $products= $_SESSION["shopping_cart"];
-                  //  $userId= \Utilities\Security::getUserId();
-                 //   $customer= DaoVentas::getCustomerId($userId);
 
                     error_log(json_encode($_SESSION["shopping_cart"]));
                    foreach($products as $key => $value) {
-                    $isv= ($value["total_price"] * 0.15);
+                    $isv= ( $products[$key]["product_price"] * 0.15);
                     $description= $products[$key]["inventory_size"];
                         $PayPalOrder->addItem(
                             $products[$key]["product_name"], 

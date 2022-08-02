@@ -151,6 +151,15 @@ class Ventas extends Table
         return self::executeNonQuery($sqlstr, $sqlParams);
     }
 
+    public static function getCustomerId($userid) {
+        $sqlstr= "SELECT customer_id FROM customers where usercod= :userid;";
+        $sqlParams= [
+            "userid"=> $userid
+        ];
+
+        return self::obtenerUnRegistro($sqlstr, $sqlParams);
+    }
+
     public static function sendEmail($email, $pin) {
         $mail = new PHPMailer();
         $mail->IsSMTP(); // enable SMTP

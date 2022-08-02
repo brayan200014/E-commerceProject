@@ -3,7 +3,9 @@
 namespace Controllers\Checkout;
 
 use Controllers\PublicController;
-use Dao\Admin\Ventas as DaoVentas; 
+use Dao\Admin\Ventas as DaoVentas;
+use Dao\Dao;
+
 class Accept extends PublicController{
     public function run():void
     {
@@ -26,7 +28,9 @@ class Accept extends PublicController{
 
             if($dataview["status"]=== "COMPLETED") {
                 $status= "CONF";
-                if(isset($_SESSION["productsVentas"]) && isset($_SESSION["cus_id"])) {
+                if(isset($_SESSION["productsVentas"]) && isset($_SESSION["cus_id"]) && !empty($_SESSION["productsVentas"])) {
+                        $dataview["admin"]= true;
+                        $dataview["cliente"]= false;
                         $customer= $_SESSION["cus_id"];
                         $products= $_SESSION["productsVentas"];
                         $copyProducts= array();
@@ -71,11 +75,45 @@ class Accept extends PublicController{
                          }
                          else {
                             \Utilities\Site::redirectToWithMsg(
-                                "index.php?page=admin_ventas",
-                                "Error al insertar la venta intente de uevo"
+                                "index.php?page=index.php",
+                                "Error al insertar la venta intente de nuevo"
                             );
                          }
+
+                } else if(isset($_SESSION["shopping_cart"]) && !empty($_SESSION["shopping_cart"])) {
+                   // $user= \Utilities\Security::getUserId();
+                   // $customer= DaoVentas::getCustomerId($user);
+                    $products= $_SESSION["shopping_cart"];
+                    $dataview["cliente"]= true;
+                    $dataview["admin"]= false;
+             
+
+                    foreach($products as $key => $value) {
+                        $subtotal+= $value["total_price"];
+                    }
+
+                     $result= DaoVentas::insertVenta(1, 0.15, $subtotal, $status,$order_id);
+                     if($result) {
+                        $lastSale= DaoVentas::getLastSaleId();
+                        foreach($products as $key => $value) {
+                            $resultDetail= DaoVentas::insertarDetalle(
+                                $lastSale["sale_id"], 
+                                $value["product_id"],
+                                $value["quantity"],
+                                $value["product_price"]);
+                        }
+
+                        $_SESSION["shopping_cart"]= array();
+                     }
+                     else {
+                        \Utilities\Site::redirectToWithMsg(
+                            "index.php?page=index.php",
+                            "Error al insertar la venta intente de nuevo"
+                        );
+                     }
                 }
+
+
             } else {
                 $dataview["orderjson"] = "Orden no se realizo con exito";
             }
