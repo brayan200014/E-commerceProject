@@ -23,6 +23,7 @@ namespace Controllers\Admin;
  */
 class Admin extends \Controllers\PrivateController
 {
+    private $viewData= array();
     /**
      * Constructor
      */
@@ -39,7 +40,18 @@ class Admin extends \Controllers\PrivateController
      */
     public function run() :void
     {
-        \Views\Renderer::render("admin/admin", array());
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] !== "PBL"){
+                $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $this->viewData["logeado"]=false;
+            }
+        }
+        else 
+        {
+            $this->viewData["logeado"]=true;
+        }
+        \Views\Renderer::render("admin/admin", $this->viewData);
     }
 }
 ?>

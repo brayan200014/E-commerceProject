@@ -75,8 +75,7 @@
                 <div id="collapseClientes" class="collapse" aria-labelledby="headingClientes" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="buttons.html">Agregar Cliente </a>
-                        <a class="collapse-item" href="cards.html">Mostrar Clientes</a>
+                        <a class="collapse-item" href="index.php?page=admin-clientes">Mostrar Clientes</a>
                     </div>
                 </div>
             </li>
@@ -263,7 +262,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{usernameappear}}</span>
                                 <img class="img-profile rounded-circle"
                                     src="/{{BASE_DIR}}/public/imgs/undraw_profile.svg">
                             </a>

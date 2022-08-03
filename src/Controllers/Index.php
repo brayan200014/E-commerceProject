@@ -15,18 +15,30 @@ class Index extends PublicController
         $this->viewData['Trend'] = Shop::getHotTrends();
         $this->viewData['New'] = Shop::getThreeNewProduct();
         $this->viewData['Discounts'] = Shop::getProductWithDiscounts();
-        error_log(json_encode($this->viewData));
-        Renderer::render('index', $this->viewData);
-        $viewData = array();
+        $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
         if(\Utilities\Security::isLogged()){
-            $viewData["logeado"]=true;
             if($_SESSION["login"]["usertipo"] == "PBL"){
-                $viewData["isLogged"]=$_SESSION["login"]["usertipo"];
-                $viewData["usernameappear"]=$_SESSION["login"]["userName"];
-                $viewData["logeado"]=false;
+                $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $this->viewData["logeado"]=false;
             }
         }
-        \Views\Renderer::render("index", $viewData);
+        else 
+        {
+            $this->viewData["logeado"]=true;
+        }
+        Renderer::render('index', $this->viewData);
+    }
+
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
 
     }
 }

@@ -46,7 +46,7 @@ class Security extends \Dao\Table
         return self::obtenerRegistros($sqlstr, array());
     }
 
-    static public function newUsuario($email, $password)
+    static public function newUsuario($email, $password, $username)
     {
         if (!\Utilities\Validators::IsValidEmail($email)) {
             throw new Exception("Correo no es válido");
@@ -64,7 +64,7 @@ class Security extends \Dao\Table
         unset($newUser["userpswdchg"]);
 
         $newUser["useremail"] = $email;
-        $newUser["username"] = "John Doe";
+        $newUser["username"] = $username;
         $newUser["userpswd"] = $hashedPassword;
         $newUser["userpswdest"] = Estados::ACTIVO;
         $newUser["userpswdexp"] = date('Y-m-d', time() + 7776000);  //(3*30*24*60*60) (m d h mi s)
@@ -132,6 +132,14 @@ class Security extends \Dao\Table
 
         return self::executeNonQuery($sqlIns, $newUserRol);
 
+    }
+
+    static public function deleteUsuario($email)
+    {
+        $sqlstr = "DELETE FROM usuario WHERE useremail = :useremail";
+        $sqlParams = array("useremail" => $email);
+
+        return self::executeNonQuery($sqlstr, $sqlParams);
     }
 
     static public function getUsuarioByEmail($email)

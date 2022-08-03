@@ -106,6 +106,18 @@ class FuncionRol extends \Controllers\PrivateController
             }
         }
 
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] !== "PBL"){
+               $dataview["isLogged"]=$_SESSION["login"]["usertipo"];
+               $dataview["usernameappear"]=$_SESSION["login"]["userName"];
+               $dataview["logeado"]=false;
+            }
+        }
+        else 
+        {
+           $dataview["logeado"]=true;
+        }
+
         $dataview = get_object_vars($this);
         \Views\Renderer::render("admin/funcionrol", $dataview);
     }

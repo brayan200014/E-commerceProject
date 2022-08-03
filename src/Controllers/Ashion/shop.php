@@ -62,6 +62,7 @@ class Shop extends PublicController
         $this->filters();
         $this->viewData['Categories'] = DaoShop::getAllCategories();
         error_log(json_encode($this->viewData));
+        $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
         Renderer::render('ashion/shop', $this->viewData);
     }
 
@@ -102,6 +103,17 @@ class Shop extends PublicController
             $sizes = $_POST['sizes'];
             $this->viewData["Shops"] = DaoShop::getBySizes($sizes);
         }
+    }
+
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
     }
 }
 ?>

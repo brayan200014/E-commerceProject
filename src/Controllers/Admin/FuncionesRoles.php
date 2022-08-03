@@ -36,6 +36,18 @@ class FuncionRol extends \Controllers\PrivateController
         {   
             $dataview["items"] = \Dao\Admin\FuncionesRoles::getAll();
         }
+
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] !== "PBL"){
+               $dataview["isLogged"]=$_SESSION["login"]["usertipo"];
+               $dataview["usernameappear"]=$_SESSION["login"]["userName"];
+               $dataview["logeado"]=false;
+            }
+        }
+        else 
+        {
+           $dataview["logeado"]=true;
+        }
         
         \Views\Renderer::render("admin/funcionesroles", $dataview);
     } 

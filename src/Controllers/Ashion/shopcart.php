@@ -3,6 +3,7 @@ namespace Controllers\Ashion;
 
 use Controllers\PublicController;
 use Views\Renderer;
+use Dao\AShion\Shop;
 
 class ShopCart extends PublicController
 {
@@ -12,6 +13,7 @@ class ShopCart extends PublicController
 
     public function run() :void
     {
+        $this->viewData['Categories'] = Shop::getAllCategories();
         if(!isset($_SESSION['shopping_cart']))
         {
             $this->viewData['Products'] = array();
@@ -32,6 +34,8 @@ class ShopCart extends PublicController
 
             $this->viewData['Products'] = $_SESSION['shopping_cart'];
         }
+
+        $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
 
         Renderer::render('ashion/shopcart', $this->viewData);
         
@@ -54,11 +58,9 @@ class ShopCart extends PublicController
     private function updateProduct()
     {
         for($i = 0; $i < count($_SESSION['shopping_cart']); $i++)
-        {
-            
+        { 
                 $_SESSION['shopping_cart'][$i]['quantity'] = $_POST['newQuantity'.$_SESSION['shopping_cart'][$i]['product_id'].$_SESSION['shopping_cart'][$i]['inventory_size']];
-                $_SESSION['shopping_cart'][$i]['total_price'] = floatval($_SESSION['shopping_cart'][$i]['product_price']) * floatval($_POST['newQuantity'.$_SESSION['shopping_cart'][$i]['product_id'].$_SESSION['shopping_cart'][$i]['inventory_size']]);
-            
+                $_SESSION['shopping_cart'][$i]['total_price'] = floatval($_SESSION['shopping_cart'][$i]['product_price']) * floatval($_POST['newQuantity'.$_SESSION['shopping_cart'][$i]['product_id'].$_SESSION['shopping_cart'][$i]['inventory_size']]);  
         }
     }
 
@@ -70,6 +72,17 @@ class ShopCart extends PublicController
             $total += $product['total_price'];
         }
         return $total;
+    }
+
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
     }
 }
 ?>
