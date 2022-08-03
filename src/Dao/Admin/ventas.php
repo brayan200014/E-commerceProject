@@ -276,10 +276,10 @@ class Ventas extends Table
         $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
         $mail->Host = "smtp.gmail.com";
         $mail->Port = 465; // or 587
-        $mail->Username = "josue14saravia@gmail.com";
-        $mail->Password = "bkebajjzwbzlqplm";
-        $mail->SetFrom("josue14saravia@gmail.com");
-        $mail->Subject = "Asunto del mensaje";
+        $mail->Username = "ashionshopcommerce@gmail.com";
+        $mail->Password = "bvyplfbfkgtwaguo";
+        $mail->SetFrom($email);
+        $mail->Subject = "Order Confirmation: ".$orderid;
         $mail->Body=  "
         <html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">
         <head>

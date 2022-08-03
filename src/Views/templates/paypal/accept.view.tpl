@@ -7,7 +7,7 @@
 <script>
         swal({
             title: "Orden Aceptada",
-            text: "Su orden fue procesada con exito",
+            text: "Su orden fue procesada con exito \n Recibira un correo de confirmacion con los detalles de su orden",
             icon: "success",
             button: "Aceptar",
             dangerMode: false,
@@ -23,7 +23,7 @@
 <script>
         swal({
             title: "Orden Aceptada",
-            text: "Su orden fue procesada con exito",
+            text: "Su orden fue procesada con exito \n Recibira un correo de confirmacion con los detalles de su orden",
             icon: "success",
             button: "Aceptar",
             dangerMode: false,

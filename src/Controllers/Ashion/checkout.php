@@ -17,14 +17,27 @@ class Checkout extends PublicController
         $user= "";
         $this->viewData['Categories'] = Shop::getAllCategories();
         $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] == "PBL"){
+                $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $this->viewData["logeado"]=false;
+            }
+        }
+        else 
+        {
+            $this->viewData["logeado"]=true;
+        }
+
         if(!$this->isPostBack()) {
             error_log(json_encode($_SESSION["shopping_cart"]));
+        if( \Utilities\Security::isLogged()) {
             if(isset($_SESSION["shopping_cart"]))
             {
                 if(!empty($_SESSION["shopping_cart"])) {
                     $this->viewData["ProductosShoppingCart"]= $_SESSION["shopping_cart"];
                     $user= \Utilities\Security::getUserId();
-                    $customerInfo= DaoVentas::getInfoCustomer(1);
+                    $customerInfo= DaoVentas::getInfoCustomer($user);
                     foreach($this->viewData["ProductosShoppingCart"] as $key => $value) {
                         $subtotal+= $value["total_price"];
                     }
@@ -46,7 +59,13 @@ class Checkout extends PublicController
                     "No tiene productos agregados al carrito"
                 );
             }
+        } else {
+            \Utilities\Site::redirectToWithMsg(
+                "index.php?page=sec_login",
+                "Debe de iniciar Sesion o crear una cuenta"
+            );
         }
+    }
 
         Renderer::render('ashion/checkout', $this->viewData);
     }

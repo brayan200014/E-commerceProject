@@ -85,8 +85,8 @@ class Accept extends PublicController{
                          }
 
                 } else if(isset($_SESSION["shopping_cart"]) && !empty($_SESSION["shopping_cart"])) {
-                   // $user= \Utilities\Security::getUserId();
-                   // $customer= DaoVentas::getCustomerId($user);
+                    $user= \Utilities\Security::getUserId();
+                    $customer= DaoVentas::getCustomerId($user);
                     $products= $_SESSION["shopping_cart"];
                     $dataview["cliente"]= true;
                     $dataview["admin"]= false;
@@ -96,7 +96,7 @@ class Accept extends PublicController{
                         $subtotal+= $value["total_price"];
                     }
 
-                     $result= DaoVentas::insertVenta(1, 0.15, $subtotal, $status,$order_id);
+                     $result= DaoVentas::insertVenta($customer["customer_id"], 0.15, $subtotal, $status,$order_id);
                      if($result) {
                         $lastSale= DaoVentas::getLastSaleId();
                         foreach($products as $key => $value) {
@@ -107,7 +107,7 @@ class Accept extends PublicController{
                                 $value["product_price"]);
                         }
 
-                        $customer= DaoVentas::getCustomerId(1);
+                
                         $result= DaoVentas::sendEmail($customer["useremail"],$products, $order_id, $customer["customer_name"]);
                         $dataview["result"]= $result;
 

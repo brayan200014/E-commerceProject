@@ -19,7 +19,7 @@ class Checkout extends PublicController{
                 "http://localhost/E-commerceProject/index.php?page=checkout_accept"
             );
 
-            if(isset($_POST["btnEnviarVenta"]) && isset($_POST["product_id"])) {
+            if(isset($_POST["btnEnviarVenta"]) && isset($_POST["product_id"]) && !isset($_POST["btnCancelar"])) {
                 if(isset($_SESSION["productsVentas"])) {
                    
                     $products= $_SESSION["productsVentas"];
@@ -49,7 +49,7 @@ class Checkout extends PublicController{
             
             } else {
                     
-                if(isset($_POST["cus_id"])) {
+                if(isset($_POST["cus_id"]) && !isset($_POST["btnCancelar"])) {
                     $customer= intval($_POST["cus_id"]);
                     \Utilities\Site::redirectToWithMsg(
                         "index.php?page=admin_venta&mode=INS&cus_id=".$customer,
@@ -86,6 +86,11 @@ class Checkout extends PublicController{
                 }
             
             } 
+
+            if(isset($_POST["btnCancelar"])) {
+                $_SESSION["productsVentas"]= array();
+                \Utilities\Site::redirectTo("index.php?page=admin_ventas");
+            }
             
         }
 

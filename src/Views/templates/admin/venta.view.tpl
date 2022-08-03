@@ -58,7 +58,7 @@
 {{if showBtnUpdate}}
        <button type="submit" class="btn btn-primary" name="btnUpdateVenta">Actualizar</button> &NonBreakingSpace;&NonBreakingSpace;
 {{endif showBtnUpdate}}
-  <a href="index.php?page=admin_ventas" class="btn btn-primary">Cancelar</a>
+ <button type="submit" class="btn btn-primary" name="btnCancelar">Cancelar</button> &NonBreakingSpace;&NonBreakingSpace;
 </form>
 
 </div>
