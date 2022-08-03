@@ -107,8 +107,5 @@
         window.location.assign("index.php?page=admin_usuarios");
       });
   });
-
   $('select').selectpicker();
 </script>
-
-
