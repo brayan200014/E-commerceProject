@@ -17,12 +17,15 @@ class Index extends PublicController
         $this->viewData['Discounts'] = Shop::getProductWithDiscounts();
         $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
         if(\Utilities\Security::isLogged()){
-            $viewData["logeado"]=true;
             if($_SESSION["login"]["usertipo"] == "PBL"){
                 $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
                 $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
                 $this->viewData["logeado"]=false;
             }
+        }
+        else 
+        {
+            $this->viewData["logeado"]=true;
         }
         Renderer::render('index', $this->viewData);
     }

@@ -14,12 +14,23 @@ class Clientes extends PublicController{
      * 
      * @return void
      */
+    private $viewData = array();
     public function run():void{
         //code
-        $viewData = array();
-        $viewData["clientes"] = DaoClientes::getAllCustomer();
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] !== "PBL"){
+                $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $this->viewData["logeado"]=false;
+            }
+        }
+        else 
+        {
+            $this->viewData["logeado"]=true;
+        }
+        $this->viewData["clientes"] = DaoClientes::getAllCustomer();
 
-        Renderer::render('admin/clientes', $viewData);
+        Renderer::render('admin/clientes', $this->viewData);
     }
 }
 

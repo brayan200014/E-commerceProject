@@ -19,6 +19,17 @@ class RolesUsuarios extends \Controllers\PrivateController
         public function run() :void
         {
             $dataview = array();
+            if(\Utilities\Security::isLogged()){
+                if($_SESSION["login"]["usertipo"] !== "PBL"){
+                    $viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                    $viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                    $viewData["logeado"]=false;
+                }
+            }
+            else 
+            {
+                $viewData["logeado"]=true;
+            }
 
             if ($this->isPostBack()) 
             {   
@@ -26,17 +37,17 @@ class RolesUsuarios extends \Controllers\PrivateController
 
                 if(!empty($this->UsuarioBusqueda))
                 {
-                    $dataview["items"] = \Dao\Admin\RolesUsuarios::searchRolesUsuarios($this->UsuarioBusqueda);
+                    $dataview["items"] = \Dao\Admin\Roles_Usuarios::searchRolesUsuarios($this->UsuarioBusqueda);
                     \Utilities\Context::setContext("UsuarioBusqueda", $this->UsuarioBusqueda);
                 }
                 else
                 {
-                    $dataview["items"] = \Dao\Admin\RolesUsuarios::getAll();
+                    $dataview["items"] = \Dao\Admin\Roles_Usuarios::getAll();
                 }
             } 
             else
             {   
-                $dataview["items"] = \Dao\Admin\RolesUsuarios::getAll();
+                $dataview["items"] = \Dao\Admin\Roles_Usuarios::getAll();
             }
             
             \Views\Renderer::render("admin/rolesusuarios", $dataview);

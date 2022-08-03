@@ -54,8 +54,19 @@ class RolUsuario extends \Controllers\PrivateController
     
     public function run() :void
     {
-        $this->usuarios = \Dao\Admin\RolesUsuarios::getUsuarios();
-        $this->roles = \Dao\Admin\RolesUsuarios::getRoles();
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] !== "PBL"){
+                $viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $viewData["logeado"]=false;
+            }
+        }
+        else 
+        {
+            $viewData["logeado"]=true;
+        }
+        $this->usuarios = \Dao\Admin\Roles_Usuarios::getUsuarios();
+        $this->roles = \Dao\Admin\Roles_Usuarios::getRoles();
 
         $this->minimumDate = date('Y-m-d', time() + 31104000);  //(12*30*24*60*60) (m d h mi s));
         $this->mode = isset($_GET["mode"])?$_GET["mode"]:"";
@@ -81,7 +92,7 @@ class RolUsuario extends \Controllers\PrivateController
                 switch ($this->mode)
                 {
                     case "INS":
-                        if (\Dao\Admin\RolesUsuarios::insert($this->usercod2, $this->rolescod2)) 
+                        if (\Dao\Admin\Roles_Usuarios::insert($this->usercod2, $this->rolescod2)) 
                         {
                             \Utilities\Site::redirectToWithMsg(
                                 "index.php?page=admin_rolesusuarios",
@@ -91,7 +102,7 @@ class RolUsuario extends \Controllers\PrivateController
                     break;
 
                     case "UPD":
-                        if (\Dao\Admin\RolesUsuarios::update($this->usercod, $this->rolescod, $this->roleuserest, $this->roleuserexp)) 
+                        if (\Dao\Admin\Roles_Usuarios::update($this->usercod, $this->rolescod, $this->roleuserest, $this->roleuserexp)) 
                         {
                             \Utilities\Site::redirectToWithMsg(
                                 "index.php?page=admin_rolesusuarios",
@@ -101,7 +112,7 @@ class RolUsuario extends \Controllers\PrivateController
                     break;
 
                     case "DEL":
-                        if (\DAO\Admin\RolesUsuarios::delete($this->usercod, $this->rolescod)) 
+                        if (\DAO\Admin\Roles_Usuarios::delete($this->usercod, $this->rolescod)) 
                         {
                             \Utilities\Site::redirectToWithMsg(
                                 "index.php?page=admin_rolesusuarios",
@@ -119,7 +130,7 @@ class RolUsuario extends \Controllers\PrivateController
 
     private function _load()
     {
-        $_data = \Dao\Admin\RolesUsuarios::getOne($this->usercod, $this->rolescod);
+        $_data = \Dao\Admin\Roles_Usuarios::getOne($this->usercod, $this->rolescod);
 
         if ($_data) 
         {
@@ -152,7 +163,7 @@ class RolUsuario extends \Controllers\PrivateController
 
         if($this->mode == "INS")
         {
-            if(!empty(\Dao\Admin\RolesUsuarios::getOne($this->usercod2, $this->rolescod2)))
+            if(!empty(\Dao\Admin\Roles_Usuarios::getOne($this->usercod2, $this->rolescod2)))
             {
                 $this->aErrors[] = "El rol ya se encuentra registrado para este usuario.";
             }

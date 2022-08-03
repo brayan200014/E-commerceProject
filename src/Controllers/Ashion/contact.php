@@ -3,11 +3,13 @@ namespace Controllers\Ashion;
 
 use Controllers\PublicController;
 use Views\Renderer;
+use Dao\AShion\Shop;
 
 class Contact extends PublicController
 {   
     public function run() :void
     {
+        $this->viewData['Categories'] = Shop::getAllCategories();
         $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
         Renderer::render('ashion/contact', $this->viewData);
     }

@@ -4,6 +4,7 @@ namespace Controllers\Ashion;
 use Controllers\PublicController;
 use Views\Renderer;
 use Dao\Admin\Ventas as DaoVentas;
+use Dao\AShion\Shop;
 
 class Checkout extends PublicController
 {   
@@ -14,7 +15,8 @@ class Checkout extends PublicController
     {
         $subtotal= 0;
         $user= "";
-    
+        $this->viewData['Categories'] = Shop::getAllCategories();
+        $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
         if(!$this->isPostBack()) {
             error_log(json_encode($_SESSION["shopping_cart"]));
             if(isset($_SESSION["shopping_cart"]))
@@ -58,6 +60,18 @@ class Checkout extends PublicController
         $this->viewData["customer_city"]= "";
         $this->viewData["customer_phone_number"]= "";
         $this->viewData["useremail"]= "";
+    }
+
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
+
     }
 }
 ?>

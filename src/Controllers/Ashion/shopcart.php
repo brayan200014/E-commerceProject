@@ -3,6 +3,7 @@ namespace Controllers\Ashion;
 
 use Controllers\PublicController;
 use Views\Renderer;
+use Dao\AShion\Shop;
 
 class ShopCart extends PublicController
 {
@@ -12,6 +13,7 @@ class ShopCart extends PublicController
 
     public function run() :void
     {
+        $this->viewData['Categories'] = Shop::getAllCategories();
         if(!isset($_SESSION['shopping_cart']))
         {
             $this->viewData['Products'] = array();
