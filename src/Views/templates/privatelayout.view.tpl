@@ -74,8 +74,7 @@
                 <div id="collapseClientes" class="collapse" aria-labelledby="headingClientes" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="buttons.html">Agregar Cliente </a>
-                        <a class="collapse-item" href="cards.html">Mostrar Clientes</a>
+                        <a class="collapse-item" href="index.php?page=admin-clientes">Mostrar Clientes</a>
                     </div>
                 </div>
             </li>
