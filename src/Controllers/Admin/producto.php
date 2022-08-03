@@ -1,11 +1,11 @@
 <?php
 namespace Controllers\Admin;
 
-use Controllers\PublicController;
+use Controllers\PrivateController;
 use Views\Renderer;
 use Dao\Admin\Productos;
 
-class Producto extends PublicController
+class Producto extends PrivateController
 {
     private $viewData = array();
     private $arrModeDesc = array();
