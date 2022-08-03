@@ -164,8 +164,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="buttons.html">Agregar Usuario </a>
-                        <a class="collapse-item" href="cards.html">Mostrar Usuarios</a>
+                        <a class="collapse-item" href="index.php?page=admin_usuario">Agregar Usuario </a>
+                        <a class="collapse-item" href="index.php?page=admin_usuarios">Mostrar Usuarios</a>
                     </div>
                 </div>
             </li>
@@ -180,8 +180,8 @@
                 <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="buttons.html">Agregar Funcion </a>
-                        <a class="collapse-item" href="cards.html">Mostrar Funciones</a>
+                        <a class="collapse-item" href="index.php?page=admin_funcion">Agregar Funcion </a>
+                        <a class="collapse-item" href="index.php?page=admin_funciones">Mostrar Funciones</a>
                     </div>
                 </div>
             </li>
@@ -196,8 +196,8 @@
                 <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="buttons.html">Agregar Rol </a>
-                        <a class="collapse-item" href="cards.html">Mostrar Roles</a>
+                        <a class="collapse-item" href="index.php?page=admin_rol">Agregar Rol </a>
+                        <a class="collapse-item" href="index.php?page=admin_roles">Mostrar Roles</a>
                     </div>
                 </div>
             </li>

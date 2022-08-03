@@ -29,7 +29,7 @@ abstract class PublicController implements IController
     public function __construct()
     {
         $this->name = get_class($this);
-        if (\Utilities\Security::isLogged()){
+        if (\Utilities\Security::isLogged() && \Utilities\Security::tipousuario()){
             $layoutFile = \Utilities\Context::getContextByKey("PRIVATE_LAYOUT");
             if ($layoutFile !== "") {
                 \Utilities\Context::setContext(

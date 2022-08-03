@@ -16,7 +16,14 @@ class Index extends PublicController
         $this->viewData['New'] = Shop::getThreeNewProduct();
         $this->viewData['Discounts'] = Shop::getProductWithDiscounts();
         $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
-        error_log(json_encode($this->viewData));
+        if(\Utilities\Security::isLogged()){
+            $viewData["logeado"]=true;
+            if($_SESSION["login"]["usertipo"] == "PBL"){
+                $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $this->viewData["logeado"]=false;
+            }
+        }
         Renderer::render('index', $this->viewData);
     }
 
@@ -29,6 +36,7 @@ class Index extends PublicController
             }
         }
         return $quantity;
+
     }
 }
 ?>

@@ -15,19 +15,26 @@ class Security {
     {
         unset($_SESSION["login"]);
     }
-    public static function login($userId, $userName, $userEmail)
+    public static function login($userId, $userName, $userEmail, $usertipo)
     {
         $_SESSION["login"] = array(
             "isLogged" => true,
             "userId" => $userId,
             "userName" => $userName,
-            "userEmail" => $userEmail
+            "userEmail" => $userEmail,
+            "usertipo" => $usertipo
         );
     }
     public static function isLogged():bool
     {
         return isset($_SESSION["login"]) && $_SESSION["login"]["isLogged"];
     }
+
+    public static function tipousuario():bool
+    {
+        return isset($_SESSION["login"]) && $_SESSION["login"]["usertipo"]!=="PBL";
+    }
+
     public static function getUser()
     {
         if (isset($_SESSION["login"])) {

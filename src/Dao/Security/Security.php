@@ -17,8 +17,7 @@ userpswdexp datetime
 userest     char(3)
 useractcod  varchar(128)
 userpswdchg varchar(128)
-usertipo    char(3)
-
+userrole    char(3)
  */
 
 use Exception;
@@ -33,11 +32,11 @@ class Security extends \Dao\Table
         } else {
             //TODO: Terminar consultas FACET
             if ($page = -1 and $items = 0) {
-                $sqlstr = sprintf("SELECT * FROM usuarios %s;", $filter);
+                $sqlstr = sprintf("SELECT * FROM usuario %s;", $filter);
             } else {
                 $offset = ($page -1 * $items);
                 $sqlstr = sprintf(
-                    "SELECT * FROM usuarios %s limit %d, %d;",
+                    "SELECT * FROM usuario %s limit %d, %d;",
                     $filter,
                     $offset,
                     $items
@@ -71,7 +70,7 @@ class Security extends \Dao\Table
         $newUser["userpswdexp"] = date('Y-m-d', time() + 7776000);  //(3*30*24*60*60) (m d h mi s)
         $newUser["userest"] = Estados::ACTIVO;
         $newUser["useractcod"] = hash("sha256", $email.time());
-        $newUser["usertipo"] = UsuarioTipo::PUBLICO;
+        $newUser["usertipo"] = UsuarioTipo::EMPLEADO;
 
         $sqlIns = "INSERT INTO `usuario` (`useremail`, `username`, `userpswd`,
             `userfching`, `userpswdest`, `userpswdexp`, `userest`, `useractcod`,
@@ -82,6 +81,56 @@ class Security extends \Dao\Table
             now(), :usertipo);";
 
         return self::executeNonQuery($sqlIns, $newUser);
+
+    }
+    /*
+    static public function newUsuario($email, $password, $name, $phone, $phone2, $address, $bio, $gender)
+    {
+        if (!\Utilities\Validators::IsValidEmail($email)) {
+            throw new Exception("Correo no es válido");
+        }
+        if (!\Utilities\Validators::IsValidPassword($password)) {
+            throw new Exception("Contraseña debe ser almenos 8 caracteres, 1 número, 1 mayúscula, 1 símbolo especial");
+        }
+
+        $newUser = self::_usuarioStruct();
+        //Tratamiento de la Contraseña
+        $hashedPassword = self::_hashPassword($password);
+
+        $newUser["useremail"]   = $email;
+        $newUser["userpswd"]    = $hashedPassword;//(3*30*24*60*60) (m d h mi s)
+        $newUser["username"]    = $name;
+        $newUser["userphone"]   = $phone;
+        $newUser["userphone2"]  = $phone2;
+        $newUser["useraddress"] = $address;
+        $newUser["userbio"]     = $bio;
+        $newUser["userest"]     = Estados::ACTIVO;
+        $newUser["userrole"]    = UsuarioTipo::PUBLICO;
+        $newUser["usergender"]  = $gender;
+
+        $sqlIns = "INSERT INTO usuario (useremail, userpswd, username, userphone, userphone2, useraddress, userbio, userest, userrole, usergender) 
+                    VALUES( :useremail, :userpswd, :username, :userphone, :userphone2, :useraddress, :userbio, :userest, :userrole, :usergender);";
+
+        return self::executeNonQuery($sqlIns, $newUser);
+
+    }
+    */
+
+    static public function newUsuarioRol($userId)
+    {
+
+        $newUserRol = self::_usuarioRolStruct();
+
+        $newUserRol["usercod"]   = $userId;
+        $newUserRol["rolescod"]    = 1;
+        $newUserRol["roleuserest"]    = Estados::ACTIVO;
+        $newUserRol["roleuserfch"]   = date("Y-m-d");
+        $newUserRol["roleuserexp"]  = date("Y-m-d", strtotime('+5 years'));
+
+        $sqlIns = "INSERT INTO roles_usuarios (usercod, rolescod, roleuserest, roleuserfch, roleuserexp)
+                    VALUES( :usercod, :rolescod, :roleuserest, :roleuserfch, :roleuserexp);";
+
+        return self::executeNonQuery($sqlIns, $newUserRol);
 
     }
 
@@ -95,7 +144,7 @@ class Security extends \Dao\Table
 
     static public function getUsuarioByEmail($email)
     {
-        $sqlstr = "SELECT * from `usuario` where `useremail` = :useremail ;";
+        $sqlstr = "SELECT * from usuario where useremail = :useremail ;";
         $params = array("useremail"=>$email);
 
         return self::obtenerUnRegistro($sqlstr, $params);
@@ -123,21 +172,29 @@ class Security extends \Dao\Table
         );
     }
 
-
     static private function _usuarioStruct()
     {
         return array(
-            "usercod"      => "",
             "useremail"    => "",
-            "username"     => "",
             "userpswd"     => "",
-            "userfching"   => "",
-            "userpswdest"  => "",
-            "userpswdexp"  => "",
+            "username"     => "",
+            "userphone"    => "",
+            "useraddress"  => "",
+            "userbio"      => "",
             "userest"      => "",
-            "useractcod"   => "",
-            "userpswdchg"  => "",
-            "usertipo"     => "",
+            "userrole"     => "",
+            "usergender"   => "",
+        );
+    }
+
+    static private function _usuarioRolStruct()
+    {
+        return array(
+            "usercod"      => "",
+            "rolescod"     => "",
+            "roleuserest"  => "",
+            "roleuserfch"  => "",
+            "roleuserexp"  => "",
         );
     }
 
@@ -150,7 +207,7 @@ class Security extends \Dao\Table
 
     static public function addNewFeature($fncod, $fndsc, $fnest, $fntyp )
     {
-        $sqlins = "INSERT INTO `funciones` (`fncod`, `fndsc`, `fnest`, `fntyp`)
+        $sqlins = "INSERT INTO funciones (fncod, fndsc, fnest, fntyp)
             VALUES (:fncod , :fndsc , :fnest , :fntyp );";
 
         return self::executeNonQuery(
@@ -189,7 +246,7 @@ class Security extends \Dao\Table
 
     static public function addNewRol($rolescod, $rolesdsc, $rolesest)
     {
-        $sqlins = "INSERT INTO `roles` (`rolescod`, `rolesdsc`, `rolesest`)
+        $sqlins = "INSERT INTO roles (rolescod, rolesdsc, rolesest)
         VALUES (:rolescod, :rolesdsc, :rolesest);";
 
         return self::executeNonQuery(
