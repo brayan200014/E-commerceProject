@@ -68,7 +68,7 @@
                             <div class="quantity">
                                 <span>Quantity:</span>
                                 <div class="pro-qty">
-                                    <input type="text" value="1" name="quantity">
+                                    <input type="number" min="1" value="1" id="quantity" name="quantity">
                                 </div>
                             </div>
                             <button type="submit" id="addToCart" name="addToCart" style="border: 0px;" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</button>
@@ -172,6 +172,9 @@
                     </div>
                 </div>
                {{endfor Products}}
+               {{foreach maxStockbyProduct}}
+                    <input type="hidden" id="stock{{size}}" value="{{max_stock}}">
+               {{endfor maxStockbyProduct}}
             </div>
         </div>
     </section>
@@ -207,8 +210,12 @@
         var boton = document.getElementById("addToCart");
         const form = document.getElementById("form");
         var sizes = document.getElementsByName("size");
+        var cantidadMaxima = document.getElementById('quantity');
         var sizeSelected = false;
+        var size = "";
+        var maxStock = 0;
 
+        
 
         form.addEventListener("submit", function(event){
             for(var i = 0; i < sizes.length; i++)
@@ -216,6 +223,7 @@
                 if(sizes[i].checked)
                 {
                     sizeSelected = true;
+                    size = sizes[i].value;
                     break;
                 }
                 else
@@ -237,15 +245,33 @@
             }
             else
             {
-                Swal.fire({
+                maxStock = document.getElementById('stock'+size).value;
+                
+                if(cantidadMaxima.value > maxStock)
+                {
+                    event.preventDefault();
+                    Swal.fire({
+                        title: 'Error',
+                        icon: 'error',
+                        text: 'La cantidad maxima de productos en stock es '+maxStock,
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    }).then(function(){
+                        cantidadMaxima.value = 1;
+                    });
+                }
+                else
+                {
+                    Swal.fire({
                     title: 'Carrito',
                     text: 'Producto agregado al carrito',
                     icon: 'success',
                     timer: 2000,
                     showConfirmButton: false 
-                }).then(function() {
-                    form.submit();
-                }); 
+                    }).then(function() {
+                        form.submit();
+                    }); 
+                }
             }
 
         });
