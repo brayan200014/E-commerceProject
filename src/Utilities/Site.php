@@ -13,7 +13,7 @@ class Site
     public static function getPageRequest()
     {
         $pageRequest = "index";
-        if (\Utilities\Security::isLogged()) {
+        if (\Utilities\Security::isLogged() && \Utilities\Security::tipousuario()) {
             $pageRequest = "admin\\admin";
         }
         if (isset($_GET["page"])) {
@@ -70,5 +70,16 @@ class Site
         }
         \Utilities\Context::setContext("EndScripts", $tmpSrcs);
     }
+    public static function nombre($src)
+    {
+        $tmpSrcs = \Utilities\Context::getContextByKey("EndScripts");
+        if ($tmpSrcs === "") {
+            $tmpSrcs = array($src);
+        } else {
+            $tmpSrcs[] = $src;
+        }
+        \Utilities\Context::setContext("EndScripts", $tmpSrcs);
+    }
+
 }
 ?>
