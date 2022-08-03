@@ -27,6 +27,8 @@
 
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+   <!--Script de Sweetalert-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   
   <script src="https://kit.fontawesome.com/{{FONT_AWESOME_KIT}}.js" crossorigin="anonymous"></script>
   {{foreach SiteLinks}}
@@ -49,8 +51,8 @@
             <li><a href="#"><span class="icon_heart_alt"></span>
                 <div class="tip">2</div>
             </a></li>
-            <li><a href="#"><span class="icon_bag_alt"></span>
-                <div class="tip">2</div>
+            <li><a href="index.php?page=ashion_shopcart"><span class="icon_bag_alt"></span>
+                <div class="tip">{{QuantityProducts}}</div>
             </a></li>
         </ul>
         <div class="offcanvas__logo">
@@ -82,7 +84,7 @@
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="index.php?page=index">Home</a></li>
+                            <li><a href="index.php?page=index">Home</a></li>
                             <li><a href="index.php?page=ashion_shop">Shop</a></li>
                             <li><a href="index.php?page=ashion_shopcart">Cart</a></li>
                             <li><a href="./blog.html">Blog</a></li>
@@ -105,7 +107,7 @@
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="index.php?page=ashion_shopcart"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
+                                <div class="tip">{{QuantityProducts}}</div>
                             </a></li>
                         </ul>
                     </div>
@@ -120,7 +122,7 @@
   <main>
   {{{page_content}}}
   </main>
-   <!-- Instagram Begin -->
+   <!-- Instagram Begin 
     <div class="instagram">
         <div class="container-fluid">
             <div class="row">
@@ -175,7 +177,7 @@
             </div>
         </div>
     </div>
-    <!-- Instagram End -->
+    Instagram End -->
   <!-- Footer Section Begin -->
 <footer class="footer">
     <div class="container">

@@ -1424,7 +1424,7 @@ ol {
 	font-size: 18px;
 }
 
-.sidebar__filter a {
+.sidebar__filter button{
 	font-size: 14px;
 	color: #0d0d0d;
 	text-transform: uppercase;
@@ -1437,6 +1437,7 @@ ol {
 	right: 0;
 	bottom: -5px;
 	border-radius: 2px;
+	background-color: #ffffff;
 }
 
 .filter-range-wrap .range-slider .price-input {
@@ -2351,6 +2352,17 @@ ol {
 	color: #666666;
 }
 
+.checkout__form .checkout__form__input select {
+	height: 50px;
+	width: 100%;
+	border: 1px solid #e1e1e1;
+	border-radius: 2px;
+	margin-bottom: 25px;
+	font-size: 14px;
+	padding-left: 20px;
+	color: #666666;
+}
+
 .checkout__form .checkout__form__input input::-webkit-input-placeholder {
 	color: #666666;
 }
@@ -3176,7 +3188,8 @@ ol {
 	.header__right__auth {
 		margin-right: 5px;
 	}
-	.sidebar__filter a {
+	.sidebar__filter button {
+		position: absolute;
 		padding: 5px 15px 5px 15px;
 	}
 	.nav::before {
@@ -3199,7 +3212,7 @@ ol {
 	.discount__text {
 		height: auto;
 	}
-	.sidebar__filter a {
+	.sidebar__filter button {
 		position: relative;
 		bottom: 0;
 	}

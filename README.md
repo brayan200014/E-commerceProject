@@ -7,6 +7,7 @@
     ``` php composer.phar install ```
     ``` composer install ```
 * Copiar el archivo ```renameTo_parameters.env``` a ```parameters.env``` y actualizar los valores segun sus parámetros
+* Descomprimir archivo agregar_a_Vendor.rar y agregar esas carpetas a su carpeta Vendor para el funcionamiento correcto de las plantillas
 * En un navegar ir al proyecto con ```index.php?page=index```
 * Para generar 
 ## Pasos

@@ -1,44 +1,44 @@
 <?php
-/**
- * PHP Version 7.2
- *
- * @category Public
- * @package  Controllers
- * @author   Orlando J Betancourth <orlando.betancourth@gmail.com>
- * @license  MIT http://
- * @version  CVS:1.0.0
- * @link     http://
- */
-namespace Controllers;
 
-/**
- * Index Controller
- *
- * @category Public
- * @package  Controllers
- * @author   Orlando J Betancourth <orlando.betancourth@gmail.com>
- * @license  MIT http://
- * @link     http://
- */
+namespace Controllers;
+use Views\Renderer;
+use Dao\AShion\Shop;
+
 class Index extends PublicController
 {
-    /**
-     * Index run method
-     *
-     * @return void
-     */
+
+    private $viewData = array();
     public function run() :void
     {
-        $viewData = array();
+        $this->viewData['Category'] = Shop::getAllCategory();
+        $this->viewData['Categories'] = Shop::getAllCategories();
+        $this->viewData['Trend'] = Shop::getHotTrends();
+        $this->viewData['New'] = Shop::getThreeNewProduct();
+        $this->viewData['Discounts'] = Shop::getProductWithDiscounts();
+        $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
         if(\Utilities\Security::isLogged()){
-            $viewData["logeado"]=true;
             if($_SESSION["login"]["usertipo"] == "PBL"){
-                $viewData["isLogged"]=$_SESSION["login"]["usertipo"];
-                $viewData["usernameappear"]=$_SESSION["login"]["userName"];
-                $viewData["logeado"]=false;
+                $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $this->viewData["logeado"]=false;
             }
         }
-        \Views\Renderer::render("index", $viewData);
+        else 
+        {
+            $this->viewData["logeado"]=true;
+        }
+        Renderer::render('index', $this->viewData);
+    }
+
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
 
     }
 }

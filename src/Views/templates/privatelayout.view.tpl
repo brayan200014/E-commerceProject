@@ -20,7 +20,8 @@
 
     <!-- Custom styles for this template-->
     <link href="/{{BASE_DIR}}/public/css/sb-admin-2.min.css" rel="stylesheet">
-  
+     <!--Script de Sweetalert-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   
   <script src="https://kit.fontawesome.com/{{FONT_AWESOME_KIT}}.js" crossorigin="anonymous"></script>
   {{foreach SiteLinks}}
@@ -74,8 +75,7 @@
                 <div id="collapseClientes" class="collapse" aria-labelledby="headingClientes" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="buttons.html">Agregar Cliente </a>
-                        <a class="collapse-item" href="cards.html">Mostrar Clientes</a>
+                        <a class="collapse-item" href="index.php?page=admin-clientes">Mostrar Clientes</a>
                     </div>
                 </div>
             </li>
@@ -138,8 +138,8 @@
                 <div id="collapseVentas" class="collapse" aria-labelledby="headingVentas" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="buttons.html">Agregar Venta </a>
-                        <a class="collapse-item" href="cards.html">Mostrar Ventas</a>
+                        <a class="collapse-item" href="index.php?page=admin_customerFilter">Agregar Venta </a>
+                        <a class="collapse-item" href="index.php?page=admin_ventas">Mostrar Ventas</a>
                     </div>
                 </div>
             </li>
@@ -262,7 +262,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{usernameappear}}</span>
                                 <img class="img-profile rounded-circle"
                                     src="/{{BASE_DIR}}/public/imgs/undraw_profile.svg">
                             </a>
