@@ -11,6 +11,6 @@
             button: "Aceptar",
             dangerMode: false,
         }).then( () => {
-            window.location.assign('index.php?page=index.php');
+            window.location.assign('index.php?page=index');
         });
 </script>

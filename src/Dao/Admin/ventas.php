@@ -163,6 +163,19 @@ class Ventas extends Table
         return self::obtenerUnRegistro($sqlstr, $sqlParams);
     }
 
+    public static function getInfoCustomer($userid) {
+        $sqlstr= "SELECT customer_id, customer_name, customer_lastname,customer_address,customer_postal_code,customer_country, 
+        customer_city,customer_phone_number,us.useremail FROM customers c
+                inner join usuario us on c.usercod= us.usercod
+                 where c.usercod= :userid ;";
+        $sqlParams= [
+          "userid"=> $userid
+      ];
+
+      return self::obtenerUnRegistro($sqlstr, $sqlParams);
+
+    }
+
     public static function sendEmail($email, $arregloVenta, $orderid, $customer_name ) {
         $aquidata= "";
         $fecha= (new DateTime())->format('Y-m-d H:i');
