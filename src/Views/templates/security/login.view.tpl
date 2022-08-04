@@ -38,7 +38,7 @@
         </div>
         {{endif generalError}}
 
-        <button type="submit" id="btnLogin" class="btn btn-primary">Iniciar Sesión</button>
+        <button type="submit" id="btnLogin" class="site-btn">Iniciar Sesión</button>
       </form>
     </div>
   </div>

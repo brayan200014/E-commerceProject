@@ -18,7 +18,7 @@
         <div class="form-group col-sm-6">
             <label for="inventory_gender">Genero: </label>
             <br>
-            <select {{if readonly}}disabled{{endif readonly}} class="form-control" name="inventory_gender" id="inventory_gender">
+            <select {{if readonlyUPD}}disabled{{endif readonlyUPD}} class="form-control" name="inventory_gender" id="inventory_gender">
                 <option value="Male">Masculino</option>
                 <option value="Female">Femenino</option>
             </select>

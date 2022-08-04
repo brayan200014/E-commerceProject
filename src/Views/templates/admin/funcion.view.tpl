@@ -6,11 +6,10 @@
     
     <div class="card-body"> 
       <form class="form" method="post" action="index.php?page=admin_funcion&mode={{mode}}&fncod={{fncod}}">
-
+        <input type="hidden" class="form-control" id="mode" name="mode" value="{{mode}}"/>
         <div class="form-group col-md-4">
           <label for="fncod">Código</label>
-          <input type="hidden" class="form-control" id="fncod" name="fncod" value="{{fncod}}"/>
-          <input readonly type="text" class="form-control" name="fncodDummy" value="{{fncod}}"/>
+          <input  type="text" class="form-control" name="fncod" value="{{fncod}}" {{if readonly}}disabled{{endif readonly}}/>
         </div>
 
 

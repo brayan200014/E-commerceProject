@@ -24,12 +24,11 @@ class Inventario extends Table
         return self::executeNonQuery($sqlstr, $sqlParams);
     }
 
-    public static function updateInventory($inventory_id,$product_id,$inventory_size,$inventory_gender,$product_stock){
-        $sqlstr = "UPDATE inventory SET product_id = :product_id, inventory_size = :inventory_size, inventory_gender = :inventory_gender, product_stock = :product_stock WHERE inventory_id = :inventory_id;";
-        $sqlParams = array("inventory_id" => $inventory_id, "product_id" => $product_id, "inventory_size" => $inventory_size, "inventory_gender" => $inventory_gender, "product_stock" => $product_stock);
+    public static function updateInventory($inventory_id,$product_id,$inventory_size,$product_stock){
+        $sqlstr = "UPDATE inventory SET product_id = :product_id, inventory_size = :inventory_size, product_stock = :product_stock WHERE inventory_id = :inventory_id;";
+        $sqlParams = array("inventory_id" => $inventory_id, "product_id" => $product_id, "inventory_size" => $inventory_size, "product_stock" => $product_stock);
         return self::executeNonQuery($sqlstr, $sqlParams);
     }
-
     public static function deleteInventory($inventory_id)
     {
         $sqlstr = "DELETE FROM inventory WHERE inventory_id = :inventory_id;";

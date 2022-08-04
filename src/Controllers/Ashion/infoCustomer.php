@@ -88,6 +88,7 @@ class InfoCustomer extends PublicController
                 $this->viewData["customer_country"]
             );
 
+        $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
         Renderer::render("ashion/infoCustomer", $this->viewData);
     }
 
@@ -117,5 +118,18 @@ class InfoCustomer extends PublicController
         );
 
     }
+
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
+    }
+
+    
 }
 ?>

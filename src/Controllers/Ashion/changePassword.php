@@ -60,6 +60,7 @@ class changePassword extends PublicController
             }
         }
 
+        $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
         Renderer::render("ashion/changePassword", $this->viewData);
     }
 
@@ -71,6 +72,18 @@ class changePassword extends PublicController
         $this->viewData["errorPswd"] = array();
         $this->viewData["userpaswdV"] = "";
         $this->viewData["errorPasswordV"] = array();
+
+    }
+
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
     }
 }
 ?>

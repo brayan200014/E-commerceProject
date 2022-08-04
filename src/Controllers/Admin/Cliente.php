@@ -2,12 +2,13 @@
 
 namespace Controllers\Admin;
 
+use Controllers\PrivateController;
 use Controllers\PublicController;
 use Views\Renderer;
 use Utilities\Validators;
 use Dao\Mnt\Clientes;
 
-class Cliente extends PublicController{
+class Cliente extends PrivateController{
 
     private $viewData = array();
     private $arrModeDesc = array();

@@ -87,7 +87,6 @@
                             <li><a href="index.php?page=index">Home</a></li>
                             <li><a href="index.php?page=ashion_shop">Shop</a></li>
                             <li><a href="index.php?page=ashion_shopcart">Cart</a></li>
-                            <li><a href="./blog.html">Blog</a></li>
                             <li><a href="index.php?page=ashion_contact">Contact</a></li>
                         </ul>
                     </nav>

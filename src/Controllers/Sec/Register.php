@@ -30,7 +30,7 @@ class Register extends PublicController
     private $hasErrors = false;
     public function run() :void
     {
-
+       
         if ($this->isPostBack()) {
             $this->txtNombres = $_POST["txtNombres"];
             $this->txtApellidos = $_POST["txtApellidos"];
@@ -91,8 +91,33 @@ class Register extends PublicController
                 }
             }
         }
+
         $viewData = get_object_vars($this);
+        $viewData['QuantityProducts'] = $this->getQuantityProducts();
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] == "PBL"){
+                $viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $viewData["logeado"]=false;
+            }
+        }
+        else 
+        {
+            $viewData["logeado"]=true;
+        }
+
         \Views\Renderer::render("security/sigin", $viewData);
+    }
+
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
     }
 }
 ?>

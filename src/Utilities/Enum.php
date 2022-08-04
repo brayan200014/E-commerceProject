@@ -5,19 +5,19 @@ namespace Utilities;
 abstract class Enum
 {
     const NONE = null;
-    final private function __construct()
+    private function __construct()
     {
         throw new NotSupportedException(); // 
     }
-    final private function __clone()
+    private function __clone()
     {
         throw new NotSupportedException();
     }
-    final public static function toArray()
+    public static function toArray()
     {
         return (new ReflectionClass(static::class))->getConstants();
     }
-    final public static function toFormatedArray()
+    public static function toFormatedArray()
     {
         $unFormated = (new ReflectionClass(static::class))->getConstants();
         $formated = array();
@@ -27,7 +27,7 @@ abstract class Enum
         return $formated;
     }
     
-    final public static function isValid($value)
+    public static function isValid($value)
     {
         return in_array($value, static::toArray());
     }

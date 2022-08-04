@@ -32,8 +32,19 @@ class listadoCompras extends PublicController{
         }
 
         $this->viewData["compras"] = Clientes::getSaleByCustomer($this->viewData["customer_id"]);
-        
+        $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
         Renderer::render('ashion/listadoCompras', $this->viewData);
+    }
+
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
     }
 }
 

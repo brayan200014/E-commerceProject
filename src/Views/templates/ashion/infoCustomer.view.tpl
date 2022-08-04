@@ -11,22 +11,22 @@
                 <p>Nombres <span>*</span></p>
                 <input type="text" id="customer_name" name="customer_name" value="{{customer_name}}">
               </div>
-              {{if errorNombre}}
-                {{foreach errorNombre}}
+              {{if error_customer_name}}
+                {{foreach error_customer_name}}
                   <div class="error" style="color: red;">{{this}}</div>
-                {{endfor errorNombre}}
-              {{endif errorNombre}}
+                {{endfor error_customer_name}}
+              {{endif error_customer_name}}
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="checkout__form__input">
                 <p>Apellidos <span>*</span></p>
                 <input type="text" id="customer_lastname" name="customer_lastname" value="{{customer_lastname}}">
               </div>
-              {{if errorApellido}}
-                {{foreach errorApellido}}
+              {{if error_customer_lastname}}
+                {{foreach error_customer_lastname}}
                   <div class="error" style="color: red;">{{this}}</div>
-                {{endfor errorApellido}}
-              {{endif errorApellido}}
+                {{endfor error_customer_lastname}}
+              {{endif error_customer_lastname}}
             </div>
             <div class="col-lg-12">
               <div class="checkout__form__input">
@@ -53,11 +53,11 @@
                 <p>Telefono <span>*</span></p>
                 <input type="text" id="customer_phone_number" name="customer_phone_number" value="{{customer_phone_number}}">
               </div>
-              {{if errorTelefono}}
-                {{foreach errorTelefono}}
+              {{if error_customer_phone_number}}
+                {{foreach error_customer_phone_number}}
                   <div class="error" style="color: red;">{{this}}</div>
-                {{endfor errorTelefono}}
-              {{endif errorTelefono}}
+                {{endfor error_customer_phone_number}}
+              {{endif error_customer_phone_number}}
             </div>
             <button type="submit" name="btnGuardar" class="site-btn">Guardar</button>
           </div>

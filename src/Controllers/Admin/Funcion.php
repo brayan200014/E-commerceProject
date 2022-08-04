@@ -123,10 +123,10 @@ class Funcion extends \Controllers\PrivateController
 
         $hasErrors = false;
         $this->viewData['mode']=$_POST['mode'];
-        $this->viewData['fncod']=$_POST['useremail'];
-        $this->viewData['fnddc']=$_POST['username'];
-        $this->viewData['fnest']=$_POST['userpswd'];
-        $this->viewData['fntyp']=$_POST['usertipo'];
+        $this->viewData['fncod']=$_POST['fncod'];
+        $this->viewData['fnddc']=$_POST['fnddc'];
+        $this->viewData['fnest']=$_POST['fnest'];
+        $this->viewData['fntyp']=$_POST['fntyp'];
         //\Utilities\ArrUtils::mergeArrayTo($_POST, $this->viewData);
         if(Validators::IsEmpty($this->viewData["fncod"]))
         {
@@ -134,7 +134,7 @@ class Funcion extends \Controllers\PrivateController
             = "El codigo esta vacio debe ingresarlo";
             $hasErrors= true;
         }
-        if(Validators::IsEmpty($this->viewData["fndsc"]))
+        if(Validators::IsEmpty($this->viewData["fnddc"]))
         {
             $this->viewData["error_fndsc"][] 
             = "La descripcion esta vacia debe ingresarla";
@@ -202,7 +202,7 @@ class Funcion extends \Controllers\PrivateController
             $this->viewData["mode_desc"] = sprintf(
                 //$this->arrayModeDesc[$this->viewData["mode"]],
                 $this->viewData["fncod"],
-                $this->viewData["fndsc"]
+                $this->viewData["fnddc"]
             );
 
             $this->viewData["fnestArray"]

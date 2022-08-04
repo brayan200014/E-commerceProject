@@ -39,6 +39,7 @@ class detalleCompra extends PublicController{
             \Utilities\ArrUtils::mergeFullArrayTo($tmpCrompra, $this->viewData);
         }
         
+        $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
         Renderer::render('ashion/detalleCompra', $this->viewData);
     }
 
@@ -49,6 +50,17 @@ class detalleCompra extends PublicController{
         $this->viewData["sale_isv"] = "";
         $this->viewData["sale_subtotal"] = "";
         $this->viewData["total"] = "";
+    }
+  
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
     }
 }
 

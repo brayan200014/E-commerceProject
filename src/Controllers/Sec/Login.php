@@ -11,6 +11,7 @@ class Login extends \Controllers\PublicController
 
     public function run() :void
     {
+
         if ($this->isPostBack()) {
             $this->txtEmail = $_POST["txtEmail"];
             $this->txtPswd = $_POST["txtPswd"];
@@ -76,7 +77,31 @@ class Login extends \Controllers\PublicController
             }
         }
         $dataView = get_object_vars($this);
+        $dataView['QuantityProducts'] = $this->getQuantityProducts();
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] == "PBL"){
+                $dataView["isLogged"]=$_SESSION["login"]["usertipo"];
+                $dataView["usernameappear"]=$_SESSION["login"]["userName"];
+                $dataView["logeado"]=false;
+            }
+        }
+        else 
+        {
+            $dataView["logeado"]=true;
+        }
+        
         \Views\Renderer::render("security/login", $dataView);
+    }
+
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
     }
 }
 ?>

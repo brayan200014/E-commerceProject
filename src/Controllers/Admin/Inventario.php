@@ -61,7 +61,7 @@ class Inventario extends PrivateController
 
         $this->arrModeDesc = array(
             "INS" => "Nuevo Registro de Inventario",
-            "UPD" => "Editando %s %s",
+            "UPD" => "Editando Producto %s %s",
             "DSP" => "Detalle de %s %s",
             "DEL" => "Eliminando %s %s"
         );
@@ -152,7 +152,7 @@ class Inventario extends PrivateController
             $this->viewData["mode_desc"] = \sprintf(
                 $this->arrModeDesc[$this->viewData["mode"]],
                 $this->viewData["inventory_id"],
-                $this->viewData["inventory_size"]
+                ""
             );
 
             if ($this->viewData["mode"] === "DSP") {

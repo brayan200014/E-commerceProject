@@ -164,7 +164,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="index.php?page=admin_usuario">Agregar Usuario </a>
+                        <a class="collapse-item" href="index.php?page=admin_usuario&mode=INS">Agregar Usuario </a>
                         <a class="collapse-item" href="index.php?page=admin_usuarios">Mostrar Usuarios</a>
                     </div>
                 </div>
@@ -180,7 +180,7 @@
                 <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="index.php?page=admin_funcion">Agregar Funcion </a>
+                        <a class="collapse-item" href="index.php?page=admin_funcion&mode=INS">Agregar Funcion </a>
                         <a class="collapse-item" href="index.php?page=admin_funciones">Mostrar Funciones</a>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
                 <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="index.php?page=admin_rol">Agregar Rol </a>
+                        <a class="collapse-item" href="index.php?page=admin_rol&mode=INS">Agregar Rol </a>
                         <a class="collapse-item" href="index.php?page=admin_roles">Mostrar Roles</a>
                     </div>
                 </div>

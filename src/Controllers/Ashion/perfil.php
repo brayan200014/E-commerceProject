@@ -31,7 +31,19 @@ class Perfil extends PublicController{
             $this->viewData["logeado"]=true;
         }
 
+        $this->viewData['QuantityProducts'] = $this->getQuantityProducts();
         Renderer::render('ashion/perfil', $this->viewData);
+    }
+
+    private function getQuantityProducts()
+    {
+        $quantity = 0;
+        if(isset($_SESSION['shopping_cart'])){
+            foreach($_SESSION['shopping_cart'] as $product){
+                $quantity++;
+            }
+        }
+        return $quantity;
     }
 }
 

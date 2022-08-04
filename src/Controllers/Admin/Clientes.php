@@ -3,11 +3,10 @@
 namespace Controllers\Admin;
 
 use Controllers\PrivateController;
-use Controllers\PublicController;
 use Dao\Mnt\Clientes as DaoClientes;
 use Views\Renderer;
 
-class Clientes extends PublicController{
+class Clientes extends PrivateController{
 
     /**
      * Runs the controller
