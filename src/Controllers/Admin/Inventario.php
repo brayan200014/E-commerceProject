@@ -112,7 +112,7 @@ class Inventario extends PrivateController
                 }
                 break;
             case "UPD":
-                $result = \Dao\Admin\Inventario::updateInventory($this->viewData["inventory_id"], $this->viewData["product_id"], $this->viewData["inventory_size"], $this->viewData["inventory_gender"], $this->viewData["product_stock"]);
+                $result = \Dao\Admin\Inventario::updateInventory($this->viewData["inventory_id"], $this->viewData["product_id"], $this->viewData["inventory_size"], $this->viewData["product_stock"]);
                 if ($result) {
                     \Utilities\Site::redirectToWithMsg(
                         "index.php?page=admin_inventarios",

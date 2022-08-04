@@ -12,7 +12,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Inventario</th>
+                                            <th>Producto ID</th>
                                             <th>Producto</th>
                                             <th>Talla</th>
                                             <th>Genero</th>
@@ -22,7 +22,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Inventario</th>
+                                            <th>Producto ID</th>
                                             <th>Producto</th>
                                             <th>Talla</th>
                                             <th>Genero</th>

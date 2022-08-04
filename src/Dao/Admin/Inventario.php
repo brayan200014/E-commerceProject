@@ -8,7 +8,7 @@ class Inventario extends Table
 {
     public static function getAll()
     {
-        $sqlstr = "SELECT i.inventory_id as Inventario, p.product_name as Producto,
+        $sqlstr = "SELECT p.product_id as Inventario, p.product_name as Producto,
         i.inventory_size as Talla, i.inventory_gender as Genero, i.product_stock as Stock
         FROM inventory as i inner join products as p on i.product_id = p.product_id;";
 

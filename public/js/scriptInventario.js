@@ -3,6 +3,53 @@ window.onload = function() {
     //evitar que se envie el formulario
 
     var form = document.getElementById("formInventario");
+    var IdProducto = document.getElementById("product_id");
+    var SizeProduct = document.getElementById("inventory_size");
+    var ProductStock = document.getElementById("product_stock");
+
+    //Validar en evento keypress que solo acepte numeros
+    IdProducto.addEventListener("keypress", function(event) {
+        if (event.which < 48 || event.which > 57) {
+            event.preventDefault();
+            IdProducto.focus();
+            IdProducto.style.boxShadow = "0 0 10px red";
+            alert("Solo se aceptan numeros");
+        }
+        else
+        {
+            IdProducto.style.boxShadow = "none";
+        }
+    });
+
+    //Validar que en la talla solo acepte letras Mayusculas
+    SizeProduct.addEventListener("keypress", function(event) {
+        if (event.which < 65 || event.which > 90) {
+            event.preventDefault();
+            SizeProduct.focus();
+            SizeProduct.style.boxShadow = "0 0 10px red";
+            alert("Solo se aceptan letras Mayusculas");
+        }
+        else
+        {
+            SizeProduct.style.boxShadow = "none";
+        }
+    });
+
+    //Validar que en el stock solo acepte numeros
+    ProductStock.addEventListener("keypress", function(event) {
+        if (event.which < 48 || event.which > 57) {
+            event.preventDefault();
+            ProductStock.focus();
+            ProductStock.style.boxShadow = "0 0 10px red";
+            alert("Solo se aceptan numeros");
+        }
+        else
+        {
+            ProductStock.style.boxShadow = "none";
+        }
+    });
+
+
 
     form.addEventListener("submit", function(e) {
         e.preventDefault();
@@ -69,7 +116,7 @@ window.onload = function() {
             {
                 ajax = new XMLHttpRequest();
 
-                ajax.open("GET", "/E-commerceProject/src/Controllers/Admin/verificarProductSize.php?product=" + document.getElementById("product_id").value + "&size="+document.getElementById("inventory_size").value, true);
+                ajax.open("GET", "/E-commerceProject/src/Controllers/Admin/verificarProductSize.php?product=" + document.getElementById("product_id").value + "&size="+document.getElementById("inventory_size").value + "&gender=" + document.getElementById("inventory_gender").value , true);
                 ajax.send();
                 ajax.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
@@ -77,7 +124,7 @@ window.onload = function() {
                         {
                             Swal.fire({
                                 title: 'Error',
-                                text: 'El Producto con la Talla ingresada ya existe',
+                                text: 'El Producto con la Talla y el genero especificados ya existe',
                                 type: 'error',
                                 icon: 'error',
                                 confirmButtonText: 'Ok'
