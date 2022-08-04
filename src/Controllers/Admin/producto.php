@@ -48,15 +48,11 @@ class Producto extends PrivateController
 
         $this->viewData["mode"] = "";
         $this->viewData['product_id'] = '';
-        $this->viewData['inventory_id'] = '';
         $this->viewData["product_image_url"] = "";
         $this->viewData["product_name"] = "";
         $this->viewData["product_description"] = "";
         $this->viewData["product_price"] = "";
-        $this->viewData["product_stock"] = "";
         $this->viewData["product_discount"] = "";
-        $this->viewData["inventory_size"] = "";
-        $this->viewData["inventory_gender"] = "";
         $this->viewData["category_id"] = "";
         $this->viewData["product_status"] = "";
 
@@ -79,10 +75,7 @@ class Producto extends PrivateController
                 $this->viewData["product_name"],
                 $this->viewData["product_description"],
                 $this->viewData["product_price"] ,
-                $this->viewData["product_stock"],
                 $this->viewData["product_discount"],
-                $this->viewData["inventory_size"],
-                $this->viewData["inventory_gender"],
                 $this->viewData["category_id"],
                 $this->viewData["product_status"],
             );
@@ -97,11 +90,7 @@ class Producto extends PrivateController
                 $this->viewData["product_name"],
                 $this->viewData["product_description"],
                 $this->viewData["product_price"],
-                $this->viewData["product_stock"],
                 $this->viewData["product_discount"],
-                $this->viewData["inventory_id"],
-                $this->viewData["inventory_size"],
-                $this->viewData["inventory_gender"],
                 $this->viewData["category_id"],
                 $this->viewData["product_status"],
             );
@@ -111,8 +100,7 @@ class Producto extends PrivateController
             }
         case 'DEL':
             $result = Productos::deleteProduct(
-                intval($this->viewData["inventory_id"]),
-                intval($this->viewData["product_id"]),
+                intval($this->viewData["product_id"])
             );
             if($result){
                 header('Location: index.php?page=admin_productos');

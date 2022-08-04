@@ -8,14 +8,10 @@
             <input {{if readonly}}readonly{{endif readonly}} type="hidden" class="form-control" id="product_id" name="product_id" value="{{product_id}}">
         </div>
         <div class="form-group">
-            <label for="inventory_id" hidden>ID Invetory: </label>
-            <input {{if readonly}}readonly{{endif readonly}} type="hidden" class="form-control" id="inventory_id" name="inventory_id" value="{{inventory_id}}">
-        </div>
-        <div class="form-group">    
             <label for="mode" hidden>ID Invetory: </label>
             <input {{if readonly}}readonly{{endif readonly}} type="hidden" class="form-control" id="mode" name="mode" value="{{mode}}">
         </div>
-
+      
         <div>
             <label for="product_image_url">URL de la Imagen: </label>
             <input {{if readonly}}readonly{{endif readonly}} type="text" class="form-control" id="product_image_url" name="product_image_url"value="{{product_image_url}}"/>
@@ -37,30 +33,8 @@
         </div>
 
         <div class="form-group">
-            <label for="product_stock">Stock: </label>
-            <input {{if readonly}}readonly{{endif readonly}} type="text" class="form-control" id="product_stock" name="product_stock" value="{{product_stock}}"/>
-        </div>
-
-        <div class="form-group">
             <label for="product_discount">Descuento: </label>
             <input {{if readonly}}readonly{{endif readonly}} type="text" class="form-control" id="product_discount" name="product_discount" value="{{product_discount}}"/>
-        </div>
-        <div class="form-group">
-            <label for="inventory_size">Talla: </label>
-            <select class="form-control" name="inventory_size" id="inventory_size" {{if readonly}}readonly disabled{{endif readonly}}>
-                    <option name="inventory_size" value="L">L</option>
-                    <option name="inventory_size" value="S">S</option>
-                    <option name="inventory_size" value="XS">XS</option>
-                    <option name="inventory_size" value="M">M</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="inventory_gender">Genero: </label>
-            <select class="form-control" name="inventory_gender" id="inventory_gender" {{if readonly}}readonly disabled{{endif readonly}}>
-                    <option name="inventory_gender" value="Male">Male</option>
-                    <option name="inventory_gender" value="Female">Female</option>
-            </select>
         </div>
 
         <div class="form-group">
