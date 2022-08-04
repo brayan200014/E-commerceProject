@@ -5,9 +5,10 @@ $conexion = new PDO("mysql:host=34.224.30.50;dbname=tienda_online_db", "negocios
 
 $product_id = $_REQUEST["product"];
 $size = $_REQUEST["size"];
+$gender = $_REQUEST["gender"];
 
 //VERIFICAR SI EXISTE EL PRODUCTO Y EL TAMAÑO
-$sql = "SELECT * FROM inventory WHERE product_id = '$product_id' AND inventory_size = '$size'";
+$sql = "SELECT * FROM inventory WHERE product_id = '$product_id' AND inventory_size = '$size' AND inventory_gender = '$gender'" ;
 $result = $conexion->query($sql);
 $row = $result->fetch();
 if($row){
