@@ -12,7 +12,6 @@
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Price</th>
-                        <th>Stock</th>
                         <th>Estado</th>
                         <th>ID Categoria</th>
                         <th> <p class="buttonPlus fas fa-plus" style="cursor: pointer; color: white; background-color: #007bff; padding: 15px 10px 15px 20px; font-size: 20px;" data-target="#ventanaModal" data-toggle="modal"></td> &nbsp;</th>
@@ -23,7 +22,6 @@
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Price</th>
-                        <th>Stock</th>
                         <th>Estado</th>
                         <th>ID Categoria</th>
                         <th> <p class="buttonPlus fas fa-plus" style="cursor: pointer; color: white; background-color: #007bff; padding: 15px 10px 15px 20px; font-size: 20px;" data-target="#ventanaModal" data-toggle="modal"></td> &nbsp;</th>
@@ -35,7 +33,6 @@
                         <td>{{product_id}}</td>
                         <td>{{product_name}}</td>
                         <td>{{product_price}}</td>
-                        <td>{{product_stock}}</td>
                         <td>{{product_status}}</td>
                         <td>{{category_id}}</td>
                         <td>
@@ -79,29 +76,10 @@
                             <label for="price">Precio: </label>
                             <input type="number" class="form-control" id="price" name="price" required value={{price}}>
                         </div>
-                        <div class="form-group">
-                            <label for="stock">Stock: </label>
-                            <input type="number" class="form-control" id="stock" name="stock" required value={{stock}}>
-                        </div>
+
                         <div class="form-group">
                             <label for="discount">Descuento: </label>
                             <input type="number" class="form-control" id="discount" name="discount" required value={{discount}}>
-                        </div>
-                         <div class="form-group">
-                            <label for="size">Talla: </label>
-                            <select class="form-control" name="size" id="size" >
-                                   <option name="size" value="L">L</option>
-                                   <option name="size" value="S">S</option>
-                                   <option name="size" value="XS">XS</option>
-                                   <option name="size" value="M">M</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="gender">Genero: </label>
-                            <select class="form-control" name="gender" id="gender">
-                                   <option name="gender" value="Male">Male</option>
-                                   <option name="gender" value="Female">Female</option>
-                            </select>
                         </div>
                         <div class="form-group">
                             <label for="category">Categoria: </label>

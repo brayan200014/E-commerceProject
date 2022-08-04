@@ -1,11 +1,11 @@
 <?php
 namespace Controllers\Admin;
 
-use Controllers\PublicController;
+use Controllers\PrivateController;
 use Views\Renderer;
 use Dao\Admin\Categorias as DaoCategorias;
 
-class Categorias extends PublicController
+class Categorias extends PrivateController
 {
     private $viewData = array();
     public function run() :void
