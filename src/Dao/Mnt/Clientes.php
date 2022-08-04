@@ -89,15 +89,38 @@
             return $cod["codigo"];
         }
 
+        static public function getCustomerId($usercod){
+            $sqlstr = "SELECT customer_id FROM customers 
+            WHERE usercod = :usercod";
+            $sqlParams = array(
+                "usercod" => $usercod
+            );
+
+            $cod = self::obtenerUnRegistro($sqlstr, $sqlParams);
+
+            return $cod["customer_id"];
+        }
+
         static public function getSaleByCustomer($customer_id){
-            $sqlstr = "SELECT * FROM sales WHERE customer_id = :customer_id";
+            $sqlstr = "SELECT sale_id, sale_date, ROUND((sale_isv * sale_subtotal),2) as sale_isv, sale_subtotal , ROUND((sale_subtotal + sale_subtotal * sale_isv),2) as total 
+            FROM sales WHERE customer_id = :customer_id";
             $sqlParams = array("customer_id" => $customer_id);
 
             return self::obtenerRegistros($sqlstr, $sqlParams);
         }
 
+        static public function getSaleById($sale_id){
+            $sqlstr = "SELECT sale_id, sale_date, ROUND((sale_isv * sale_subtotal),2) as sale_isv, sale_subtotal , ROUND((sale_subtotal + sale_subtotal * sale_isv),2) as total 
+            FROM sales WHERE sale_id = :sale_id";
+            $sqlParams = array("sale_id" => $sale_id);
+
+            return self::obtenerUnRegistro($sqlstr, $sqlParams);
+        }
+
         static public function getSaleDetail($sale_id){
-            $sqlstr = "SELECT * FROM sales_details WHERE sale_id = :sale_id";
+            $sqlstr = "SELECT sd.product_id, p.product_name, sd.sale_price, sd.sale_quantity, round((sd.sale_price * sd.sale_quantity),2) AS importe
+            FROM sales_details sd JOIN products p
+            WHERE sd.product_id = p.product_id AND sale_id = :sale_id;";
             $sqlParams = array("sale_id" => $sale_id);
 
             return self::obtenerRegistros($sqlstr, $sqlParams);

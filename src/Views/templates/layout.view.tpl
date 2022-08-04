@@ -66,7 +66,7 @@
             {{endif logeado}}
 
             {{if usernameappear}}
-            <span>{{usernameappear}}</span>
+            <a href="index.php?page=ashion_perfil"><span>{{usernameappear}}</span></a>
             {{endif usernameappear}}
         </div>
     </div>
@@ -101,7 +101,7 @@
                             {{endif logeado}}
 
                             {{if usernameappear}}
-                            <span>{{usernameappear}}</span>
+                            <a href="index.php?page=ashion_perfil"><span>{{usernameappear}}</span></a>
                             {{endif usernameappear}}
                         </div>
                         <ul class="header__right__widget">
