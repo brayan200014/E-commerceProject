@@ -24,10 +24,7 @@ class Productos extends PrivateController
             $product_name = $_POST['name'];
             $product_description = $_POST['description'];
             $product_price = $_POST['price'];
-            $product_stock = $_POST['stock'];
             $product_discount = $_POST['discount'];
-            $inventory_size = $_POST['size'];
-            $inventory_gender = $_POST['gender'];
             $category_id = $_POST['category'];
             $product_status = $_POST['status'];
 
@@ -36,10 +33,7 @@ class Productos extends PrivateController
                 $product_name,
                 $product_description,
                 $product_price,
-                $product_stock,
                 $product_discount,
-                $inventory_size,
-                $inventory_gender,
                 $category_id,
                 $product_status,
             );
