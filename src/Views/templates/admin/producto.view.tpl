@@ -8,7 +8,7 @@
             <input {{if readonly}}readonly{{endif readonly}} type="hidden" class="form-control" id="product_id" name="product_id" value="{{product_id}}">
         </div>
         <div class="form-group">
-            <label for="mode" hidden>ID Invetory: </label>
+            <label for="mode" hidden>Mode: </label>
             <input {{if readonly}}readonly{{endif readonly}} type="hidden" class="form-control" id="mode" name="mode" value="{{mode}}">
         </div>
       

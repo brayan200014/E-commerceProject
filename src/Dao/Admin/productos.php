@@ -47,6 +47,7 @@ class Productos extends Table
                 "product_price" => $product_price ,
                 "product_discount" =>  $product_discount ,
                 "product_status" => $product_status,
+                "category_id" => $category_id,
             ];
             return self::executeNonQuery($sqlstr, $sqlParams);
         }
