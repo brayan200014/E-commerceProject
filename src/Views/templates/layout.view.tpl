@@ -62,7 +62,7 @@
         <div class="offcanvas__auth">
             {{if logeado}}
             <a href="#">Login</a>
-            <a href="#">Register</a>
+            <a href="index.php?page=sec_register">Register</a>
             {{endif logeado}}
 
             {{if usernameappear}}
@@ -97,7 +97,7 @@
                         <div class="header__right__auth">
                            {{if logeado}}
                             <a href="#">Login</a>
-                            <a href="#">Register</a>
+                            <a href="index.php?page=sec_register">Register</a>
                             {{endif logeado}}
 
                             {{if usernameappear}}
