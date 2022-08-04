@@ -96,7 +96,7 @@
                     <div class="header__right">
                         <div class="header__right__auth">
                            {{if logeado}}
-                            <a href="#">Login</a>
+                            <a href="index.php?page=sec_login">Login</a>
                             <a href="index.php?page=sec_register">Register</a>
                             {{endif logeado}}
 

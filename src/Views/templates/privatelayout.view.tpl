@@ -122,8 +122,8 @@
                 <div id="collapseInventario" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="buttons.html">Agregar Inventario </a>
-                        <a class="collapse-item" href="cards.html">Mostrar Inventario</a>
+                        <a class="collapse-item" href="index.php?page=admin_inventario&mode=INS">Agregar Inventario </a>
+                        <a class="collapse-item" href="index.php?page=admin_inventarios">Mostrar Inventario</a>
                     </div>
                 </div>
             </li>
