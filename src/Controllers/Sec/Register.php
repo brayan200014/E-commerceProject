@@ -3,6 +3,7 @@
 namespace Controllers\Sec;
 
 use Controllers\PublicController;
+use Dao\Security\UsuarioTipo;
 use \Utilities\Validators;
 use Exception;
 
@@ -75,7 +76,7 @@ class Register extends PublicController
             
             if (!$this->hasErrors) {
                 try{
-                    if (\Dao\Security\Security::newUsuario($this->txtEmail, $this->txtPswd, $this->txtUsuario)) {
+                    if (\Dao\Security\Security::newUsuario($this->txtEmail, $this->txtPswd, $this->txtUsuario, UsuarioTipo::PUBLICO)) {
                         if(\Dao\Mnt\Clientes::addCustomer($this->txtNombres, $this->txtApellidos, $this->txtDireccion,
                         $this->txtPostal, $this->txtPais, $this->txtCiudad, $this->txtTelefono, $this->txtEmail))
                         {

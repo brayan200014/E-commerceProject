@@ -62,11 +62,11 @@
         <div class="offcanvas__auth">
             {{if logeado}}
             <a href="#">Login</a>
-            <a href="#">Register</a>
+            <a href="index.php?page=sec_register">Register</a>
             {{endif logeado}}
 
             {{if usernameappear}}
-            <span>{{usernameappear}}</span>
+            <a href="index.php?page=ashion_perfil"><span>{{usernameappear}}</span></a>
             {{endif usernameappear}}
         </div>
     </div>
@@ -97,11 +97,11 @@
                         <div class="header__right__auth">
                            {{if logeado}}
                             <a href="#">Login</a>
-                            <a href="#">Register</a>
+                            <a href="index.php?page=sec_register">Register</a>
                             {{endif logeado}}
 
                             {{if usernameappear}}
-                            <span>{{usernameappear}}</span>
+                            <a href="index.php?page=ashion_perfil"><span>{{usernameappear}}</span></a>
                             {{endif usernameappear}}
                         </div>
                         <ul class="header__right__widget">

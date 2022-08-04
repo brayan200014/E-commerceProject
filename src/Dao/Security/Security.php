@@ -46,7 +46,7 @@ class Security extends \Dao\Table
         return self::obtenerRegistros($sqlstr, array());
     }
 
-    static public function newUsuario($email, $password, $username)
+    static public function newUsuario($email, $password, $username, $usertipo)
     {
         if (!\Utilities\Validators::IsValidEmail($email)) {
             throw new Exception("Correo no es válido");
@@ -70,7 +70,7 @@ class Security extends \Dao\Table
         $newUser["userpswdexp"] = date('Y-m-d', time() + 7776000);  //(3*30*24*60*60) (m d h mi s)
         $newUser["userest"] = Estados::ACTIVO;
         $newUser["useractcod"] = hash("sha256", $email.time());
-        $newUser["usertipo"] = UsuarioTipo::EMPLEADO;
+        $newUser["usertipo"] = $usertipo;
 
         $sqlIns = "INSERT INTO `usuario` (`useremail`, `username`, `userpswd`,
             `userfching`, `userpswdest`, `userpswdexp`, `userest`, `useractcod`,
@@ -115,6 +115,24 @@ class Security extends \Dao\Table
 
     }
     */
+
+    static public function changePassword($usercod, $password){
+        $hashedPassword = self::_hashPassword($password);
+
+        $sqlstr = "UPDATE `usuario` set
+        `userpswd` = :userpswd, 
+        `userpswdest` = :userpswdest,
+        `userpswdexp` = :userpswdexp
+        where `usercod` = :usercod";
+        $sqlParams = array(
+            "usercod" => $usercod,
+            "userpswd" => $hashedPassword,
+            "userpswdest" => Estados::ACTIVO,
+            "userpswdexp" => date('Y-m-d', time() + 7776000)
+        );
+
+        return self::executeNonQuery($sqlstr, $sqlParams);
+    }
 
     static public function newUsuarioRol($userId)
     {
@@ -175,15 +193,17 @@ class Security extends \Dao\Table
     static private function _usuarioStruct()
     {
         return array(
+            "usercod"      => "",
             "useremail"    => "",
-            "userpswd"     => "",
             "username"     => "",
-            "userphone"    => "",
-            "useraddress"  => "",
-            "userbio"      => "",
+            "userpswd"     => "",
+            "userfching"   => "",
+            "userpswdest"  => "",
+            "userpswdexp"  => "",
             "userest"      => "",
-            "userrole"     => "",
-            "usergender"   => "",
+            "useractcod"   => "",
+            "userpswdchg"  => "",
+            "usertipo"     => "",
         );
     }
 
