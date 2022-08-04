@@ -137,6 +137,7 @@ class Usuario extends \Controllers\PrivateController
         $this->viewData['mode']=$_POST['mode'];
         $this->viewData['useremail']=$_POST['useremail'];
         $this->viewData['username']=$_POST['username'];
+        $this->viewData['userpswd']=$_POST['userpswd'];
         $this->viewData['usertipo']=$_POST['usertipo'];
         $this->viewData['userest']=$_POST['userest'];
 
@@ -160,6 +161,7 @@ class Usuario extends \Controllers\PrivateController
                     $result = DaoUsuarios::insert(
                         $this->viewData["useremail"],
                         $this->viewData["username"],
+                        $this->viewData["userpswd"],
                         $this->viewData["userest"],
                         $this->viewData["usertipo"]
                     );
@@ -176,6 +178,7 @@ class Usuario extends \Controllers\PrivateController
                         intval($this->viewData["usercod"]),
                         $this->viewData["useremail"],
                         $this->viewData["username"],
+                        $this->viewData["userpswd"],
                         $this->viewData["userest"],
                         $this->viewData["usertipo"]
                     );
