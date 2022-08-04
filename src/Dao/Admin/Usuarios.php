@@ -31,7 +31,7 @@ class Usuarios extends Table{
             "useremail" => $useremail,
             "username" => $username,
             "userest" => $userest,
-            "usertipo" => $usertipo
+            "usertipo" => $usertipo,
         ];
         return self::executeNonQuery($sqlstr, $sqlParams);
     }

@@ -5,7 +5,7 @@
     </div>
     <div class="card-body"> 
       <form class="form" method="post" action="index.php?page=admin_rol&mode={{mode}}&rolescod={{rolescod}}">
-
+        <input type="hidden" name="mode" value="{{mode}}"/>
         <div class="form-group col-md-4">
           <label for="rolescod">Código</label>
           <input type="text" class="form-control" id="rolescod" name="rolescod" value="{{rolescod}}"/>
@@ -56,7 +56,6 @@
       });
   });
 </script>
-
 <script>
   $(document).ready(function(){
     $(".mul-select").select2({
@@ -66,11 +65,3 @@
     });
   })
 </script>
-
-
-
-
-
-
-
-
