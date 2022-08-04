@@ -90,8 +90,8 @@
                 <div id="collapseProductos" class="collapse" aria-labelledby="headingProductos" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="buttons.html">Agregar Producto </a>
-                        <a class="collapse-item" href="cards.html">Mostrar Productos</a>
+                        <a class="collapse-item" href="index.php?page=admin_producto&mode=INS">Agregar Producto </a>
+                        <a class="collapse-item" href="index.php?page=admin_productos">Mostrar Productos</a>
                     </div>
                 </div>
             </li>
@@ -106,8 +106,8 @@
                 <div id="collapseCategorias" class="collapse" aria-labelledby="headingCategorias" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Interfaz</h6>
-                        <a class="collapse-item" href="buttons.html">Agregar Categoria </a>
-                        <a class="collapse-item" href="cards.html">Mostrar Categorias</a>
+                        <a class="collapse-item" href="index.php?page=admin_categoria&mode=INS">Agregar Categoria </a>
+                        <a class="collapse-item" href="index.php?page=admin_categorias">Mostrar Categorias</a>
                     </div>
                 </div>
             </li>
