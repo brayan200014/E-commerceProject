@@ -12,6 +12,18 @@ class Producto extends PrivateController
 
     public function run():void
     {
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] !== "PBL"){
+                $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $this->viewData["logeado"]=false;
+            }
+        }
+        else 
+        {
+            $this->viewData["logeado"]=true;
+        }
+        
         $this->init();
             
         if($this->isPostBack()){
