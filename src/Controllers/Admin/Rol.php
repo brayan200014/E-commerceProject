@@ -16,17 +16,7 @@ class Rol extends PrivateController
 
     public function run(): void
     {
-        if(\Utilities\Security::isLogged()){
-            if($_SESSION["login"]["usertipo"] !== "PBL"){
-                $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
-                $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
-                $this->viewData["logeado"]=false;
-            }
-        }
-        else 
-        {
-            $this->viewData["logeado"]=true;
-        }
+        
         $this->init();
 
         if(!$this->isPostBack())
@@ -48,6 +38,18 @@ class Rol extends PrivateController
     private function init()
     {
         $this->viewData = array();
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] !== "PBL"){
+                $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $this->viewData["logeado"]=false;
+            }
+        }
+        else 
+        {
+            $viewData["logeado"]=true;
+        }
+
         $this->viewData['mode'] = '';
         $this->viewData['mode_desc'] = '';
         $this->viewData['crsf_token'] = '';
@@ -99,16 +101,11 @@ class Rol extends PrivateController
     private function procesarPost()
     {
         $hasErrors = false;
-        \Utilities\ArrUtils::mergeArrayTo($_POST, $this->viewData);
-
-        if(isset($_SESSION[$this->name.'crsf_token'])
-        && $_SESSION[$this->name.'crsf_token'] !== $this->viewData['crsf_token'])
-        {
-            \Utilities\Site::redirectToWithMsg(
-                'index.php?page=admin_Roles',
-                'Error: Algo inesperado sucedio con la peticion, intentelo de nuevo.'
-            );
-        }
+        //\Utilities\ArrUtils::mergeFullArrayTo($_POST, $this->viewData);
+        $this->viewData['mode'] = $_POST['mode'];
+        $this->viewData['rolescod'] = $_POST['rolescod'];
+        $this->viewData['rolesdsc'] = $_POST['rolesdsc'];
+        $this->viewData['rolesest'] = $_POST['rolesest'];
 
         if(Validators::IsEmpty($this->viewData['rolescod']))
         {
@@ -187,6 +184,11 @@ class Rol extends PrivateController
                     }
                     break;
             }
+        }else{
+            \Utilities\Site::redirectToWithMsg(
+                'index.php?page=Admin_Roles',
+                'Error'
+            );
         }
 
     }
@@ -202,7 +204,7 @@ class Rol extends PrivateController
         else 
         {
             $this->viewData['mode_desc'] = \sprintf(
-                $this->arrModeDesc[$this->viewData['mode']],
+               //$this->arrModeDesc[$this->viewData['mode']],
                 $this->viewData['rolescod'],
                 $this->viewData['rolesdsc']
             );

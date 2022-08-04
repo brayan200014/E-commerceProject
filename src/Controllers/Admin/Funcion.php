@@ -107,8 +107,27 @@ class Funcion extends \Controllers\PrivateController
     }
 
     private function procesarPost() {
-        $hasErrors= false; 
-        \Utilities\ArrUtils::mergeArrayTo($_POST, $this->viewData);
+        
+        $this->viewData = array();
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] !== "PBL"){
+                $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $this->viewData["logeado"]=false;
+            }
+        }
+        else 
+        {
+            $viewData["logeado"]=true;
+        }
+
+        $hasErrors = false;
+        $this->viewData['mode']=$_POST['mode'];
+        $this->viewData['fncod']=$_POST['useremail'];
+        $this->viewData['fnddc']=$_POST['username'];
+        $this->viewData['fnest']=$_POST['userpswd'];
+        $this->viewData['fntyp']=$_POST['usertipo'];
+        //\Utilities\ArrUtils::mergeArrayTo($_POST, $this->viewData);
         if(Validators::IsEmpty($this->viewData["fncod"]))
         {
             $this->viewData["error_fncod"][] 

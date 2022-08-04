@@ -5,6 +5,7 @@
     </div>
     <div class="card-body"> 
       <form class="form" method="post" action="index.php?page=admin_usuario&mode={{mode}}&usercod={{usercod}}">
+        <input type="hidden" name="mode" value="{{mode}}"/>
         {{if notDisplayIns}}
         <div class="form-group col-md-2">
           <label for="usercod">Código</label>
@@ -52,7 +53,7 @@
         </div>
         {{endif allInfoDisplayed}}
 
-        {{if notDisplayIns}}
+       
           <div class="form-group col-md-4">
             <label for="userest">Estado del usuario</label>
             <br/>
@@ -61,7 +62,7 @@
                 <option value="INA" {{userest_INA}}>Inactivo</option>
             </select>
           </div>
-        {{endif notDisplayIns}}
+        
 
         {{if allInfoDisplayed}}
         <div class="form-group col-md-10">
@@ -107,8 +108,5 @@
         window.location.assign("index.php?page=admin_usuarios");
       });
   });
-
   $('select').selectpicker();
 </script>
-
-

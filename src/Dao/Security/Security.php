@@ -204,6 +204,7 @@ class Security extends \Dao\Table
             "useractcod"   => "",
             "userpswdchg"  => "",
             "usertipo"     => "",
+
         );
     }
 

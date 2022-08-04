@@ -41,7 +41,20 @@ class Usuario extends \Controllers\PrivateController
 
     private function init()
     {
+
         $this->viewData = array();
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] !== "PBL"){
+                $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $this->viewData["logeado"]=false;
+            }
+        }
+        else 
+        {
+            $viewData["logeado"]=true;
+        }
+        
         $this->viewData["mode"] = "";
         $this->viewData["mode_desc"] = "";
         $this->viewData["crsf_token"] = "";
@@ -106,18 +119,27 @@ class Usuario extends \Controllers\PrivateController
     
     private function procesarPost()
     {
-        // Validar la entrada de Datos
-        //  Todos valor puede y sera usando en contra del sistema
-        $hasErrors = false;
-        \Utilities\ArrUtils::mergeArrayTo($_POST, $this->viewData);
-        if (isset($_SESSION[$this->name . "crsf_token"])
-            && $_SESSION[$this->name . "crsf_token"] !== $this->viewData["crsf_token"]
-        ) {
-            \Utilities\Site::redirectToWithMsg(
-                "index.php?page=admin_usuarios",
-                "ERROR: Algo inesperado sucedió con la petición Intente de nuevo."
-            );
+
+        $this->viewData = array();
+        if(\Utilities\Security::isLogged()){
+            if($_SESSION["login"]["usertipo"] !== "PBL"){
+                $this->viewData["isLogged"]=$_SESSION["login"]["usertipo"];
+                $this->viewData["usernameappear"]=$_SESSION["login"]["userName"];
+                $this->viewData["logeado"]=false;
+            }
         }
+        else 
+        {
+            $viewData["logeado"]=true;
+        }
+
+        $hasErrors = false;
+        $this->viewData['mode']=$_POST['mode'];
+        $this->viewData['useremail']=$_POST['useremail'];
+        $this->viewData['username']=$_POST['username'];
+        $this->viewData['userpswd']=$_POST['userpswd'];
+        $this->viewData['usertipo']=$_POST['usertipo'];
+        $this->viewData['userest']=$_POST['userest'];
 
         //validaciones
         if (!(Validators::IsValidEmail($this->viewData["useremail"]))) {
@@ -139,6 +161,7 @@ class Usuario extends \Controllers\PrivateController
                     $result = DaoUsuarios::insert(
                         $this->viewData["useremail"],
                         $this->viewData["username"],
+                        $this->viewData["userpswd"],
                         $this->viewData["userest"],
                         $this->viewData["usertipo"]
                     );
@@ -155,6 +178,7 @@ class Usuario extends \Controllers\PrivateController
                         intval($this->viewData["usercod"]),
                         $this->viewData["useremail"],
                         $this->viewData["username"],
+                        $this->viewData["userpswd"],
                         $this->viewData["userest"],
                         $this->viewData["usertipo"]
                     );

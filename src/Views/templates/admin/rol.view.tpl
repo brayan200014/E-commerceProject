@@ -5,7 +5,7 @@
     </div>
     <div class="card-body"> 
       <form class="form" method="post" action="index.php?page=admin_rol&mode={{mode}}&rolescod={{rolescod}}">
-
+        <input type="hidden" name="mode" value="{{mode}}"/>
         <div class="form-group col-md-4">
           <label for="rolescod">Código</label>
           <input type="text" class="form-control" id="rolescod" name="rolescod" value="{{rolescod}}"/>
@@ -40,7 +40,6 @@
         {{endif hasErrors}}
 
         <button type="button" class="btn btn-warning mt-2 ml-3 mr-2" id="btnCancelar" name="btnCancelar">Cancelar</button>
-        
         <button type="submit" class="btn btn-primary mt-2 mr-2" id="btnGuardar" name="btnGuardar">Guardar</button>
         
       </form>
@@ -57,7 +56,6 @@
       });
   });
 </script>
-
 <script>
   $(document).ready(function(){
     $(".mul-select").select2({
@@ -67,11 +65,3 @@
     });
   })
 </script>
-
-
-
-
-
-
-
-
