@@ -1,6 +1,7 @@
 <?php
 
 namespace Dao\Admin;
+
 use Dao\Table;
 
 class Productos extends Table
@@ -61,7 +62,8 @@ class Productos extends Table
             $product_discount,
             $category_id,
             $product_status,
-        ) {
+        ) 
+        {
             $sqlstr = "UPDATE `products` set
                 `product_name`=:product_name, `product_description`=:product_description,
                 product_price=:product_price,`product_status`=:product_status, 
@@ -69,6 +71,7 @@ class Productos extends Table
                 `product_image_url`=:product_image_url, category_id=:category_id
                 where product_id = :product_id;
                 ";
+
             $sqlParams = array(
                 "product_id" => $product_id,
                 "product_name" => $product_name,
@@ -85,9 +88,11 @@ class Productos extends Table
     public static function deleteProduct($product_id)
         {
             $sqlstr = "DELETE from `products` where product_id = :product_id;";
+
             $sqlParams = array(
                 "product_id" => $product_id,
             );
+
             return self::executeNonQuery($sqlstr, $sqlParams);
         }
 }

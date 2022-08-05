@@ -2,7 +2,9 @@
 namespace Controllers\Admin;
 
 use Controllers\PrivateController;
+
 use Views\Renderer;
+
 use Dao\Admin\Productos;
 
 class Producto extends PrivateController
@@ -24,7 +26,8 @@ class Producto extends PrivateController
         Renderer::render('admin/producto', $this->viewData);
     }
 
-    private function getProduct(){
+    private function getProduct()
+    {
         if (isset($_GET["mode"])) {
             $this->viewData["mode"] = $_GET["mode"];
             if (!isset($this->arrModeDesc[$this->viewData["mode"]])) {
@@ -35,7 +38,8 @@ class Producto extends PrivateController
                 );
             }
         }
-        if($this->viewData["mode"] !== "INS" && isset($_GET['product_id'])){
+        if($this->viewData["mode"] !== "INS" && isset($_GET['product_id']))
+        {
             $this->viewData['product_id'] = intval($_GET['product_id']);
             $tmpCategoria = Productos::getProductById($this->viewData['product_id']);
             error_log(json_encode($tmpCategoria));
@@ -43,7 +47,8 @@ class Producto extends PrivateController
         }
     }
 
-    private function init(){
+    private function init()
+    {
         $this->viewData = array();
 
         $this->viewData["mode"] = "";
@@ -66,7 +71,8 @@ class Producto extends PrivateController
         );
     }
     
-    private function acciones(){
+    private function acciones()
+    {
         \Utilities\ArrUtils::mergeFullArrayTo($_POST, $this->viewData);
         switch($this->viewData["mode"]) {
         case 'INS':
@@ -79,7 +85,8 @@ class Producto extends PrivateController
                 $this->viewData["category_id"],
                 $this->viewData["product_status"],
             );
-            if($result){
+            if($result)
+            {
                 header('Location: index.php?page=admin_productos');
                 exit;
             }
@@ -142,6 +149,7 @@ class Producto extends PrivateController
                         $this->arrModeDesc[$this->viewData["mode"]],
                         $this->viewData["product_id"],
                     );
+                    
                     break;
             }
         }   

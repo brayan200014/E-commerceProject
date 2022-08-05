@@ -2,7 +2,9 @@
 namespace Controllers\Admin;
 
 use Controllers\PrivateController;
+
 use Views\Renderer;
+
 use Dao\Admin\Productos as DaoProductos;
 
 class Productos extends PrivateController
@@ -17,8 +19,10 @@ class Productos extends PrivateController
         Renderer::render('admin/productos', $this->viewData);
     }
 
-    private function insertarProducto(){
-        if(isset($_POST['btnEnviar'])){
+    private function insertarProducto()
+    {
+        if(isset($_POST['btnEnviar']))
+        {
 
             $product_image_url = $_POST['image'];
             $product_name = $_POST['name'];
