@@ -1,4 +1,4 @@
-# SimplePHPMvcOOP
+#  Ashion Shop E-commerce Project
 
 ## Instalación
 * Clonar repositorio en una carpeta en htdocs o www segun el servidor web
